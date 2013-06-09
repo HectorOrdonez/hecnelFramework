@@ -1,12 +1,32 @@
 <?php
+
 /**
- * Created by JetBrains PhpStorm.
- * User: Héctor
- * Date: 7/06/13
- * Time: 11:07
- * To change this template use File | Settings | File Templates.
+ * FURGOWEB Index file.
  */
 
-echo "Furgowea.";
+/**
+ * @todo Securing the session. Possible system - MD5 to HTTP_USER_AGENT. Research regarding how to break the session tokens might be required. Checkout :http://net.tutsplus.com/tutorials/php/creating-a-php5-framework-part-1/
+ */
+session_start();
 
-// throw new Exception ("Hey this is a mistake.");
+// Setup definitions
+define ('APP_PATH', dirname(__FILE__) . '/');
+
+/**
+ * Magic autoload function
+ * USed to include the appropriate controller files when required.
+ * @param string $class_name name of the class
+ */
+function __autoload($class_name)
+{
+    require_once('controllers/' . $class_name . '/' . $class_name . '.php');
+}
+
+// Require the HECRegistry.
+require_once ('HECRegistry/hecregistry.class.php');
+$registry = HECRegistry::singleton();
+
+print $registry->getFrameworkName();
+
+exit();
+?>
