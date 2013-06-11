@@ -9,11 +9,17 @@ class View
 {
     public function __construct()
     {
-        echo 'This is the View Library.<br />';
+        $this->title = 'FurgoWeb';
     }
 
-    public function render($name)
+    public function render($name, $noInclude = FALSE)
     {
-        require 'views/' . $name . '.php';
+        if ($noInclude == TRUE) {
+            require 'views/' . $name . '.php';
+        } else {
+            require 'views/header.php';
+            require 'views/' . $name . '.php';
+            require 'views/footer.php';
+        }
     }
 }

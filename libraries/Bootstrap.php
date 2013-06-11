@@ -9,14 +9,23 @@ class Bootstrap
 {
     public function __construct()
     {
-        $url = $_GET['url'];
+        if (isset($_GET['url']))
+        {
+            $url = $_GET['url'];
+        } else
+        {
+            $url = NULL;
+        }
         $url = rtrim($url, '/');
 
-        echo 'Bootstrap, requested Url: ' . $url . '<br />';
-
         $url = explode('/', $url);
-        print_r($url);
-
+        if (empty($url[0]))
+        {
+            require 'controllers/index.php';
+            $controller = new Index();
+            $controller->index();
+            return false;
+        }
         $file = 'controllers/' . $url[0] . '.php';
         if (file_exists($file))
         {
@@ -24,15 +33,24 @@ class Bootstrap
         }
         else
         {
-            require 'controllers/Error.php';
+            require 'controllers/error.php';
             $controller = new Error();
+            $controller->index();
             return false;
         }
 
         $controller = new $url[0];
 
+        // Calling Methods
         if (isset($url[1]))
         {
+            if (!method_exists($controller, $url[1]))
+            {
+                require 'controllers/error.php';
+                $controller = new Error();
+                $controller->index();
+                return false;
+            }
             if (isset($url[2]))
             {
                 $controller->{$url[1]}($url[2]);
@@ -41,6 +59,8 @@ class Bootstrap
             {
                 $controller->{$url[1]}();
             }
+        } else {
+            $controller->index();
         }
     }
 }

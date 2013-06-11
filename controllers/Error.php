@@ -10,7 +10,10 @@ class Error extends Controller
     public function __construct()
     {
         parent::__construct();
-        echo 'This is an error.';
+    }
+
+    public function index()
+    {
         $this->view->msg = 'This page does not exist.';
         $this->view->render('error/index');
     }

@@ -10,6 +10,5 @@ class Controller
     public function __construct()
     {
         $this->view = new View();
-        echo 'This is the main Controller <br />';
     }
 }

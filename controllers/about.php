@@ -2,11 +2,12 @@
 /**
  * Project: Furgoweb
  * User: Hector Ordonez
- * Date: 11/06/13 11:00
+ * Date: 11/06/13 11:20
  */
 
-class Index extends Controller
+class About extends Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -14,7 +15,7 @@ class Index extends Controller
 
     public function index()
     {
-        $this->view->msg = 'Welcome to the Main Page!.';
-        $this->view->render('index/index');
+        $this->view->msg = 'This is HEC Framework, construction in process.';
+        $this->view->render('about/index');
     }
 }

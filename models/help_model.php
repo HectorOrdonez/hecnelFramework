@@ -10,6 +10,16 @@ class Help_Model extends Model
     public function __construct()
     {
         parent::__construct();
-        echo 'Help Model';
+    }
+
+    public function helpMeWith($request)
+    {
+        $helpMessage = '';
+        if (strlen($request) < 10) {
+            $helpMessage = 'Short Help Content';
+        } else {
+            $helpMessage = 'Looooong and nice and complex Help Content';
+        }
+        return $helpMessage;
     }
 }
