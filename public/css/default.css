@@ -1,18 +1,83 @@
+/** GENERAL CSS **/
 body {
-    background : silver;
+    background : url('./../images/Main_1.jpg');
+    font-family: arial;
+    font-size: 10px;
+}
+h1 {
+    font-size: 15px;
+}
+h2 {
+    font-size: 13px;
+}
+h3 {
+    font-size:11px;
 }
 
+.separation_1 {
+    background-color: #AAA;
+    height:5px;
+    border-color:#888;
+    border-width:1px;
+    border-style:solid;
+}
+
+/** HEADER **/
 #header {
-    padding : 10px;
-    background: gold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-style: solid;
+    border-width:2px;
+    border-color:#666;
+    background-color:#333;
+}
+#header #headerMenu {
+    padding-left:25%;
+    overflow:hidden;
+}
+#header .headerButton {
+    float:left;
+    width:20%;
+    background-color: #DDD;
+    text-align:center;
+    border:1px;
+    border-style:solid;
+    border-radius:10px;
+}
+#header .headerButton a {
+    display:block;
+    text-decoration: none;
+    font: bold 12px Arial;
+    color:#000;
+}
+#header .headerButton:hover {
+    background-color: #FFF;
+}
+#header .headerButton a:hover {
+    color: #333;
 }
 
+#header #mainTitle {
+    font: 30px verdana;
+    color: #E62;
+    text-align:center;
+}
+
+/** CONTENT CSS */
 #content {
     padding: 25px;
     background: white;
 }
 
+/** FOOTER CSS */
 #footer {
-    padding: 10px;
-    background: lightblue;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-style: solid;
+    border-width:2px;
+    border-color:#666;
+    background-color:#333;
+
+    text-align:right;
+    padding-right:60px;
 }

@@ -16,28 +16,37 @@
 <body>
 
 <div id='header'>
-    HEC FRAMEWORK Header
-    <br />
-    <a href='<?php echo BASE_URL; ?>index'>
-        Go Index
-    </a>
-    |
-    <a href='<?php echo BASE_URL; ?>help'>
-        Go Help
-    </a>
-    |
-    <a href='<?php echo BASE_URL; ?>about'>
-        About this
-    </a>
-    |
-    <?php if (Session::get('isUserLoggedIn') == TRUE):?><a href='<?php echo BASE_URL; ?>dashboard/logout'>
-        Logout
-    </a><?php else: ?><a href='<?php echo BASE_URL; ?>login'>
-        Login
-    </a>
-    <?php endif; ?>
+    <div id='mainTitle'>
+        HEC Framework
+    </div>
+
+    <div id='headerMenu'>
+        <div class='headerButton'>
+            <a href='<?php echo BASE_URL; ?>index'>
+                Go Index
+            </a>
+        </div>
+        <div class='headerButton'>
+            <a href='<?php echo BASE_URL; ?>help'>
+                Go Help
+            </a>
+        </div>
+        <div class='headerButton'>
+            <a href='<?php echo BASE_URL; ?>about'>
+                About this
+            </a>
+        </div>
+        <div class='headerButton'>
+            <?php if (Session::get('isUserLoggedIn') == TRUE):?><a href='<?php echo BASE_URL; ?>dashboard/logout'>
+                    Logout
+                </a><?php else: ?><a href='<?php echo BASE_URL; ?>login'>
+                    Login
+                </a>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
-<hr />
+<div class='separation_1'></div>
 
 <!-- Opening Content -->
 <div id='content'>

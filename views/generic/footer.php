@@ -1,7 +1,8 @@
 </div>
 <!-- Closed Content -->
 
-<hr />
+<div class='separation_1'></div>
+
 <div id='footer'>
     (c) HEC Framework
 </div>
