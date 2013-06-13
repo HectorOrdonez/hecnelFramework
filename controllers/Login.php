@@ -21,6 +21,6 @@ class Login extends Controller
 
     public function run()
     {
-        $this->model->verify();
+        $this->model->login();
     }
 }

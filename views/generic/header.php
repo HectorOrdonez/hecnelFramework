@@ -26,23 +26,37 @@
                 Go Index
             </a>
         </div>
+
         <div class='headerButton'>
             <a href='<?php echo BASE_URL; ?>help'>
                 Go Help
             </a>
         </div>
+
         <div class='headerButton'>
             <a href='<?php echo BASE_URL; ?>about'>
                 About this
             </a>
         </div>
+
+<?php if (Session::get('isUserLoggedIn') == TRUE AND (Session::get('userRole') == 'owner')):?>
         <div class='headerButton'>
-            <?php if (Session::get('isUserLoggedIn') == TRUE):?><a href='<?php echo BASE_URL; ?>dashboard/logout'>
-                    Logout
-                </a><?php else: ?><a href='<?php echo BASE_URL; ?>login'>
-                    Login
-                </a>
-            <?php endif; ?>
+            <a href='<?php echo BASE_URL; ?>usersManagement'>
+                User Management
+            </a>
+        </div>
+<?php endif; ?>
+
+        <div class='headerButton'>
+<?php if (Session::get('isUserLoggedIn') == TRUE):?>
+            <a href='<?php echo BASE_URL; ?>dashboard/logout'>
+                Logout
+            </a>
+<?php else: ?>
+            <a href='<?php echo BASE_URL; ?>login'>
+                Login
+            </a>
+<?php endif; ?>
         </div>
     </div>
 </div>

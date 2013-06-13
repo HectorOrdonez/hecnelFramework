@@ -15,5 +15,3 @@
         <input type="submit" />
     </label>
 </form>
-
-</div>

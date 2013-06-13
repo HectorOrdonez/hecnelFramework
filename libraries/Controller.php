@@ -23,7 +23,7 @@ class Controller
      */
     private function loadModel()
     {
-        $className = strtolower(get_class($this));
+        $className = lcfirst(get_class($this));
 
         $modelPath = 'models/'.$className.'_model.php';
         if(file_exists($modelPath))

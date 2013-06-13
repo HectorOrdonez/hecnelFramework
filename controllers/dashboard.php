@@ -24,7 +24,7 @@ class Dashboard extends Controller
     }
 
     /**
-     * Dashboard index.
+     * Dashboard Page index.
      * Builds the main Dashboard page.
      */
     public function index()
@@ -54,11 +54,19 @@ class Dashboard extends Controller
         $this->model->ajaxInsert();
     }
 
+    /**
+     * Dashboard getListings
+     * Gets all temporal data.
+     */
     public function getListings()
     {
         $this->model->getListings();
     }
 
+    /**
+     * Dashboard deleteData
+     * Deletes a specific data.
+     */
     public function deleteData()
     {
         $this->model->deleteData();

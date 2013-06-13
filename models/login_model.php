@@ -12,13 +12,13 @@ class Login_Model extends Model
         parent::__construct();
     }
 
-    public function verify()
+    public function login()
     {
         $name = $_POST['name'];
         $password = $_POST['password'];
 
         $statement = $this->db->prepare("
-            SELECT id
+            SELECT id, name, role
             FROM users
             WHERE name = :name
             AND password = MD5(:password)");
@@ -32,8 +32,10 @@ class Login_Model extends Model
 
         if ($matches > 0)
         {
+            $data = $statement->fetch();
             Session::set('isUserLoggedIn', true);
-            Session::set('userName', $name);
+            Session::set('userName', $data['name']);
+            Session::set('userRole', $data['role']);
             header('location: ' . BASE_URL . 'dashboard');
         }
         else
