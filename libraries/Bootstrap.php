@@ -33,34 +33,37 @@ class Bootstrap
         }
         else
         {
-            require 'controllers/error.php';
-            $controller = new Error();
-            $controller->index();
-            return false;
+            $this->bootstrapping_error('The page requested does not exist.');
         }
-
-        $controller = new $url[0];
 
         // Calling Methods
         if (isset($url[1]))
         {
-            if (!method_exists($controller, $url[1]))
+            if (!method_exists($url[0], $url[1]))
             {
-                require 'controllers/error.php';
-                $controller = new Error();
-                $controller->index();
-                return false;
+                $this->bootstrapping_error('The method in the page requested does not exist.');
             }
             if (isset($url[2]))
             {
+                $controller = new $url[0];
                 $controller->{$url[1]}($url[2]);
             }
             else
             {
+                $controller = new $url[0];
                 $controller->{$url[1]}();
             }
         } else {
+            $controller = new $url[0];
             $controller->index();
         }
+    }
+
+    private function bootstrapping_error($msg)
+    {
+        require 'controllers/error.php';
+        $controller = new Error();
+        $controller->index($msg);
+        exit;
     }
 }

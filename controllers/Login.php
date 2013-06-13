@@ -18,4 +18,9 @@ class Login extends Controller
         $this->view->msg = 'Login';
         $this->view->render('login/index');
     }
+
+    public function run()
+    {
+        $this->model->verify();
+    }
 }

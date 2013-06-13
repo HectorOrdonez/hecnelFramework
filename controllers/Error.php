@@ -12,9 +12,9 @@ class Error extends Controller
         parent::__construct();
     }
 
-    public function index()
+    public function index($msg)
     {
-        $this->view->msg = 'This page does not exist.';
+        $this->view->setParameter('msg',$msg);
         $this->view->render('error/index');
     }
 }

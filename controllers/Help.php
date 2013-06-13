@@ -21,9 +21,7 @@ class Help extends Controller
 
     public function helpMeWith($request)
     {
-        require 'models/help_model.php';
-        $helpModel = new Help_Model();
-        $helpMessage = $helpModel->helpMeWith($request);
+        $helpMessage = $this->model->helpMeWith($request);
 
         $this->view->msg = $helpMessage;
         $this->view->render('help/index');
