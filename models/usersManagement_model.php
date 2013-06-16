@@ -22,18 +22,61 @@ class usersManagement_model extends Model
         return $statement->fetchAll();
     }
 
-    public function createUser(array $inputData)
+    public function getUserData($user_id)
     {
-        $statement = $this->db->prepare("
-        INSERT INTO users (`name`, `password`, `role`)
-        VALUES (:userName, :password, :role)");
+        $statement = $this->db->prepare('
+            SELECT
+                id as userId,
+                name as userName,
+                password as password,
+                role as userRole
+            FROM users
+            WHERE id = :id');
         $statement->execute(array(
-            ':userName' => $inputData['userName'],
-            ':password' => $inputData['password'],
-            ':role' => $inputData['userRole']
+            ':id'=>$user_id
         ));
 
-        header('location: '. BASE_URL .'usersManagement');
-        exit;
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Creates user with the specified parameters.
+     * @param string $userName
+     * @param string $password Password will be encrypted.
+     * @param string $userRole (owner, admin or basic)
+     */
+    public function createUser($userName, $password, $userRole)
+    {
+        $valuesArray = array(
+            'name' => $userName,
+            'password' => Encrypter::encrypt($password, $userName),
+            'role' => $userRole
+        );
+
+        $this->db->insert('users', $valuesArray);
+    }
+
+    public function saveUser($userId, $userName, $password, $userRole)
+    {
+        $setArray = array(
+            'name' => $userName,
+            'password' => Encrypter::encrypt($password, $userName),
+            'role' => $userRole
+        );
+
+        $conditionsArray = array(
+            'id' => $userId
+        );
+
+        $this->db->update('users', $setArray, $conditionsArray);
+    }
+
+    public function deleteUser($userId)
+    {
+        $conditionsArray = array(
+            'id' => $userId
+        );
+
+        $this->db->delete('users', $conditionsArray);
     }
 }

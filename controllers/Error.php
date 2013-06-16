@@ -7,6 +7,9 @@
 
 class Error extends Controller
 {
+    /**
+     * Error constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -14,7 +17,8 @@ class Error extends Controller
 
     public function index($msg)
     {
-        $this->view->setParameter('msg',$msg);
+        $this->view->setParameter('msg', $msg);
+
         $this->view->render('error/index');
     }
 }

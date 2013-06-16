@@ -11,16 +11,11 @@ class dashboard_model extends Model
         parent::__construct();
     }
 
-    public function ajaxInsert()
+    public function ajaxInsert($data)
     {
-        $data = $_POST['data'];
+        $this->db->insert('data', array('data' => $data));
 
-        $statement = $this->db->prepare('INSERT INTO data (data) VALUES (:text)');
-        $statement->execute(array('text'=>$data));
-
-        $newDataId = $this->db->lastInsertId();
-
-        print json_encode(array('id'=>$newDataId, 'data'=>$data));
+        return $this->db->lastInsertId();
     }
 
     public function getListings()
@@ -31,10 +26,12 @@ class dashboard_model extends Model
         print json_encode($statement->fetchAll());
     }
 
-    public function deleteData()
+    public function deleteData($dataId)
     {
-        $id = $_POST['id'];
-        $statement = $this->db->prepare('DELETE FROM data WHERE id = :id');
-        $statement->execute(array('id'=>$id));
+        $conditionsArray = array(
+            'id' => $dataId
+        );
+
+        $this->db->delete('data', $conditionsArray);
     }
 }

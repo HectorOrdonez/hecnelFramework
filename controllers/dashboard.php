@@ -31,7 +31,9 @@ class Dashboard extends Controller
     {
         $this->view->addLibrary('js','views/dashboard/js/default.js');
         $this->view->addLibrary('css','views/dashboard/css/dashboard.css');
+
         $this->view->setParameter('userName', Session::get('userName'));
+
         $this->view->render('dashboard/index');
     }
 
@@ -51,7 +53,11 @@ class Dashboard extends Controller
      */
     public function ajaxInsert()
     {
-        $this->model->ajaxInsert();
+        $data = $_POST['data'];
+
+        $newDataId = $this->model->ajaxInsert($data);
+
+        print json_encode(array('id'=>$newDataId, 'data'=>$data));
     }
 
     /**
@@ -69,6 +75,8 @@ class Dashboard extends Controller
      */
     public function deleteData()
     {
-        $this->model->deleteData();
+        $dataId = $_POST['id'];
+
+        $this->model->deleteData($dataId);
     }
 }

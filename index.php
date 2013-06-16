@@ -1,16 +1,19 @@
 <?php
 
-// System Libraries
-require 'libraries/Bootstrap.php';
-require 'libraries/Controller.php';
-require 'libraries/View.php';
-require 'libraries/Model.php';
-require 'libraries/Database.php';
-require 'libraries/Session.php';
 
-// System Configs
+/**
+ * Loading System Configs
+ */
 require 'config/database.php';
 require 'config/system.php';
+
+/**
+ * Defining Autoload function
+ */
+function __autoload($class)
+{
+    require 'libraries/'.$class.'.php';
+}
 
 // Run app
 $app = new Bootstrap();

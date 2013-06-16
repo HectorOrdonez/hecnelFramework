@@ -16,6 +16,12 @@
             <?php echo $user['role'];?>
 
         </td>
+        <td>
+            <a href='<?php echo BASE_URL.'usersManagement/editUser/'.$user['id'];?>'>Edit</a>
+        </td>
+        <td>
+            <a href='<?php echo BASE_URL.'usersManagement/deleteUser/'.$user['id'];?>'>Delete</a>
+        </td>
     </tr>
     <?php endforeach; ?>
 </table>

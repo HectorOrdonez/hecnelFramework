@@ -7,6 +7,7 @@
 
 class usersManagement extends Controller
 {
+    /** Validates user access to this controller */
     public function __construct()
     {
         parent::__construct();
@@ -20,6 +21,9 @@ class usersManagement extends Controller
         }
     }
 
+    /**
+     * Displays the main Users Management page
+     */
     public function index()
     {
         $this->view->addLibrary('js', 'usersManagement/js/default.js');
@@ -30,16 +34,63 @@ class usersManagement extends Controller
     }
 
     /**
-     * Create
+     * Displays the User Edit page
+     */
+    public function editUser($userId)
+    {
+        $userData = $this->model->getUserData($userId);
+
+        $this->view->setParameter('userId', $userData['userId']);
+        $this->view->setParameter('userName', $userData['userName']);
+        $this->view->setParameter('password', $userData['password']);
+        $this->view->setParameter('userRole', $userData['userRole']);
+
+        $this->view->render('usersManagement/edit');
+    }
+
+    /**
+     * Create a User
      * @todo Security and Error handling
      */
     public function createUser()
     {
-        $inputData = array();
-        $inputData['userName'] = $_POST['userName'];
-        $inputData['password'] = md5($_POST['password']);
-        $inputData['userRole'] = $_POST['userRole'];
+        $userName = $_POST['userName'];
+        $password = $_POST['password'];
+        $userRole = $_POST['userRole'];
 
-        $this->model->createUser($inputData);
+        $this->model->createUser($userName, $password, $userRole);
+
+        header('location: '. BASE_URL .'usersManagement');
+        exit;
+    }
+
+    /**
+     * Edits User data
+     */
+    public function saveUser()
+    {
+        $userId = $_POST['userId'];
+        $userName = $_POST['userName'];
+        $password = $_POST['password'];
+        $userRole = $_POST['userRole'];
+
+        $this->model->saveUser($userId, $userName, $password, $userRole);
+
+        header('location: '. BASE_URL .'usersManagement');
+        exit;
+    }
+
+    /**
+     * Deletes a User
+     * @todo Security and verification if logged user can actually delete this user.
+     */
+    public function deleteUser($userId)
+    {
+        $userId = $userId;
+
+        $this->model->deleteUser($userId);
+
+        header('location: '. BASE_URL .'usersManagement');
+        exit;
     }
 }

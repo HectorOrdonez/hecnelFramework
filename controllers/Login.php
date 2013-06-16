@@ -7,20 +7,32 @@
 
 class Login extends Controller
 {
-
+    /**
+     * Login constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
+    /**
+     * Login main page
+     */
     public function index()
     {
-        $this->view->msg = 'Login';
+        $this->view->setParameter('msg', 'Login');
+
         $this->view->render('login/index');
     }
 
+    /**
+     * Logs in the User if the input parameters are right.
+     */
     public function run()
     {
-        $this->model->login();
+        $userName = $_POST['name'];
+        $password = $_POST['password'];
+
+        $this->model->login($userName, $password);
     }
 }

@@ -7,25 +7,31 @@
 
 class Login_Model extends Model
 {
+    /**
+     * Login Model constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function login()
+    /**
+     * Receives a User name and its password. Verifies if these parameters are right, saving the user and its role into the Session if so.
+     *
+     * @param string $userName
+     * @param string $password Unencrypted password
+     */
+    public function login($userName, $password)
     {
-        $name = $_POST['name'];
-        $password = $_POST['password'];
-
         $statement = $this->db->prepare("
             SELECT id, name, role
             FROM users
             WHERE name = :name
-            AND password = MD5(:password)");
+            AND password = :password");
 
         $statement->execute(array(
-            ':name' => $name,
-            ':password' => $password
+            ':name' => $userName,
+            ':password' => Encrypter::encrypt($password, $userName),
         ));
 
         $matches = $statement->rowCount();
