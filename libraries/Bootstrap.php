@@ -3,6 +3,11 @@
  * Project: Furgoweb
  * User: Hector Ordonez
  * Date: 11/06/13 11:47
+ *
+ * @todo - Research possible security issues, regarding URL modifications.
+ * @todo - Research null-byte injection.
+ * @todo - Research what filter_var with FILTER_SANITIZE_URL option actually does.
+ * @todo - Research if is possible to do directory traversal.
  */
 
 class Bootstrap
@@ -12,13 +17,14 @@ class Bootstrap
         if (isset($_GET['url']))
         {
             $url = $_GET['url'];
+            $url = rtrim($url, '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
         } else
         {
             $url = NULL;
         }
-        $url = rtrim($url, '/');
 
-        $url = explode('/', $url);
         if (empty($url[0]))
         {
             require 'controllers/index.php';

@@ -14,29 +14,40 @@ class usersManagement_model extends Model
 
     public function getUsersList()
     {
-        $statement = $this->db->prepare('
+        $sql = '
             SELECT id, name, role
-            FROM users');
-        $statement->execute();
+            FROM user
+        ';
 
-        return $statement->fetchAll();
+        $result = $this->db->select($sql);
+
+        return $result;
     }
 
-    public function getUserData($user_id)
+    /**
+     * Collects the data from a specific user.
+     * @param int $userId User Id.
+     * @return array User Data
+     */
+    public function getUserData($userId)
     {
-        $statement = $this->db->prepare('
+        $sql = '
             SELECT
                 id as userId,
                 name as userName,
                 password as password,
                 role as userRole
-            FROM users
-            WHERE id = :id');
-        $statement->execute(array(
-            ':id'=>$user_id
-        ));
+            FROM user
+            WHERE id = :id
+        ';
 
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        $parameters = array(
+            'id'=>$userId
+        );
+
+        $result = $this->db->select($sql, $parameters);
+
+        return $result;
     }
 
     /**
@@ -53,7 +64,7 @@ class usersManagement_model extends Model
             'role' => $userRole
         );
 
-        $this->db->insert('users', $valuesArray);
+        $this->db->insert('user', $valuesArray);
     }
 
     public function saveUser($userId, $userName, $password, $userRole)
@@ -68,7 +79,7 @@ class usersManagement_model extends Model
             'id' => $userId
         );
 
-        $this->db->update('users', $setArray, $conditionsArray);
+        $this->db->update('user', $setArray, $conditionsArray);
     }
 
     public function deleteUser($userId)
@@ -77,6 +88,6 @@ class usersManagement_model extends Model
             'id' => $userId
         );
 
-        $this->db->delete('users', $conditionsArray);
+        $this->db->delete('user', $conditionsArray);
     }
 }

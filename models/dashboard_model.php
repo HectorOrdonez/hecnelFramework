@@ -20,10 +20,13 @@ class dashboard_model extends Model
 
     public function getListings()
     {
-        $statement = $this->db->prepare('SELECT id,data from data');
-        $statement->setFetchMode(PDO::FETCH_ASSOC);
-        $statement->execute();
-        print json_encode($statement->fetchAll());
+        $sql = '
+            SELECT id, data
+            FROM data
+        ';
+
+        $result = $this->db->select($sql);
+        print json_encode($result);
     }
 
     public function deleteData($dataId)

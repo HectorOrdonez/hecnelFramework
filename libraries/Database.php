@@ -7,6 +7,7 @@
  *
  * @todo Find a way to build a Database debugger. Link with a possible solution/hint - http://stackoverflow.com/questions/210564/getting-raw-sql-query-string-from-pdo-prepared-statements/210693#210693
  * @todo Build Database Exception manager.
+ * @todo Find and implement a nice way to manage CRUD and complex queries (with group by's, joins, etc). Current system supports only basic usage.
  *
  * Project: Furgoweb
  * User: Hector Ordonez
@@ -29,6 +30,29 @@ class Database extends PDO
             "{$dbType}:host={$dbHost};dbname={$dbName}",
             $dbUser,
             $dbPass);
+    }
+
+    /**
+     * Selects data from Database table.
+     * @param string $sql SQL Query.
+     * @param array $parameters Optional parameters to bind into the SQL Query.
+     * @param int $fetchMode Optional parameter if a specific Fetch method is required.
+     * @return array Fetched Da ta from query.
+     */
+    public function select($sql, $parameters=array(), $fetchMode = PDO::FETCH_ASSOC)
+    {
+        $statement = $this->prepare($sql);
+
+        foreach ($parameters as $field=>$value)
+        {
+            $statement->bindValue(":{$field}", $value);
+        }
+
+        // Action!
+        $statement->execute();
+
+        // Returning results
+        return $statement->fetchAll($fetchMode);
     }
 
     /**
@@ -64,6 +88,9 @@ class Database extends PDO
      */
     public function update($table, $set, $conditions)
     {
+        ksort($set);
+        ksort($conditions);
+
         $setString = '';
         $conditionsString = '';
 

@@ -19,26 +19,29 @@ class Login_Model extends Model
      * Receives a User name and its password. Verifies if these parameters are right, saving the user and its role into the Session if so.
      *
      * @param string $userName
-     * @param string $password Unencrypted password
+     * @param string $password Unencrypted password.
      */
     public function login($userName, $password)
     {
-        $statement = $this->db->prepare("
+        $sql = '
             SELECT id, name, role
-            FROM users
+            FROM user
             WHERE name = :name
-            AND password = :password");
+            AND password = :password
+        ';
 
-        $statement->execute(array(
-            ':name' => $userName,
-            ':password' => Encrypter::encrypt($password, $userName),
-        ));
+        $parameters = array(
+            'name'=>$userName,
+            'password'=>Encrypter::encrypt($password, $userName)
+        );
 
-        $matches = $statement->rowCount();
+        $result = $this->db->select($sql, $parameters);
+
+        $matches = count($result);
 
         if ($matches > 0)
         {
-            $data = $statement->fetch();
+            $data = $result[0];
             Session::set('isUserLoggedIn', true);
             Session::set('userName', $data['name']);
             Session::set('userRole', $data['role']);

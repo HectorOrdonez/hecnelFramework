@@ -7,14 +7,12 @@
 
 class About extends Controller
 {
-    private $currentVersion = '1.0';
-    private $releaseDate = '16/06/2013';
+    private $currentVersion = '1.1 (under construction)';
+    private $releaseDate = 'Unknown';
 
     private $currentReleaseFeatures = array(
-        'Added flexibility to Database engine.',
-        'Improved comments in several files.',
-        'Styled Help page with specific CSS file (tested specific CSS files usage).',
-        'Created release log.'
+        'Improved Bootstrap in order to avoid broken links like http://localhost/furgoweb/index/%0../../. ',
+        'Expanded already constructed Database flexibility for the use of Selects and Deletes.'
     );
 
     /**
