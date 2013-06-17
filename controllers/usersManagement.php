@@ -54,11 +54,31 @@ class usersManagement extends Controller
      */
     public function createUser()
     {
-        $userName = $_POST['userName'];
-        $password = $_POST['password'];
-        $userRole = $_POST['userRole'];
+        $form = new Form();
+        $form
+            ->requireItem('userName')
+            ->validate('String', array(
+                'minLength' => 10,
+                'maxLength' => 50
+            ))
+            ->requireItem('password')
+            ->validate('String', array(
+                'minLength' => 10,
+                'maxLength' => 50
+            ))
+            ->requireItem('userRole')
+            ->validate('Enum', array(
+                'availableOptions' => array(
+                    'owner',
+                    'admin',
+                    'basic'
+                )
+            ));
 
-        $this->model->createUser($userName, $password, $userRole);
+        $this->model->createUser(
+            $form->fetch('userName'),
+            $form->fetch('password'),
+            $form->fetch('userRole'));
 
         header('location: '. BASE_URL .'usersManagement');
         exit;

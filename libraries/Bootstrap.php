@@ -8,6 +8,7 @@
  * @todo - Research null-byte injection.
  * @todo - Research what filter_var with FILTER_SANITIZE_URL option actually does.
  * @todo - Research if is possible to do directory traversal.
+ * @todo - Ask why this class is a dynamic object instead of a static one.
  */
 
 class Bootstrap
