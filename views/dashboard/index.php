@@ -12,7 +12,7 @@
 
 <hr />
 
-<form id='insertForm' action="<?php echo BASE_URL;?>dashboard/ajaxInsert" method="post">
+<form id='insertForm' action="<?php echo _SYSTEM_BASE_URL;?>dashboard/ajaxInsert" method="post">
     <label>
         Data
     </label>

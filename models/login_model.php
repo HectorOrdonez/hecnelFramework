@@ -45,11 +45,11 @@ class Login_Model extends Model
             Session::set('isUserLoggedIn', true);
             Session::set('userName', $data['name']);
             Session::set('userRole', $data['role']);
-            header('location: ' . BASE_URL . 'dashboard');
+            header('location: ' . _SYSTEM_BASE_URL . 'dashboard');
         }
         else
         {
-            header('location: ' . BASE_URL . 'login');
+            header('location: ' . _SYSTEM_BASE_URL . 'login');
         }
     }
 }

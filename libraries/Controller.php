@@ -3,34 +3,56 @@
  * Project: Furgoweb
  * User: Hector Ordonez
  * Date: 11/06/13 11:59
+ *
+ * @todo - Use configurable paths to Views, so an application can set which project contains the required view.
  */
 
 class Controller
 {
-    protected $view = NULL;
-    protected $model = NULL;
+    /**
+     * Property view
+     * @var null|View
+     */
+    protected $_view = NULL;
 
-    public function __construct()
+    /**
+     * @var null
+     */
+    protected $_model = NULL;
+
+    /**
+     * Initializes the User Session.
+     * Initializes the View and the Model.
+     *
+     * @param string $modelsFolder Place in which this Controller can search for the Model
+     */
+    public function __construct($modelsFolder)
     {
         Session::init();
-        $this->view = new View();
-        $this->loadModel();
+        $this->_setView();
+        $this->_setModel($modelsFolder);
     }
 
+    private function _setView()
+    {
+        $this->_view = new View();
+    }
     /**
      * Auto-loading of the model method.
      * Checks if there is a model related to this controller and, if so, instantiates it.
+     *
+     * @param string $modelsFolder Place in which this Controller can search for the Model
      */
-    private function loadModel()
+    private function _setModel($modelsFolder)
     {
-        $className = lcfirst(get_class($this));
+        $modelName = lcfirst(get_class($this));
+        $modelFilePath = $modelsFolder . $modelName . '_model.php';
 
-        $modelPath = 'models/'.$className.'_model.php';
-        if(file_exists($modelPath))
+        if(file_exists($modelFilePath))
         {
-            require $modelPath;
-            $modelName = $className . '_Model';
-            $this->model = new $modelName();
+            require $modelFilePath;
+            $modelName = $modelName . '_Model';
+            $this->_model = new $modelName();
         }
     }
 }

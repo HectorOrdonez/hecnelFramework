@@ -11,10 +11,11 @@ class Help extends Controller
      * Help constructor.
      * Adds the Help style library. As this is the construct, the library will be added for all the pages of this controller.
      */
-    public function __construct()
+    public function __construct($model)
     {
-        parent::__construct();
-        $this->view->addLibrary('css','views/help/css/help.css');
+        parent::__construct($model);
+
+        $this->_view->addLibrary('css','views/help/css/help.css');
     }
 
     /**
@@ -22,9 +23,9 @@ class Help extends Controller
      */
     public function index()
     {
-        $this->view->setParameter('msg', 'I hope this is of help.');
+        $this->_view->setParameter('msg', 'I hope this is of help.');
 
-        $this->view->render('help/index');
+        $this->_view->render('help/index');
     }
 
     /**
@@ -33,10 +34,10 @@ class Help extends Controller
      */
     public function helpMeWith($request)
     {
-        $helpMessage = $this->model->helpMeWith($request);
+        $helpMessage = $this->_model->helpMeWith($request);
 
-        $this->view->setParameter('msg', $helpMessage);
+        $this->_view->setParameter('msg', $helpMessage);
 
-        $this->view->render('help/index');
+        $this->_view->render('help/index');
     }
 }

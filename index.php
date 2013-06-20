@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Loading System Configs
  */
@@ -23,4 +24,10 @@ function __autoload($class)
 }
 
 // Run app
-$app = new Bootstrap();
+$application = new Bootstrap();
+$application->set_DEFAULT_CONTROLLER(_FURGOWEB_DEFAULT_CONTROLLER);
+$application->set_DEFAULT_METHOD(_FURGOWEB_DEFAULT_METHOD);
+$application->set_ERROR_CONTROLLER(_FURGOWEB_ERROR_CONTROLLER);
+$application->set_APPLICATION_CONTROLLERS_FOLDER(_FURGOWEB_CONTROLLERS_FOLDER);
+$application->set_APPLICATION_MODELS_FOLDER(_FURGOWEB_MODELS_FOLDER);
+$application->begin();

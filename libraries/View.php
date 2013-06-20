@@ -58,9 +58,9 @@ class View
     public function addLibrary($type, $libraryPath)
     {
         if ($type == 'css') {
-            $this->css[] = BASE_URL . $libraryPath;
+            $this->css[] = _SYSTEM_BASE_URL . $libraryPath;
         } elseif ($type == 'js') {
-            $this->js[] = BASE_URL.$libraryPath;
+            $this->js[] = _SYSTEM_BASE_URL.$libraryPath;
         }
     }
 

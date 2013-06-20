@@ -8,15 +8,16 @@
 class usersManagement extends Controller
 {
     /** Validates user access to this controller */
-    public function __construct()
+    public function __construct($model)
     {
-        parent::__construct();
+        parent::__construct($model);
+
         $logged = Session::get('isUserLoggedIn');
         $userRole = Session::get('userRole');
         if ($logged == FALSE OR $userRole != 'owner')
         {
             Session::destroy();
-            header('location: '. BASE_URL .'login');
+            header('location: '. _SYSTEM_BASE_URL .'login');
             exit;
         }
     }
@@ -26,11 +27,11 @@ class usersManagement extends Controller
      */
     public function index()
     {
-        $this->view->addLibrary('js', 'usersManagement/js/default.js');
+        $this->_view->addLibrary('js', 'usersManagement/js/default.js');
 
-        $this->view->setParameter('usersList',$this->model->getUsersList());
+        $this->_view->setParameter('usersList',$this->_model->getUsersList());
 
-        $this->view->render('usersManagement/index');
+        $this->_view->render('usersManagement/index');
     }
 
     /**
@@ -38,14 +39,14 @@ class usersManagement extends Controller
      */
     public function editUser($userId)
     {
-        $userData = $this->model->getUserData($userId);
+        $userData = $this->_model->getUserData($userId);
 
-        $this->view->setParameter('userId', $userData['userId']);
-        $this->view->setParameter('userName', $userData['userName']);
-        $this->view->setParameter('password', $userData['password']);
-        $this->view->setParameter('userRole', $userData['userRole']);
+        $this->_view->setParameter('userId', $userData['userId']);
+        $this->_view->setParameter('userName', $userData['userName']);
+        $this->_view->setParameter('password', $userData['password']);
+        $this->_view->setParameter('userRole', $userData['userRole']);
 
-        $this->view->render('usersManagement/edit');
+        $this->_view->render('usersManagement/edit');
     }
 
     /**
@@ -75,12 +76,12 @@ class usersManagement extends Controller
                 )
             ));
 
-        $this->model->createUser(
+        $this->_model->createUser(
             $form->fetch('userName'),
             $form->fetch('password'),
             $form->fetch('userRole'));
 
-        header('location: '. BASE_URL .'usersManagement');
+        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
         exit;
     }
 
@@ -94,9 +95,9 @@ class usersManagement extends Controller
         $password = $_POST['password'];
         $userRole = $_POST['userRole'];
 
-        $this->model->saveUser($userId, $userName, $password, $userRole);
+        $this->_model->saveUser($userId, $userName, $password, $userRole);
 
-        header('location: '. BASE_URL .'usersManagement');
+        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
         exit;
     }
 
@@ -106,11 +107,9 @@ class usersManagement extends Controller
      */
     public function deleteUser($userId)
     {
-        $userId = $userId;
+        $this->_model->deleteUser($userId);
 
-        $this->model->deleteUser($userId);
-
-        header('location: '. BASE_URL .'usersManagement');
+        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
         exit;
     }
 }

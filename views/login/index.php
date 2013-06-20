@@ -2,7 +2,7 @@
         Login
 </h1>
 
-<form action="<?php echo BASE_URL;?>login/run" method="POST">
+<form action="<?php echo _SYSTEM_BASE_URL;?>login/run" method="POST">
     <label>
         Login
     </label>

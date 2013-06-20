@@ -19,29 +19,28 @@
     <div id='mainTitle'>
         HEC Framework
     </div>
-
     <div id='headerMenu'>
         <div class='headerButton'>
-            <a href='<?php echo BASE_URL; ?>index'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>index'>
                 Go Index
             </a>
         </div>
 
         <div class='headerButton'>
-            <a href='<?php echo BASE_URL; ?>help'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>help'>
                 Go Help
             </a>
         </div>
 
         <div class='headerButton'>
-            <a href='<?php echo BASE_URL; ?>about'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>about'>
                 About this
             </a>
         </div>
 
 <?php if (Session::get('isUserLoggedIn') == TRUE AND (Session::get('userRole') == 'owner')):?>
         <div class='headerButton'>
-            <a href='<?php echo BASE_URL; ?>usersManagement'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>usersManagement'>
                 User Management
             </a>
         </div>
@@ -49,11 +48,11 @@
 
         <div class='headerButton'>
 <?php if (Session::get('isUserLoggedIn') == TRUE):?>
-            <a href='<?php echo BASE_URL; ?>dashboard/logout'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>dashboard/logout'>
                 Logout
             </a>
 <?php else: ?>
-            <a href='<?php echo BASE_URL; ?>login'>
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>login'>
                 Login
             </a>
 <?php endif; ?>

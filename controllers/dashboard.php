@@ -11,14 +11,15 @@ class Dashboard extends Controller
      * Dashboard constructor.
      * Verifies that the User has access to this class.
      */
-    public function __construct()
+    public function __construct($model)
     {
-        parent::__construct();
+        parent::__construct($model);
+
         $logged = Session::get('isUserLoggedIn');
         if ($logged == FALSE)
         {
             Session::destroy();
-            header('location: '. BASE_URL .'login');
+            header('location: '. _SYSTEM_BASE_URL .'login');
             exit;
         }
     }
@@ -29,12 +30,12 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $this->view->addLibrary('js','views/dashboard/js/default.js');
-        $this->view->addLibrary('css','views/dashboard/css/dashboard.css');
+        $this->_view->addLibrary('js','views/dashboard/js/default.js');
+        $this->_view->addLibrary('css','views/dashboard/css/dashboard.css');
 
-        $this->view->setParameter('userName', Session::get('userName'));
+        $this->_view->setParameter('userName', Session::get('userName'));
 
-        $this->view->render('dashboard/index');
+        $this->_view->render('dashboard/index');
     }
 
     /**
@@ -44,7 +45,7 @@ class Dashboard extends Controller
     public function logout()
     {
         Session::destroy();
-        header('location: '. BASE_URL .'login');
+        header('location: '. _SYSTEM_BASE_URL .'login');
     }
 
     /**
@@ -55,7 +56,7 @@ class Dashboard extends Controller
     {
         $data = $_POST['data'];
 
-        $newDataId = $this->model->ajaxInsert($data);
+        $newDataId = $this->_model->ajaxInsert($data);
 
         print json_encode(array('id'=>$newDataId, 'data'=>$data));
     }
@@ -66,7 +67,7 @@ class Dashboard extends Controller
      */
     public function getListings()
     {
-        $this->model->getListings();
+        $this->_model->getListings();
     }
 
     /**
@@ -77,6 +78,6 @@ class Dashboard extends Controller
     {
         $dataId = $_POST['id'];
 
-        $this->model->deleteData($dataId);
+        $this->_model->deleteData($dataId);
     }
 }

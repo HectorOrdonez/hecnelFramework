@@ -2,7 +2,7 @@
     Edit User : <?php echo $this->userName;?>
 </h2>
 
-<form action='<?php echo BASE_URL;?>usersManagement/saveUser' method="post">
+<form action='<?php echo _SYSTEM_BASE_URL;?>usersManagement/saveUser' method="post">
     <input type='hidden' name='userId' value='<?php echo $this->userId;?>'/>
 
     <p>

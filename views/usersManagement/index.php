@@ -17,10 +17,10 @@
 
         </td>
         <td>
-            <a href='<?php echo BASE_URL.'usersManagement/editUser/'.$user['id'];?>'>Edit</a>
+            <a href='<?php echo _SYSTEM_BASE_URL.'usersManagement/editUser/'.$user['id'];?>'>Edit</a>
         </td>
         <td>
-            <a href='<?php echo BASE_URL.'usersManagement/deleteUser/'.$user['id'];?>'>Delete</a>
+            <a href='<?php echo _SYSTEM_BASE_URL.'usersManagement/deleteUser/'.$user['id'];?>'>Delete</a>
         </td>
     </tr>
     <?php endforeach; ?>
@@ -30,7 +30,7 @@
     Add new user
 </h2>
 
-<form action='<?php echo BASE_URL;?>usersManagement/createUser' method="post">
+<form action='<?php echo _SYSTEM_BASE_URL;?>usersManagement/createUser' method="post">
     <label>
         User Name
     </label>

@@ -10,9 +10,9 @@ class Login extends Controller
     /**
      * Login constructor.
      */
-    public function __construct()
+    public function __construct($model)
     {
-        parent::__construct();
+        parent::__construct($model);
     }
 
     /**
@@ -20,9 +20,9 @@ class Login extends Controller
      */
     public function index()
     {
-        $this->view->setParameter('msg', 'Login');
+        $this->_view->setParameter('msg', 'Login');
 
-        $this->view->render('login/index');
+        $this->_view->render('login/index');
     }
 
     /**
@@ -33,6 +33,6 @@ class Login extends Controller
         $userName = $_POST['name'];
         $password = $_POST['password'];
 
-        $this->model->login($userName, $password);
+        $this->_model->login($userName, $password);
     }
 }
