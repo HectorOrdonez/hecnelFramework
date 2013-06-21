@@ -1,15 +1,34 @@
     <div>
         <h1>
-            This is HEC Framework. Current Version: <?php echo $this->currentVersion; ?>
-
+            Version <?php echo $this->developmentVersion['version'];?> on development, expected release <?php echo $this->developmentVersion['date'];?>.
         </h1>
-        <h3>
-            Released the date: <?php echo $this->releaseDate; ?>
 
-        </h3>
+        <ul>
+        <?php foreach ($this->developmentVersion['changes'] as $change) : ?>
+            <li>
+                <?php echo $change;?>
+            </li>
+        <?php endforeach; ?>
+        </ul>
 
-        <div>
-            <?php echo $this->news;?>
+        <hr />
 
-        </div>
+        <h1>
+            Historical Log
+        </h1>
+
+        <?php foreach ($this->historicalLog as $log) : ?>
+            <h2>
+                Version <?php echo $log['version']; ?>, released <?php echo $log['date']; ?>
+            </h2>
+
+            <ul>
+                <?php foreach ($log['changes'] as $change) : ?>
+                    <li>
+                        <?php echo $change;?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endforeach; ?>
+
     </div>

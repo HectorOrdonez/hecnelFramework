@@ -25,7 +25,7 @@ class Help extends Controller
     {
         $this->_view->setParameter('msg', 'I hope this is of help.');
 
-        $this->_view->render('help/index');
+        $this->_view->addChunk('help/index');
     }
 
     /**
@@ -38,6 +38,6 @@ class Help extends Controller
 
         $this->_view->setParameter('msg', $helpMessage);
 
-        $this->_view->render('help/index');
+        $this->_view->addChunk('help/index');
     }
 }

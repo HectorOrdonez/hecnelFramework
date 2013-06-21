@@ -5,6 +5,7 @@
  * Date: 11/06/13 11:59
  *
  * @todo - Use configurable paths to Views, so an application can set which project contains the required view.
+ * @todo - View and Controller libraries should allow an application to use them. The application should not depend on them to run any logic. I must find a way to avoid the general css, js and meta definitions in these libraries. I think that an interesting approach might to have an "engine" folder for the Framework libraries and another "engine" folder for the Application libraries. Then the Application controllers, libraries, views and models will extend the Application Engine libraries, which would extend the Framework Engine libraries. Need to ponder this.
  */
 
 class Controller
@@ -19,6 +20,17 @@ class Controller
      * @var null
      */
     protected $_model = NULL;
+
+    /*************************/
+    /* Controller Settings  **/
+    /*************************/
+
+
+    /**
+     * True by default, autoRender tells the Controller is the View must be rendered once the logic is finished.
+     * @param boolean $modelsFolder
+     */
+    protected $_autoRender = TRUE;
 
     /**
      * Initializes the User Session.
@@ -36,6 +48,25 @@ class Controller
     private function _setView()
     {
         $this->_view = new View();
+
+        $this->_view->addLibrary('css' , 'public/css/default.css');
+
+        $this->_view->addLibrary('js' , 'public/js/jquery-1.10.1.js');
+
+        $this->_view->setMeta('description', array(
+            'name' => 'description',
+            'content' => 'This is a sample page for my Framework'
+        ));
+
+        $this->_view->setMeta('author', array(
+            'name' => 'author',
+            'content' => 'Hector Ordonez'
+        ));
+
+        $this->_view->setMeta('keywords', array(
+            'name' => 'keywords',
+            'content' => 'Framework, PHP, JavaScript, OOP, MVC'
+        ));
     }
     /**
      * Auto-loading of the model method.
@@ -53,6 +84,18 @@ class Controller
             require $modelFilePath;
             $modelName = $modelName . '_Model';
             $this->_model = new $modelName();
+        }
+    }
+
+    /**
+     * Requested by the Bootstrap, the Render method cannot be extended by Controller children.
+     * Verifies if the autoRender is enabled and, if so, requested the rendering of the view.
+     */
+    final public function render()
+    {
+        if ($this->_autoRender === TRUE)
+        {
+            $this->_view->render();
         }
     }
 }

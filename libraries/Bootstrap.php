@@ -196,6 +196,7 @@ class Bootstrap
         {
             $this->_controller->{$this->_method}();
         }
+        $this->_controller->render();
     }
 
     /**

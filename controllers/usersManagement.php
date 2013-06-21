@@ -31,7 +31,7 @@ class usersManagement extends Controller
 
         $this->_view->setParameter('usersList',$this->_model->getUsersList());
 
-        $this->_view->render('usersManagement/index');
+        $this->_view->addChunk('usersManagement/index');
     }
 
     /**
@@ -46,7 +46,7 @@ class usersManagement extends Controller
         $this->_view->setParameter('password', $userData['password']);
         $this->_view->setParameter('userRole', $userData['userRole']);
 
-        $this->_view->render('usersManagement/edit');
+        $this->_view->addChunk('usersManagement/edit');
     }
 
     /**

@@ -13,6 +13,25 @@ class Error extends Controller
     public function __construct($model)
     {
         parent::__construct($model);
+
+        $this->_view->setMeta('description', array(
+            'name' => 'description',
+            'content' => 'Error in the Framework.'
+        ));
+
+        $this->_view->setMeta('author', array(
+            'name' => 'author',
+            'content' => 'Hector Ordonez'
+        ));
+
+        $this->_view->setMeta('keywords', array(
+            'name' => 'keywords',
+            'content' => 'Error'
+        ));
+
+        $this->_view->setTitle('Error');
+
+        $this->_view->addLibrary('css', 'views/error/css/error.css');
     }
 
     /** General Error Page */
@@ -20,7 +39,7 @@ class Error extends Controller
     {
         $this->_view->setParameter('msg', $error);
 
-        $this->_view->render('error/index');
+        $this->_view->addChunk('error/index');
     }
 
     /**
@@ -30,7 +49,7 @@ class Error extends Controller
     {
         $this->_view->setParameter('msg', 'Authentication Failed');
 
-        $this->_view->render('error/index');
+        $this->_view->addChunk('error/index');
     }
 
     /**
@@ -40,7 +59,7 @@ class Error extends Controller
     {
         $this->_view->setParameter('msg', 'Access Forbidden to this resource.');
 
-        $this->_view->render('error/index');
+        $this->_view->addChunk('error/index');
     }
 
     /**
@@ -50,7 +69,7 @@ class Error extends Controller
     {
         $this->_view->setParameter('msg', 'Internal Server Error');
 
-        $this->_view->render('error/index');
+        $this->_view->addChunk('error/index');
     }
 
     /**
@@ -60,6 +79,6 @@ class Error extends Controller
     {
         $this->_view->setParameter('msg', 'Requested resource not found.');
 
-        $this->_view->render('error/index');
+        $this->_view->addChunk('error/index');
     }
 }

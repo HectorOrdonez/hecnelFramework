@@ -22,7 +22,7 @@ class Login extends Controller
     {
         $this->_view->setParameter('msg', 'Login');
 
-        $this->_view->render('login/index');
+        $this->_view->addChunk('login/index');
     }
 
     /**

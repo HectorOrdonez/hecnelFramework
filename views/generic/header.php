@@ -1,15 +1,22 @@
 <!doctype html>
 <html>
 <head>
+    <!-- Title -->
     <title>
-        <?php echo $this->title; ?>
+        <?php echo $this->_getTitle(); ?>
 
     </title>
 
-    <?php foreach ($this->css as $css) : ?><link rel='stylesheet' href='<?php echo $css; ?>' />
+    <!-- Meta Tags -->
+    <?php foreach ($this->_getMeta() as $meta) : ?><meta <?php foreach ($meta as $tagName=>$tagValue) : echo "{$tagName}='{$tagValue}' "; endforeach; ?>/>
     <?php endforeach; ?>
 
-    <?php foreach ($this->js as $js) : ?><script src='<?php echo $js; ?>'></script>
+    <!-- CSS Stylesheets -->
+    <?php foreach ($this->_getCss() as $css) : ?><link rel='stylesheet' href='<?php echo $css; ?>' />
+    <?php endforeach; ?>
+
+    <!-- JS Libraries -->
+    <?php foreach ($this->_getJs() as $js) : ?><script src='<?php echo $js; ?>'></script>
     <?php endforeach; ?>
 
 </head>

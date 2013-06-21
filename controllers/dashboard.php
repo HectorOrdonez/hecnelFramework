@@ -35,7 +35,7 @@ class Dashboard extends Controller
 
         $this->_view->setParameter('userName', Session::get('userName'));
 
-        $this->_view->render('dashboard/index');
+        $this->_view->addChunk('dashboard/index');
     }
 
     /**
