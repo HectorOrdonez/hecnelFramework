@@ -14,8 +14,6 @@ define ('_SYSTEM_ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
 /**********************************/
 /** CONFIG SETTINGS FOR FURGOWEB **/
 /**********************************/
-define ('_FURGOWEB_DEFAULT_CONTROLLER', 'index');
-define ('_FURGOWEB_DEFAULT_METHOD', 'index');
-define ('_FURGOWEB_ERROR_CONTROLLER', 'error');
-define ('_FURGOWEB_CONTROLLERS_FOLDER', 'controllers' . DIRECTORY_SEPARATOR);
-define ('_FURGOWEB_MODELS_FOLDER', 'models' . DIRECTORY_SEPARATOR);
+define ('_DEFAULT_CONTROLLER', 'index');
+define ('_DEFAULT_METHOD', 'index');
+define ('_ERROR_CONTROLLER', 'Error');
