@@ -4,11 +4,10 @@
 # User: Hector Ordonez
 # Date: 18/06/13 21:00
 #
-# @todo - Research more about .htacess programming, redirection and security.
-#
+# @todo - Later stage - Research about .htaccess.
 
 php_flag display_errors on
-php_value error_reporting 99
+php_value error_reporting E_ALL
 
 # RewriteEngine tells Apache to process Rewrite commands.
 RewriteEngine On

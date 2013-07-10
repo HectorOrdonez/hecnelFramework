@@ -8,6 +8,9 @@
  *
  * @todo Add exception trigger in the Fetch if data requested was not set.
  * @todo Add exception trigger in the requireParameter if the requested parameter is not set.
+ * @todo Create a special Exception type that allows logic to filter the exceptions triggered by the Form.
+ * @todo Form work with both Get and Post options.
+ * @todo Validations have to allow Strict Mode as third optional parameter.
  */
 
 namespace engine;
@@ -63,13 +66,13 @@ class Form
     /**
      * Returns the specified parameter set in the Post.
      * @param string $field Name of the parameter required
-     * @throws Exception If Field did not pass validation.
+     * @throws \Exception If Field did not pass validation.
      */
     public function fetch($field)
     {
         if (isset($this->_errors[$field]))
         {
-            throw new Exception ('Field ' . $field . ' did not pass Validation. Following error received: ' . $this->_errors[$field]);
+            throw new \Exception ('Field ' . $field . ' did not pass Validation. Following error received: ' . $this->_errors[$field]);
         }
         return $this->_postData[$field];
     }

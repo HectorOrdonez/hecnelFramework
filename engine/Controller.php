@@ -4,7 +4,6 @@
  * User: Hector Ordonez
  * Date: 11/06/13 11:59
  *
- * @todo - Use configurable paths to Views, so an application can set which project contains the required view.
  * @todo - View and Controller libraries should allow an application to use them. The application should not depend on them to run any logic. I must find a way to avoid the general css, js and meta definitions in these libraries. I think that an interesting approach might to have an "engine" folder for the Framework libraries and another "engine" folder for the Application libraries. Then the Application controllers, libraries, views and models will extend the Application Engine libraries, which would extend the Framework Engine libraries. Need to ponder this.
  */
 
@@ -40,7 +39,7 @@ class Controller
      * Initializes the User Session.
      * Initializes the View and the Model.
      *
-     * @param string $modelsFolder Place in which this Controller can search for the Model
+     * @param Model $model in which this Controller can search for the Model
      */
     public function __construct(Model $model = NULL)
     {
@@ -79,12 +78,11 @@ class Controller
      * Auto-loading of the model method.
      * Checks if there is a model related to this controller and, if so, instantiates it.
      *
-     * @param string $modelsFolder Place in which this Controller can search for the Model
+     * @param Model $model in which this Controller can search for the Model
      */
     private function _setModel(Model $model = NULL)
     {
-        if (!is_null($model))
-        {
+        if (!is_null($model)) {
             $this->_model = $model;
         }
     }

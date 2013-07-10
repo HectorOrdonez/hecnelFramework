@@ -37,8 +37,8 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $this->_view->addLibrary('js','views/dashboard/js/default.js');
-        $this->_view->addLibrary('css','views/dashboard/css/dashboard.css');
+        $this->_view->addLibrary('js','application/views/dashboard/js/dashboard.js');
+        $this->_view->addLibrary('css','application/views/dashboard/css/dashboard.css');
 
         $this->_view->setParameter('userName', Session::get('userName'));
 
@@ -57,6 +57,7 @@ class Dashboard extends Controller
 
     /**
      * Dashboard ajaxInsert.
+     * Asynchronous method.
      * Adds temporal data into a temporal table.
      */
     public function ajaxInsert()
@@ -66,15 +67,18 @@ class Dashboard extends Controller
         $newDataId = $this->_model->ajaxInsert($data);
 
         print json_encode(array('id'=>$newDataId, 'data'=>$data));
+        $this->setAutoRender(false);
     }
 
     /**
      * Dashboard getListings
+     * Asynchronous method.
      * Gets all temporal data.
      */
     public function getListings()
     {
         $this->_model->getListings();
+        $this->setAutoRender(false);
     }
 
     /**
@@ -86,5 +90,6 @@ class Dashboard extends Controller
         $dataId = $_POST['id'];
 
         $this->_model->deleteData($dataId);
+        $this->setAutoRender(false);
     }
 }

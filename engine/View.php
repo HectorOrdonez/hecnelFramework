@@ -3,8 +3,6 @@
  * Project: Furgoweb
  * User: Hector Ordonez
  * Date: 11/06/13 12:09
- *
- * @todo Create View folder application for engine.
  */
 
 namespace engine;
@@ -81,16 +79,22 @@ class View
      * Adds a CSS or JS library to the appropriate array in the View.
      * The handling of these arrays is normally done in the Header. In case the generic Header is not called, another
      * view has to render them.
+     *
+     * Notice that if the first four characters are http, the library is considered external and the BASE_URL of the system won't be added to the String.
+     *
      * @param string $type
      * @param string $libraryPath
-     * @todo Add possibility of external libraries.
      */
     public function addLibrary($type, $libraryPath)
     {
+        if (substr($libraryPath, 0, 4) !== "http") {
+            $libraryPath = _SYSTEM_BASE_URL . $libraryPath;
+        }
+
         if ($type == 'css') {
-            $this->_css[] = _SYSTEM_BASE_URL . $libraryPath;
+            $this->_css[] = $libraryPath;
         } elseif ($type == 'js') {
-            $this->_js[] = _SYSTEM_BASE_URL.$libraryPath;
+            $this->_js[] = $libraryPath;
         }
     }
 
@@ -201,7 +205,6 @@ class View
 
     /**
      * Renders the chunks of the View.
-     * @todo Improve header and footer check. Maybe check to Null.
      */
     public function render()
     {

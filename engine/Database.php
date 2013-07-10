@@ -8,6 +8,7 @@
  * @todo Find a way to build a Database debugger. Link with a possible solution/hint - http://stackoverflow.com/questions/210564/getting-raw-sql-query-string-from-pdo-prepared-statements/210693#210693
  * @todo Build Database Exception manager.
  * @todo Find and implement a nice way to manage CRUD and complex queries (with group by's, joins, etc). Current system supports only basic usage.
+ * @todo The use of BindValue is restricted to Strings right now. It should read if the parameter to bind is a different type and, if so, tell PDO to bind it as that parameter type.
  *
  * Project: Furgoweb
  * User: Hector Ordonez
@@ -47,7 +48,7 @@ class Database extends \PDO
 
         foreach ($parameters as $field=>$value)
         {
-            $statement->bindValue(":{$field}", $value);
+            $statement->bindValue(":{$field}", $value, \PDO::PARAM_INT);
         }
 
         // Action!

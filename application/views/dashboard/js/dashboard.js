@@ -18,7 +18,7 @@ $(function() {
         return false;
     });
 
-    $.get('dashboard/getListings', function(o){
+    $.get('getListings', function(o){
         $.each(o, function (key, array){
            addToTable(array);
         });
@@ -44,7 +44,7 @@ function addToTable(array)
     $('#tableInserts').append(
         "<tr>" +
         "   <td>" + array.data + "</td>" +
-        "   <td><a href='dashboard/deleteData' rel=" + array.id + " class='del'>Delete</a></td>" +
+        "   <td><a href='deleteData' rel=" + array.id + " class='del'>Delete</a></td>" +
         "</tr>"
     );
 }

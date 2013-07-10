@@ -1,4 +1,12 @@
 <?php
+/**
+ * General TODOS in the Framework.
+ *
+ * @todo Create multilanguage support.
+ * @todo System to generate a dynamic header and footer with possible use of variables, session, etc.
+ * @todo Add new application branch. Refactor Model, or the whole MVC. I want a framework with a branch that listens to the user, a branch that the previous branch calls for logic, another one that the logic uses to do CRUD to the Database and the View Branch that shows information to the User.
+ */
+
 use engine\Bootstrap;
 
 /**
@@ -9,7 +17,6 @@ require 'config/system.php';
 
 /**
  * Defining Autoload function
- * @todo Research more about - Modify Autoload so it loads files inside subfolders too. - http://stackoverflow.com/questions/5280347/autoload-classes-from-different-folder
  */
 
 function __autoload($class)

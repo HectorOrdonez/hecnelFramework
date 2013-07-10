@@ -31,12 +31,18 @@ class About extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.5', '26/06/2013', array(
+        $this->_setDevelopmentVersion('1.6', '10/07/2013', array(
+            'Created a little snippet for config setup depending on a production or not production environment. Affects System and Database config files.',
+            'Fixed Dashboard; asynchronous calls now works correctly.',
+            'Added possibility to add external libraries in the View.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('1.5', '26/06/2013', array(
             'Factorized the Framework, using Engine folder and Application folder.',
             'Implemented use of Namespaces for the autoload of all files.'
         ));
 
-        // Setting Historical Log of releases
         $this->_addHistoryLog('1.4', '21/06/2013', array(
             'Changes in the About page. Now it shows an Historical Log of changes in the Framework and the version on development.',
             'Refactoring View library; private and protected functions and properties now uses underscore before property name.',

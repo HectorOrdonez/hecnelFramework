@@ -5,8 +5,15 @@
  * Date: 11/06/13 13:47
  */
 
+// Informs the System about which setup use
+define ('_PRODUCTION', FALSE);
+
 // Base path of the website.
-define ('_SYSTEM_BASE_URL', 'http://localhost/furgoweb/');
+if (_PRODUCTION === TRUE) {
+    define ('_SYSTEM_BASE_URL', 'unknown');
+} else {
+    define ('_SYSTEM_BASE_URL', 'http://localhost/furgoweb/');
+}
 
 // Root path of the project in the server.
 define ('_SYSTEM_ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);

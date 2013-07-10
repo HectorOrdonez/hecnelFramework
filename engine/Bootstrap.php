@@ -12,10 +12,7 @@
  * User: Hector Ordonez
  * Date: 11/06/13 11:47
  *
- * @todo - Research possible security issues, regarding URL modifications.
- * @todo - Research null-byte injection.
- * @todo - Research what filter_var with FILTER_SANITIZE_URL option actually does.
- * @todo - Research if is possible to do directory traversal.
+ * @todo - Later stage - Research possible security issues regarding URL modifications.
  * @todo - Ask why this class is a dynamic object instead of a static one.
  */
 
@@ -168,7 +165,6 @@ class Bootstrap
         {
             $this->_controller->{$this->_method}();
         }
-        $this->_controller->setAutoRender(TRUE);
         $this->_controller->render();
     }
 
@@ -240,7 +236,7 @@ class Bootstrap
         // Verify passed method or default one exists in that controller
         if (!method_exists($this->_controller, $requestedMethod))
         {
-            throw new \Exception ('The requested resource '. $requestedMethod .' in '. $this->_controller .' does not exist.');
+            throw new \Exception ('The requested resource does not exist.');
         }
 
         $this->_method = $requestedMethod;

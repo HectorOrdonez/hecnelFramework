@@ -17,7 +17,7 @@ class Error extends Controller
      */
     public function __construct()
     {
-        parent::__construct(new ErrorModel);
+        parent::__construct();
 
         $this->_view->setMeta('description', array(
             'name' => 'description',
@@ -42,8 +42,6 @@ class Error extends Controller
     /** General Error Page */
     public function index($error)
     {
-        $error = $this->_model->getError($error);
-
         $this->_view->setParameter('msg', $error);
 
         $this->_view->addChunk('error/index');
