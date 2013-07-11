@@ -16,6 +16,8 @@
     <label>
         Data
     </label>
-    <input type="text" name="data" value="" />
+    <label>
+        <input type="text" name="data" value=""/>
+    </label>
     <input type="submit" />
 </form>

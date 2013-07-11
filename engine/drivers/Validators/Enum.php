@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 17/06/13 13:49
  */
@@ -35,7 +35,7 @@ class Enum extends Validator
      * Checks if the parameter is one of the available options.
      * @param string $parameter Parameter being validated.
      * @param array $options List of possible options
-     * @throws Exception triggered if parameter is not one of the possible options.
+     * @throws \Exception triggered if parameter is not one of the possible options.
      */
     protected static function availableOptions ($parameter, $options)
     {

@@ -1,13 +1,13 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 11/06/13 11:20
  */
 
 namespace application\controllers;
 
-use engine\Controller;
+use application\engine\Controller;
 
 class About extends Controller
 {
@@ -31,15 +31,22 @@ class About extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.6', '10/07/2013', array(
+        $this->_setDevelopmentVersion('1.7', '11/07/2013', array(
+            'Mayor improvement: application\engine. Now application uses engine objects that extends the engine objects of the framework. This allows customization of the behavior of the engine objects.',
+            'Mayor improvement: using custom design patter MLVC, which uses Libraries to run logic, being the Controller used only to validate, call Library\'s logic and resolve its response, and the Model used only as a medium to use Database stuff.',
+            'Mayor refactor: project now is called Hecnel Framework.',
+            'Added comments and property declarations in key points: it helps PHPStorm understanding the expected logic and the Object relationships, which provides a stronger debugging experience! (awesome discovery!)',
+            'Cleaned minor issues related to CSS, comments and others.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('1.6', '10/07/2013', array(
             'Created a little snippet for config setup depending on a production or not production environment. Affects System and Database config files.',
             'Fixed Dashboard; asynchronous calls now works correctly.',
             'Added possibility to add external libraries in the View.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('1.5', '26/06/2013', array(
-            'Factorized the Framework, using Engine folder and Application folder.',
+        'Factorized the Framework, using Engine folder and Application folder.',
             'Implemented use of Namespaces for the autoload of all files.'
         ));
 
@@ -62,14 +69,14 @@ class About extends Controller
         ));
 
         $this->_addHistoryLog('1.2', '17/06/2013', array(
-            'Improved Bootstrap in order to avoid broken links like http://localhost/furgoweb/index/%0../../. ',
+            'Improved Bootstrap in order to avoid broken links like http://localhost/hecnel/index/%0../../. ',
             'Expanded already constructed Database flexibility for the use of Selects and Deletes.',
             'Form data collection system.',
             'Data validation that works both together with Form and standalone.'
         ));
 
         $this->_addHistoryLog('1.1', '16/06/2013', array(
-            'Improved Bootstrap in order to avoid broken links like http://localhost/furgoweb/index/%0../../.',
+            'Improved Bootstrap in order to avoid broken links like http://localhost/hecnel/index/%0../../.',
             'Expanded already constructed Database flexibility for the use of Selects and Deletes.',
             'Changed use of table "users" to "user".',
             'Added several todo\'s.'

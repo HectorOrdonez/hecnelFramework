@@ -1,27 +1,32 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 12/06/13 12:28
  */
 
 namespace application\controllers;
 
-use engine\Controller;
-use engine\Session as Session;
-use application\models\DashboardModel as DashboardModel;
+use application\engine\Controller;
+use engine\Form;
+use engine\Session;
+use application\libraries\DashboardLibrary;
 
 
 class Dashboard extends Controller
 {
+    /**
+     * Defining $_library Library type.
+     * @var DashboardLibrary $_library
+     */
+    protected $_library;
     /**
      * Dashboard constructor.
      * Verifies that the User has access to this class.
      */
     public function __construct()
     {
-        parent::__construct(new DashboardModel);
-
+        parent::__construct(new DashboardLibrary);
         $logged = Session::get('isUserLoggedIn');
         if ($logged == FALSE)
         {
@@ -29,6 +34,7 @@ class Dashboard extends Controller
             header('location: '. _SYSTEM_BASE_URL .'login');
             exit;
         }
+
     }
 
     /**
@@ -62,11 +68,17 @@ class Dashboard extends Controller
      */
     public function ajaxInsert()
     {
-        $data = $_POST['data'];
+        $form = new Form();
+        $form
+            ->requireItem('data')
+            ->validate('String', array(
+                'minLength' => 1,
+                'maxLength' => 50
+            ));
 
-        $newDataId = $this->_model->ajaxInsert($data);
+        $json_response = $this->_library->ajaxInsert($form->fetch('data'));
 
-        print json_encode(array('id'=>$newDataId, 'data'=>$data));
+        print json_encode($json_response);
         $this->setAutoRender(false);
     }
 
@@ -77,7 +89,9 @@ class Dashboard extends Controller
      */
     public function getListings()
     {
-        $this->_model->getListings();
+        $json_response = $this->_library->getListings();
+
+        print json_encode($json_response);
         $this->setAutoRender(false);
     }
 
@@ -87,9 +101,14 @@ class Dashboard extends Controller
      */
     public function deleteData()
     {
-        $dataId = $_POST['id'];
+        $form = new Form();
+        $form
+            ->requireItem('id')
+            ->validate('Int', array(
+                'min' => 1
+            ));
 
-        $this->_model->deleteData($dataId);
+        $this->_library->deleteData($form->fetch('id'));
         $this->setAutoRender(false);
     }
 }

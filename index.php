@@ -33,9 +33,14 @@ function __autoload($class)
 
 }
 
-// Run app
-$application = new Bootstrap();
-$application->set_DEFAULT_CONTROLLER(_DEFAULT_CONTROLLER);
-$application->set_DEFAULT_METHOD(_DEFAULT_METHOD);
-$application->set_ERROR_CONTROLLER(_ERROR_CONTROLLER);
-$application->begin();
+try {
+    // Run app
+    $application = new Bootstrap();
+    $application->set_DEFAULT_CONTROLLER(_DEFAULT_CONTROLLER);
+    $application->set_DEFAULT_METHOD(_DEFAULT_METHOD);
+    $application->set_ERROR_CONTROLLER(_ERROR_CONTROLLER);
+    $application->begin();
+} catch (Exception $e)
+{
+    echo 'Fatal Exception : ' . $e->getMessage();
+}

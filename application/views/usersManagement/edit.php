@@ -2,35 +2,41 @@
     Edit User : <?php echo $this->userName;?>
 </h2>
 
-<form action='<?php echo _SYSTEM_BASE_URL;?>usersManagement/saveUser' method="post">
+<form action='<?php echo _SYSTEM_BASE_URL;?>usersManagement/editUser' method="post">
     <input type='hidden' name='userId' value='<?php echo $this->userId;?>'/>
 
     <p>
         <label>
             User Name
         </label>
-        <input type='text' name='userName' value='<?php echo $this->userName;?>'/>
+        <label>
+            <input type='text' name='userName' value='<?php echo $this->userName;?>'/>
+        </label>
     </p>
 
     <p>
         <label>
             Password
         </label>
-        <input type='password' name='password' value=''/>
+        <label>
+            <input type='password' name='password' value=''/>
+        </label>
     </p>
 
     <p>
         <label>
             Current Role: <?php echo $this->userRole;?>
         </label>
-        <select name='userRole'>
-            <option value='admin'>
-                Admin
-            </option>
-            <option value='basic'>
-                Basic
-            </option>
-        </select>
+        <label>
+            <select name='userRole'>
+                <option value='admin'>
+                    Admin
+                </option>
+                <option value='basic'>
+                    Basic
+                </option>
+            </select>
+        </label>
     </p>
 
     <label>

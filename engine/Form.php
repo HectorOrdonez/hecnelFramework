@@ -1,10 +1,10 @@
 <?php
 /**
- * This class manages the collection of Post data, allowing validations.
- *
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 16/06/13 21:42
+ * Description:
+ * This class manages the collection of Post data, allowing validations.
+ * Date: 16/06/13 21:45
  *
  * @todo Add exception trigger in the Fetch if data requested was not set.
  * @todo Add exception trigger in the requireParameter if the requested parameter is not set.
@@ -15,7 +15,7 @@
 
 namespace engine;
 
-use engine\Validator as Validator;
+use engine\Validator;
 
 class Form
 {
@@ -36,18 +36,12 @@ class Form
      * @var array
      */
     private $_errors = array();
-    /**
-     * Validator object. Contains the Validator that allows this form to verify parameters with the specified rules.
-     * @var object Validator
-     */
-    private $_validator;
 
     /**
      * Form constructor.
      */
     public function __construct()
     {
-//        $this->_validator = new Validator();
     }
 
     /**
@@ -89,7 +83,7 @@ class Form
         try {
             Validator::$type($this->_postData[$this->_currentItem], $rules);
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
             $this->addError($this->_currentItem, $e->getMessage());
         }

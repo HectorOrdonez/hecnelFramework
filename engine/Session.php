@@ -1,8 +1,9 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 12/06/13 12:29
+ * Description:
+ * Date: 12/06/13 12:30
  */
 
 namespace engine;
@@ -37,6 +38,8 @@ class Session
         if (isset($_SESSION[$key]))
         {
             return $_SESSION[$key];
+        } else {
+            return false;
         }
     }
 

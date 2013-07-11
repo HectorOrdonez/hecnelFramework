@@ -17,7 +17,7 @@
 
         </td>
         <td>
-            <a href='<?php echo _SYSTEM_BASE_URL.'usersManagement/editUser/'.$user['id'];?>'>Edit</a>
+            <a href='<?php echo _SYSTEM_BASE_URL.'usersManagement/openUserEdition/'.$user['id'];?>'>Edit</a>
         </td>
         <td>
             <a href='<?php echo _SYSTEM_BASE_URL.'usersManagement/deleteUser/'.$user['id'];?>'>Delete</a>
@@ -34,24 +34,30 @@
     <label>
         User Name
     </label>
-    <input type='text' name='userName' />
+    <label>
+        <input type='text' name='userName'/>
+    </label>
 
     <label>
         Password
     </label>
-    <input type='password' name='password' />
+    <label>
+        <input type='password' name='password'/>
+    </label>
 
     <label>
         Role
     </label>
-    <select name='userRole'>
-        <option value='admin'>
-            Admin
-        </option>
-        <option checked='checked' value='basic'>
-            Basic
-        </option>
-    </select>
+    <label>
+        <select name='userRole'>
+            <option value='admin'>
+                Admin
+            </option>
+            <option value='basic' selected>
+                Basic
+            </option>
+        </select>
+    </label>
 
     <label>
         <input type='submit' />

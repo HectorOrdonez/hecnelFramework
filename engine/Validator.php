@@ -1,8 +1,9 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 16/06/13 22:08
+ * Description:
+ * Date: 16/06/13 22:00
  *
  * @todo Create a special Exception type that allows logic to filter the exceptions triggered by the Validator.
  */

@@ -1,24 +1,23 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 11/06/13 12:23
+ * Description: 
+ * Date: 11/07/13 16:30
  */
 
-namespace application\models;
+namespace application\libraries;
 
-use engine\Model;
+use application\engine\Library;
 
-class HelpModel extends Model
+class HelpLibrary extends Library
 {
     public function __construct()
     {
-        parent::__construct();
     }
 
     public function helpMeWith($request)
     {
-        $helpMessage = '';
         if (strlen($request) < 10) {
             $helpMessage = 'Short Help Content';
         } else {

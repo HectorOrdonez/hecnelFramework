@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 17/06/13 13:44
  */
@@ -36,7 +36,7 @@ class Int extends Validator
      * Minimum number.
      * @param mixed $parameter Parameter being validated. Type of this parameter can be String or Int.
      * @param int $value Minimum number.
-     * @throws Exception triggered if number is lower than expected.
+     * @throws \Exception triggered if number is lower than expected.
      */
     protected static function min ($parameter, $value)
     {
@@ -50,7 +50,7 @@ class Int extends Validator
      * Maximum number
      * @param mixed $parameter Parameter being validated. Type of this parameter can be String or Int.
      * @param int $value Maximum number
-     * @throws Exception triggered if number is greater than expected.
+     * @throws \Exception triggered if number is greater than expected.
      */
     protected static function max ($parameter, $value)
     {

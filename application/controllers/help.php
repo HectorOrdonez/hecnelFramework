@@ -1,24 +1,29 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 11/06/13 11:20
  */
 
 namespace application\controllers;
 
-use engine\Controller;
-use application\models\HelpModel as HelpModel;
+use application\engine\Controller;
+use application\libraries\HelpLibrary;
 
 class Help extends Controller
 {
+    /**
+     * Defining $_library Library type.
+     * @var HelpLibrary $_library
+     */
+    protected $_library;
     /**
      * Help constructor.
      * Adds the Help style library. As this is the construct, the library will be added for all the pages of this controller.
      */
     public function __construct()
     {
-        parent::__construct(new HelpModel);
+        parent::__construct(new HelpLibrary);
 
         $this->_view->addLibrary('css','views/help/css/help.css');
     }
@@ -39,7 +44,7 @@ class Help extends Controller
      */
     public function helpMeWith($request)
     {
-        $helpMessage = $this->_model->helpMeWith($request);
+        $helpMessage = $this->_library->helpMeWith($request);
 
         $this->_view->setParameter('msg', $helpMessage);
 

@@ -1,8 +1,9 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 11/06/13 12:09
+ * Description:
+ * Date: 11/06/13 12:00
  */
 
 namespace engine;
@@ -13,7 +14,7 @@ class View
      * Title of the Page.
      * @var string
      */
-    protected $_title = 'HEC Framework';
+    protected $_title = 'Hecnel Framework';
 
     /**
      * List of js files that the page needs to load
@@ -31,13 +32,13 @@ class View
      * Path of the header to be rendered.
      * @var string
      */
-    protected $_header = 'application/views/generic/header.php';
+    protected $_header = 'application/views/general/header.php';
 
     /**
      * Path of the footer to be rendered.
      * @var string
      */
-    protected $_footer = 'application/views/generic/footer.php';
+    protected $_footer = 'application/views/general/footer.php';
 
     /**
      * Array of view chunks to be rendered. The set order defines the render order.
@@ -68,8 +69,6 @@ class View
 
     /**
      * View Constructor.
-     * Loads the generic CSS and JS libraries. If an extended view class does not need this libraries this
-     * construct does not need to be called.
      */
     public function __construct()
     {
@@ -77,7 +76,7 @@ class View
 
     /**
      * Adds a CSS or JS library to the appropriate array in the View.
-     * The handling of these arrays is normally done in the Header. In case the generic Header is not called, another
+     * The handling of these arrays is normally done in the Header. In case the general Header is not called, another
      * view has to render them.
      *
      * Notice that if the first four characters are http, the library is considered external and the BASE_URL of the system won't be added to the String.

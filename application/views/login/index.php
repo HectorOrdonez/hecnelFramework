@@ -6,11 +6,15 @@
     <label>
         Login
     </label>
-    <input type="text" name="name" />
+    <label>
+        <input type="text" name="name"/>
+    </label>
     <label>
         Password
     </label>
-    <input type="password" name="password" />
+    <label>
+        <input type="password" name="password"/>
+    </label>
     <label>
         <input type="submit" />
     </label>

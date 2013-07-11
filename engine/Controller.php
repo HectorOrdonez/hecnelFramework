@@ -1,15 +1,30 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
- * Date: 11/06/13 11:59
+ * Description:
+ * The Controller class of the Engine is the master of the Controllers, extended by the Controller of the application engine and, that one, extended by all the controllers that the Application needs.
+ *
+ * The Controllers are design to manage Users requests, validating their data and to decide which Libraries use to build the data that needs to be shown in the Views that the User request has assigned.
+ *
+ * Although the Controller is "blinded" of the logic required for building the data, the final data to be shown in the View travels through this class. Because of this, the Controller
+ * must understand what the data looks like - that means, the Controller does not pass the final data to the view blindly; the Controller gets the final data and extracts from it the pieces that will be passed to the View.
+ *
+ * The requests that the Controllers receive might be synchronous or asynchronous - this is, ajax or not ajax calls -. Synchronous requests generate full web pages, but asynchronous build partial views, json data, xml, pdf, etc.
+ * Because of this the Controllers have access to the methods setAutoRender and render (for more info read the documentation in these methods comments), which allows the logic not to follow the default behavior of the system, which is rendering a web page after the Controller ends processing the request.
+ * So when an asynchronous call hits a Controller, this will have to disable the auto rendering, in order to only show the information that the asynchronous request requires.
+ *
+ * Controllers have the duty to manage the Exceptions that the Libraries throw; Controllers must know what to do when an error arises, even if this means calling another library to manage the error final data.
+ * Date: 11/06/13 12:00
  *
  * @todo - View and Controller libraries should allow an application to use them. The application should not depend on them to run any logic. I must find a way to avoid the general css, js and meta definitions in these libraries. I think that an interesting approach might to have an "engine" folder for the Framework libraries and another "engine" folder for the Application libraries. Then the Application controllers, libraries, views and models will extend the Application Engine libraries, which would extend the Framework Engine libraries. Need to ponder this.
  */
 
 namespace engine;
 
-use engine\Session as Session;
+use application\engine\Library;
+use application\engine\View;
+use engine\Session;
 
 class Controller
 {
@@ -22,68 +37,47 @@ class Controller
     /**
      * @var null
      */
-    protected $_model = NULL;
+    protected $_library = NULL;
 
     /*************************/
     /* Controller Settings  **/
     /*************************/
 
-
     /**
      * True by default, autoRender tells the Controller is the View must be rendered once the logic is finished.
-     * @param boolean $modelsFolder
+     * @var bool
      */
     protected $_autoRender = TRUE;
 
     /**
+     * Controller constructor.
+     *
      * Initializes the User Session.
      * Initializes the View and the Model.
      *
-     * @param Model $model in which this Controller can search for the Model
+     * @param Library $library in which this Controller can search for the Model
      */
-    public function __construct(Model $model = NULL)
+    public function __construct(Library $library = NULL)
     {
         Session::init();
         $this->_setView();
-        $this->_setModel($model);
+        $this->_setLibrary($library);
     }
 
-    private function _setView()
+    protected function _setView()
     {
-        $this->_view = new View();
-
-        $this->_view->addLibrary('css' , 'public/css/default.css');
-
-        $this->_view->addLibrary('js' , 'public/js/jquery-1.10.1.js');
-
-        $this->_view->setMeta('description', array(
-            'name' => 'description',
-            'content' => 'This is a sample page for my Framework'
-        ));
-
-        $this->_view->setMeta('author', array(
-            'name' => 'author',
-            'content' => 'Hector Ordonez'
-        ));
-
-        $this->_view->setMeta('keywords', array(
-            'name' => 'keywords',
-            'content' => 'Framework, PHP, JavaScript, OOP, MVC'
-        ));
-
-        $this->_view->setParameter('userLogin', Session::get('isUserLoggedIn'));
-        $this->_view->setParameter('userRole', Session::get('userRole'));
+        $this->_view = new View;
     }
     /**
-     * Auto-loading of the model method.
-     * Checks if there is a model related to this controller and, if so, instantiates it.
+     * Auto-loading of the library related to this controller.
+     * Checks if there is a library related to this controller and, if so, instantiates it.
      *
-     * @param Model $model in which this Controller can search for the Model
+     * @param Library $library in which this controller can search for the library
      */
-    private function _setModel(Model $model = NULL)
+    protected function _setLibrary(Library $library = NULL)
     {
-        if (!is_null($model)) {
-            $this->_model = $model;
+        if (!is_null($library)) {
+            $this->_library = $library;
         }
     }
 

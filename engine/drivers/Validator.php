@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 16/06/13 22:37
  */
@@ -62,26 +62,26 @@ class Validator
      * Validates the parameter type.
      * @param string $type Supposed type of the parameter.
      * @param mixed $parameter Parameter to verify.
-     * @throws Exception If the Parameter type is not as expected.
+     * @throws \Exception If the Parameter type is not as expected.
      */
     protected static function validateParameterType ($type, $parameter)
     {
         if (gettype($parameter) != $type)
         {
-            throw new Exception ('The type of this parameter should be ' . $type . ' and it is ' . gettype($parameter) . ' instead.');
+            throw new \Exception ('The type of this parameter should be ' . $type . ' and it is ' . gettype($parameter) . ' instead.');
         }
     }
 
     /**
      * Validates specified Rule.
      * @param string $rule Rule to validate.
-     * @throws Exception If the rule is not valid in this validator.
+     * @throws \Exception If the rule is not valid in this validator.
      */
     protected static function validateRule($rule)
     {
         if (!in_array($rule, static::$validRules))
         {
-            throw new Exception ('Requested rule ' . $rule . ' is not accepted for the Validator ' . static::$validatorName);
+            throw new \Exception ('Requested rule ' . $rule . ' is not accepted for the Validator ' . static::$validatorName);
         }
     }
 }

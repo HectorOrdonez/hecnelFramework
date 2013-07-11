@@ -1,7 +1,7 @@
 /**
  * Dashboard Default JS Library
  *
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 11/06/13 12:35
  **/
@@ -18,7 +18,7 @@ $(function() {
         return false;
     });
 
-    $.get('getListings', function(o){
+    $.get('dashboard/getListings', function(o){
         $.each(o, function (key, array){
            addToTable(array);
         });
@@ -44,7 +44,7 @@ function addToTable(array)
     $('#tableInserts').append(
         "<tr>" +
         "   <td>" + array.data + "</td>" +
-        "   <td><a href='deleteData' rel=" + array.id + " class='del'>Delete</a></td>" +
+        "   <td><a href='dashboard/deleteData' rel=" + array.id + " class='del'>Delete</a></td>" +
         "</tr>"
     );
 }

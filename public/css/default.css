@@ -1,61 +1,64 @@
 /** GENERAL CSS **/
 body {
-    background : url('./../images/Main_1.jpg');
-    font-family: arial;
+    background: url('./../images/Main_1.jpg');
+    font-family: arial, sans-serif;
     font-size: 10px;
 }
+
 h1 {
     font-size: 18px;
     font-weight: bold;
     color: rgb(194, 109, 0);
 }
+
 h2 {
     font-size: 14px;
     color: rgb(226, 154, 0);
 }
+
 h3 {
-    font-size:10px;
+    font-size: 10px;
 }
 
 .separation_1 {
     background-color: #AAA;
-    height:5px;
-    border-color:#888;
-    border-width:1px;
-    border-style:solid;
+    height: 5px;
+    border: 1px solid #888888;
 }
 
 /** HEADER **/
 #header {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-style: solid;
-    border-width:2px;
-    border-color:#666;
-    background-color:#333;
-    padding-bottom:15px;
+    border: 2px solid #666666;
+    background-color: #333;
+    padding-bottom: 15px;
 }
+
 #header #headerMenu {
-    overflow:hidden;
+    overflow: hidden;
 }
+
 #header .headerButton {
-    float:left;
-    width:10%;
+    float: left;
+    width: 10%;
     background-color: #DDD;
-    text-align:center;
-    border:1px;
-    border-style:solid;
-    border-radius:10px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 10px;
 }
+
 #header .headerButton a {
-    display:block;
+    display: block;
     text-decoration: none;
     font: bold 12px Arial;
-    color:#000;
+    color: #000;
 }
+
 #header .headerButton:hover {
     background-color: #FFF;
 }
+
 #header .headerButton a:hover {
     color: #333;
 }
@@ -63,7 +66,7 @@ h3 {
 #header #mainTitle {
     font: 30px verdana;
     color: #E62;
-    text-align:center;
+    text-align: center;
 }
 
 /** CONTENT CSS */
@@ -76,13 +79,11 @@ h3 {
 #footer {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border-style: solid;
-    border-width:2px;
-    border-color:#666;
-    background-color:#333;
+    border: 2px solid #666666;
+    background-color: #333;
 
-    text-align:right;
-    padding-right:60px;
+    text-align: right;
+    padding-right: 60px;
 
     font-size: 12px;
     color: rgb(226, 154, 0);

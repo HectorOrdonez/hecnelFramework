@@ -1,6 +1,6 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 16/06/13 22:36
  */
@@ -36,7 +36,7 @@ class String extends Validator
      * Minimum length of this string.
      * @param string $parameter Parameter being validated.
      * @param int $value Minimum length of the string
-     * @throws Exception triggered if string length is lower than expected.
+     * @throws \Exception triggered if string length is lower than expected.
      */
     protected static function minLength ($parameter, $value)
     {
@@ -50,7 +50,7 @@ class String extends Validator
      * Maximum length of this string.
      * @param string $parameter Parameter being validated.
      * @param int $value Maximum length of the string
-     * @throws Exception triggered if string length is higher than expected.
+     * @throws \Exception triggered if string length is higher than expected.
      */
     protected static function maxLength ($parameter, $value)
     {

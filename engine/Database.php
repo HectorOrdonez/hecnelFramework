@@ -1,18 +1,18 @@
 <?php
 /**
+ *
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
  * Database Library to manage the relation with the database engine.
  * This custom Database library extends PDO.
  * For more information about PDO, this might be of interest: http://blog.tordek.com.ar/2010/11/pdo-o-por-que-todos-los-tutoriales-de-php-llevan-a-las-malas-practicas/
- *
+ * Date: 12/06/13 11:30
  *
  * @todo Find a way to build a Database debugger. Link with a possible solution/hint - http://stackoverflow.com/questions/210564/getting-raw-sql-query-string-from-pdo-prepared-statements/210693#210693
  * @todo Build Database Exception manager.
  * @todo Find and implement a nice way to manage CRUD and complex queries (with group by's, joins, etc). Current system supports only basic usage.
  * @todo The use of BindValue is restricted to Strings right now. It should read if the parameter to bind is a different type and, if so, tell PDO to bind it as that parameter type.
- *
- * Project: Furgoweb
- * User: Hector Ordonez
- * Date: 12/06/13 11:34
  */
 
 namespace engine;
@@ -22,8 +22,8 @@ class Database extends \PDO
     /**
      * dbType, dbHost and dbName will turn into the data source name parameter required by the PDO class.
      * @param string $dbType MySql
-     * @param string $dbHost localhost
-     * @param string $dbName FurgoWeb
+     * @param string $dbHost Localhost
+     * @param string $dbName Database name
      * @param string $dbUser User
      * @param string $dbPass Password
      */
@@ -42,12 +42,11 @@ class Database extends \PDO
      * @param int $fetchMode Optional parameter if a specific Fetch method is required.
      * @return array Fetched Da ta from query.
      */
-    public function select($sql, $parameters=array(), $fetchMode = \PDO::FETCH_ASSOC)
+    public function select($sql, $parameters = array(), $fetchMode = \PDO::FETCH_ASSOC)
     {
         $statement = $this->prepare($sql);
 
-        foreach ($parameters as $field=>$value)
-        {
+        foreach ($parameters as $field => $value) {
             $statement->bindValue(":{$field}", $value, \PDO::PARAM_INT);
         }
 
@@ -61,7 +60,7 @@ class Database extends \PDO
     /**
      * Inserts data into a Database table.
      * @param string $table Name of the Table to insert into.
-     * @param string $data Associative array of data.
+     * @param array $data Associative array of data.
      */
     public function insert($table, $data)
     {
@@ -71,11 +70,10 @@ class Database extends \PDO
         $fieldValues = ':' . implode(', :', array_keys($data));
 
         // Preparing Statement
-        $statement = $this->prepare("INSERT INTO {$table} (`{$fieldNames}`) VALUES ({$fieldValues})");
+        $statement = $this->prepare('INSERT INTO ' . $table . ' (`' . $fieldNames . '`) VALUES (' . $fieldValues . ')');
 
         // Binding values
-        foreach ($data as $key=>$value)
-        {
+        foreach ($data as $key => $value) {
             $statement->bindValue(":{$key}", $value);
         }
 
@@ -98,31 +96,27 @@ class Database extends \PDO
         $conditionsString = '';
 
         // Creating string of fields to set
-        foreach (array_keys($set) as $renewedField)
-        {
+        foreach (array_keys($set) as $renewedField) {
             $setString .= "`$renewedField` = :$renewedField,";
         }
         $setString = substr($setString, 0, -1);
 
         // Creating string of conditional fields
-        foreach (array_keys($conditions) as $conditionedField)
-        {
+        foreach (array_keys($conditions) as $conditionedField) {
             $conditionsString .= "`$conditionedField` = :$conditionedField AND";
         }
-        $conditionsString = substr($conditionsString , 0, -4);
+        $conditionsString = substr($conditionsString, 0, -4);
 
         // Preparing Statement
-        $statement = $this->prepare("UPDATE {$table} SET {$setString} WHERE $conditionsString");
+        $statement = $this->prepare('UPDATE ' . $table . ' SET ' . $setString . ' WHERE '.$conditionsString);
 
         // Binding new values
-            foreach ($set as $renewedField=>$newValue)
-        {
+        foreach ($set as $renewedField => $newValue) {
             $statement->bindValue(":{$renewedField}", $newValue);
         }
 
         // Binding conditionals
-        foreach ($conditions as $conditionedField => $conditionalValue)
-        {
+        foreach ($conditions as $conditionedField => $conditionalValue) {
             $statement->bindValue(":{$conditionedField}", $conditionalValue);
         }
 
@@ -133,25 +127,23 @@ class Database extends \PDO
     /**
      * Deletes data from a Database table.
      * @param string $table Name of the Table into which data will be deleted
-     * @param string $conditions Conditions array in the form of conditionedField=>conditionalValue
+     * @param array $conditions Conditions array in the form of conditionedField=>conditionalValue
      */
     public function delete($table, $conditions)
     {
         $conditionsString = '';
 
         // Creating string of conditional fields
-        foreach (array_keys($conditions) as $conditionedField)
-        {
+        foreach (array_keys($conditions) as $conditionedField) {
             $conditionsString .= "`$conditionedField` = :$conditionedField AND";
         }
-        $conditionsString = substr($conditionsString , 0, -4);
+        $conditionsString = substr($conditionsString, 0, -4);
 
         // Preparing Statement
-        $statement = $this->prepare("DELETE FROM {$table} WHERE $conditionsString");
+        $statement = $this->prepare('DELETE FROM ' . $table . ' WHERE ' . $conditionsString);
 
         // Binding conditionals
-        foreach ($conditions as $conditionedField => $conditionalValue)
-        {
+        foreach ($conditions as $conditionedField => $conditionalValue) {
             $statement->bindValue(":{$conditionedField}", $conditionalValue);
         }
 

@@ -1,5 +1,8 @@
 <?php
 /**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
  * Bootstrap class. Initializes the application.
  *
  * The booting system implements some security - like allowing access to pages only if existing in the controllers folder - but for a complete
@@ -7,10 +10,7 @@
  * At the moment of this writing I am aware of the following security points that this class does not fulfill and .htaccess must:
  * - Direct access to php files. .htaccess has to disable all requests to files with extension php.
  * - Access to folders. Same than before.
- *
- * Project: Furgoweb
- * User: Hector Ordonez
- * Date: 11/06/13 11:47
+ * Date: 11/06/13 12:00
  *
  * @todo - Later stage - Research possible security issues regarding URL modifications.
  * @todo - Ask why this class is a dynamic object instead of a static one.

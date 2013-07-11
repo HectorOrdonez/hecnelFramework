@@ -1,14 +1,13 @@
 <?php
 /**
- * Project: Furgoweb
+ * Project: Hecnel Framework
  * User: Hector Ordonez
  * Date: 11/06/13 11:53
  */
 
 namespace application\controllers;
 
-use engine\Controller;
-use application\models\ErrorModel as ErrorModel;
+use application\engine\Controller;
 
 class Error extends Controller
 {
