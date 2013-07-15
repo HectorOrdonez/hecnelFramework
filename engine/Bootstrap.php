@@ -18,6 +18,8 @@
 
 namespace engine;
 
+use engine\Exception;
+
 class Bootstrap
 {
     /*************************************************/
@@ -45,8 +47,10 @@ class Bootstrap
 
     /**
      * In case of an error the following controller will be load.
+     * If the error is a Application exception, use the Exception Method specified.
      */
     private $_ERROR_CONTROLLER = 'Error';
+    private $_EXCEPTION_METHOD = 'exception';
 
     /**
      * In case no controller or method is passed, these default ones will be used
@@ -91,6 +95,7 @@ class Bootstrap
     public function begin()
     {
         try {
+
             $this->_setUrl();
 
             $this->_setController();
@@ -98,14 +103,27 @@ class Bootstrap
             $this->_setMethod();
 
             $this->_setArgs();
-        }
-        catch (\Exception $e)
-        {
-            $this->_setRequestToErrorPage($e->getMessage());
-        }
-        $this->_executeRequest();
-    }
 
+        } catch (\Exception $e) {
+
+            // Catching System Exception - Fatal and unexpected error
+            $this->_prepareFatalExceptionRequest($e);
+
+        } finally {
+
+            try {
+
+                $this->_executeRequest();
+
+            } catch (Exception $e) {
+
+                // Catching General Hecnel Exception
+                $this->_prepareGeneralExceptionRequest($e);
+                $this->_executeRequest();
+
+            }
+        }
+    }
 
     /*****************************/
     /** SYSTEM SETTINGS SETTERS **/
@@ -140,6 +158,24 @@ class Bootstrap
     public function set_ERROR_CONTROLLER($ERROR_CONTROLLER)
     {
         $this->_ERROR_CONTROLLER = (string) $ERROR_CONTROLLER;
+    }
+
+    /**
+     * Sets the error controller method of the application to be used when an Exception reaches the Bootstrap.
+     * @param string $EXCEPTION_METHOD
+     */
+    public function set_EXCEPTION_METHOD($EXCEPTION_METHOD)
+    {
+        $this->_EXCEPTION_METHOD = $EXCEPTION_METHOD;
+    }
+
+    /**
+     * Gets the error controller method of the application to be used when an Exception reaches the Bootstrap.
+     * @return string
+     */
+    public function get_EXCEPTION_METHOD()
+    {
+        return $this->_EXCEPTION_METHOD;
     }
 
     /**
@@ -201,7 +237,7 @@ class Bootstrap
     /**
      * Loads the controller requested by the URL collected in _getUrl.
      *
-     * @throws \Exception If requested controller does not exist.
+     * @throws Exception If requested controller does not exist.
      */
     private function _setController()
     {
@@ -214,13 +250,13 @@ class Bootstrap
         }
         else
         {
-            throw new \Exception ('The requested page does not exist.');
+            throw new Exception ('The requested page does not exist.');
         }
     }
 
     /**
      * Extracts the method requested by the URL collected in _getUrl.
-     * @throws \Exception If requested method does not exist in the controller.
+     * @throws Exception If requested method does not exist in the controller.
      */
     private function _setMethod()
     {
@@ -236,7 +272,7 @@ class Bootstrap
         // Verify passed method or default one exists in that controller
         if (!method_exists($this->_controller, $requestedMethod))
         {
-            throw new \Exception ('The requested resource does not exist.');
+            throw new Exception ('The requested resource does not exist.');
         }
 
         $this->_method = $requestedMethod;
@@ -256,7 +292,6 @@ class Bootstrap
         {
             $args = NULL;
         }
-
         $this->_args = $args;
     }
 
@@ -270,20 +305,38 @@ class Bootstrap
     }
 
     /**
-    * Called when something went wrong on while Bootstrapping the application.
-    * @param $msg
-    */
-    private function _setRequestToErrorPage($msg)
+    * Called when an Exception is generated in the Application and is not caught.
+     * @param Exception $exception
+     */
+    private function _prepareGeneralExceptionRequest($exception)
     {
         try {
             $errorController = 'application' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . $this->_ERROR_CONTROLLER;
 
             $this->_controller = new $errorController();
-
-            $this->_method = $this->_DEFAULT_METHOD;
-            $this->_args = array($msg);
+            $this->_method = $this->get_EXCEPTION_METHOD();
+            $this->_args = array($exception);
         }
-        catch (\Exception $e)
+        catch (Exception $e)
+        {
+            exit('Fatal Error in the System while Booting. Please report Batman the following message : ' . $e->getMessage());
+        }
+    }
+
+    /**
+    * Called when something went wrong while Bootstrapping the application.
+    * @param \Exception $exception
+    */
+    private function _prepareFatalExceptionRequest($exception)
+    {
+        try {
+            $errorController = 'application' . DIRECTORY_SEPARATOR . 'controllers' . DIRECTORY_SEPARATOR . $this->_ERROR_CONTROLLER;
+
+            $this->_controller = new $errorController();
+            $this->_method = $this->_DEFAULT_METHOD;;
+            $this->_args = array($exception->getMessage());
+        }
+        catch (Exception $e)
         {
             exit('Fatal Error in the System while Booting. Please report Batman the following message : ' . $e->getMessage());
         }

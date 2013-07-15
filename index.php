@@ -8,12 +8,13 @@
  */
 
 use engine\Bootstrap;
+use engine\Exception;
 
 /**
  * Loading System Configs
  */
-require 'config/database.php';
 require 'config/system.php';
+require 'config/database.php';
 
 /**
  * Defining Autoload function
@@ -33,14 +34,10 @@ function __autoload($class)
 
 }
 
-try {
-    // Run app
-    $application = new Bootstrap();
-    $application->set_DEFAULT_CONTROLLER(_DEFAULT_CONTROLLER);
-    $application->set_DEFAULT_METHOD(_DEFAULT_METHOD);
-    $application->set_ERROR_CONTROLLER(_ERROR_CONTROLLER);
-    $application->begin();
-} catch (Exception $e)
-{
-    echo 'Fatal Exception : ' . $e->getMessage();
-}
+// Run app
+$application = new Bootstrap();
+$application->set_DEFAULT_CONTROLLER(_DEFAULT_CONTROLLER);
+$application->set_DEFAULT_METHOD(_DEFAULT_METHOD);
+$application->set_ERROR_CONTROLLER(_ERROR_CONTROLLER);
+$application->set_EXCEPTION_METHOD(_EXCEPTION_METHOD);
+$application->begin();

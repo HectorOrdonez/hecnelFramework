@@ -9,10 +9,7 @@
  * For more information about PDO, this might be of interest: http://blog.tordek.com.ar/2010/11/pdo-o-por-que-todos-los-tutoriales-de-php-llevan-a-las-malas-practicas/
  * Date: 12/06/13 11:30
  *
- * @todo Find a way to build a Database debugger. Link with a possible solution/hint - http://stackoverflow.com/questions/210564/getting-raw-sql-query-string-from-pdo-prepared-statements/210693#210693
  * @todo Build Database Exception manager.
- * @todo Find and implement a nice way to manage CRUD and complex queries (with group by's, joins, etc). Current system supports only basic usage.
- * @todo The use of BindValue is restricted to Strings right now. It should read if the parameter to bind is a different type and, if so, tell PDO to bind it as that parameter type.
  */
 
 namespace engine;
@@ -20,12 +17,33 @@ namespace engine;
 class Database extends \PDO
 {
     /**
+     * Last Query run by this Class
+     * @var String $_lastQuery
+     */
+    protected $_lastQuery = '';
+
+    /**
+     * Indicates to this Class if the queries must be executed.
+     * @var Bool $_debugMode
+     */
+    protected $_debugMode = FALSE;
+
+    /**
+     * Contains the Statement going to be executed
+     * @var \PDOStatement
+     */
+    protected $_statement = NULL;
+
+
+    /**
+     * Database constructor.
      * dbType, dbHost and dbName will turn into the data source name parameter required by the PDO class.
      * @param string $dbType MySql
      * @param string $dbHost Localhost
      * @param string $dbName Database name
      * @param string $dbUser User
      * @param string $dbPass Password
+     * @throws DatabaseException
      */
     public function __construct($dbType, $dbHost, $dbName, $dbUser, $dbPass)
     {
@@ -36,118 +54,232 @@ class Database extends \PDO
     }
 
     /**
-     * Selects data from Database table.
-     * @param string $sql SQL Query.
-     * @param array $parameters Optional parameters to bind into the SQL Query.
-     * @param int $fetchMode Optional parameter if a specific Fetch method is required.
-     * @return array Fetched Da ta from query.
+     * Receives the unbind SQL instruction and stores it in the property _lastQuery.
+     * Then the parent method prepare is called with it.
+     * @param string $sql
      */
-    public function select($sql, $parameters = array(), $fetchMode = \PDO::FETCH_ASSOC)
+    protected function _prepare ($sql)
     {
-        $statement = $this->prepare($sql);
-
-        foreach ($parameters as $field => $value) {
-            $statement->bindValue(":{$field}", $value, \PDO::PARAM_INT);
-        }
-
-        // Action!
-        $statement->execute();
-
-        // Returning results
-        return $statement->fetchAll($fetchMode);
+        $this->_lastQuery = $sql;
+        $this->_statement = parent::prepare($sql);
     }
 
     /**
-     * Inserts data into a Database table.
+     * Receives a field to bind to a given value.
+     * Last Query gets replaced with it and then the value type is filtered in order to use the PDO bindValue with the correct parameter.
+     *
+     * @param string $field
+     * @param mixed $value
+     */
+    protected function _bindValue ($field, $value)
+    {
+        $this->_lastQuery = str_replace($field, "'{$value}'", $this->_lastQuery);
+
+        $valueType = gettype($value);
+
+        switch ($valueType)
+        {
+            case 'string':
+                $this->_statement->bindValue($field, $value, \PDO::PARAM_STR);
+                break;
+            case 'boolean':
+                $this->_statement->bindValue($field, $value, \PDO::PARAM_BOOL);
+                break;
+            default:
+                $this->_statement->bindValue($field, $value, \PDO::PARAM_INT);
+                break;
+        }
+    }
+
+    /**
+     * Execute instruction. In case the debug mode is not enabled this means to execute the PDO Statement.
+     */
+    protected function _execute()
+    {
+        if ($this->_debugMode === FALSE)
+        {
+            $executionResult = $this->_statement->execute();
+
+            if ($executionResult === FALSE) {
+                $errorInfo = $this->_statement->errorInfo();
+                throw new DatabaseException ($errorInfo[2], DatabaseException::FATAL_EXCEPTION);
+            }
+        }
+    }
+
+    /**
+     * Sets the Debug Mode.
+     * @param Bool $debugMode
+     */
+    public function setDebugMode($debugMode)
+    {
+        $this->_debugMode = (bool) $debugMode;
+    }
+
+    /**
+     * Returns the last Query.
+     * @return String $_lastQuery
+     */
+    public function getLastQuery()
+    {
+        return $this->_lastQuery;
+    }
+
+    /**
+     * Database Select instruction. To be used for simple selects.
+     *
+     * @param string $table Name of the database table from which extract the data.
+     * @param array $fields Array of fields to select. Can be empty, in which case all fields of the table will be shown.
+     * @param array $conditions Array of conditions to use in the select to filter the data, in the format of key(name of field)=>value(value in field)
+     * @param int $fetchMode PDO Mode of presenting the data.
+     * @return mixed
+     */
+    public function select($table, $fields = array(), $conditions = array(), $fetchMode = \PDO::FETCH_ASSOC)
+    {
+        // 1 - Preparing unbound query
+        $selectQuery = 'SELECT ';
+        $selectQuery .= (count($fields) == 0)? '* ' : implode(',', $fields);
+        $selectQuery .= ' FROM ' . $table;
+
+        if (count($conditions) > 0)
+        {
+            $conditionsString = ' WHERE ';
+            foreach (array_keys($conditions) as $conditionedField) {
+                $conditionsString .= "`$conditionedField` = :$conditionedField AND ";
+            }
+            $selectQuery .= substr($conditionsString, 0, -4);
+        }
+        $this->_prepare($selectQuery);
+
+        // 2 - Binding Query
+        foreach ($conditions as $conditionedField => $conditionalValue) {
+            $this->_bindValue(":{$conditionedField}", $conditionalValue);
+        }
+
+        // 3 - Executing
+        $this->_execute();
+
+        // 4 - Returning results (step only in Selects)
+        return $this->_statement->fetchAll($fetchMode);
+    }
+
+    /**
+     * Database Insert instruction. Inserts data into given Database table.
+     *
      * @param string $table Name of the Table to insert into.
      * @param array $data Associative array of data.
      */
     public function insert($table, $data)
     {
-        // Creating string of field names
+        // 1 - Preparing unbound query
         $fieldNames = implode('`,`', array_keys($data));
-        // Creating string of values
         $fieldValues = ':' . implode(', :', array_keys($data));
+        $this->_prepare('INSERT INTO ' . $table . ' (`' . $fieldNames . '`) VALUES (' . $fieldValues . ')');
 
-        // Preparing Statement
-        $statement = $this->prepare('INSERT INTO ' . $table . ' (`' . $fieldNames . '`) VALUES (' . $fieldValues . ')');
-
-        // Binding values
+        // 2 - Binding query
         foreach ($data as $key => $value) {
-            $statement->bindValue(":{$key}", $value);
+            $this->_bindValue(":{$key}", $value);
         }
 
-        // Action!
-        $statement->execute();
+        // 3 - Executing
+        $this->_execute();
     }
 
     /**
-     * Updates data of a Database table for the specified conditions
+     * Database Update instruction. Updates data from given Database table with set data for the specified conditions.
+     *
      * @param string $table Name of the table to update.
      * @param array $set Data array of data to update in the form of renewedField=>newValue
      * @param array $conditions Conditions array in the form of conditionedField=>conditionalValue
      */
     public function update($table, $set, $conditions)
     {
-        ksort($set);
-        ksort($conditions);
-
+        // 1 - Preparing unbound query
         $setString = '';
         $conditionsString = '';
 
-        // Creating string of fields to set
         foreach (array_keys($set) as $renewedField) {
             $setString .= "`$renewedField` = :$renewedField,";
         }
         $setString = substr($setString, 0, -1);
 
-        // Creating string of conditional fields
         foreach (array_keys($conditions) as $conditionedField) {
             $conditionsString .= "`$conditionedField` = :$conditionedField AND";
         }
         $conditionsString = substr($conditionsString, 0, -4);
 
-        // Preparing Statement
-        $statement = $this->prepare('UPDATE ' . $table . ' SET ' . $setString . ' WHERE '.$conditionsString);
+        $this->_prepare('UPDATE ' . $table . ' SET ' . $setString . ' WHERE '.$conditionsString);
 
-        // Binding new values
+        // 2 - Binding query
         foreach ($set as $renewedField => $newValue) {
-            $statement->bindValue(":{$renewedField}", $newValue);
+            $this->_bindValue(":{$renewedField}", $newValue);
         }
-
-        // Binding conditionals
         foreach ($conditions as $conditionedField => $conditionalValue) {
-            $statement->bindValue(":{$conditionedField}", $conditionalValue);
+            $this->_bindValue(":{$conditionedField}", $conditionalValue);
         }
 
-        // Action!
-        $statement->execute();
+        // 3 - Executing
+        $this->_execute();
     }
 
     /**
-     * Deletes data from a Database table.
+     * Database Delete instruction. Deletes data from given Database table for the specified conditions.
+     *
      * @param string $table Name of the Table into which data will be deleted
      * @param array $conditions Conditions array in the form of conditionedField=>conditionalValue
      */
     public function delete($table, $conditions)
     {
+        // 1 - Preparing unbound query
         $conditionsString = '';
-
-        // Creating string of conditional fields
         foreach (array_keys($conditions) as $conditionedField) {
             $conditionsString .= "`$conditionedField` = :$conditionedField AND";
         }
         $conditionsString = substr($conditionsString, 0, -4);
 
-        // Preparing Statement
-        $statement = $this->prepare('DELETE FROM ' . $table . ' WHERE ' . $conditionsString);
+        $this->_prepare('DELETE FROM ' . $table . ' WHERE ' . $conditionsString);
 
-        // Binding conditionals
+        // 2 - Binding query
         foreach ($conditions as $conditionedField => $conditionalValue) {
-            $statement->bindValue(":{$conditionedField}", $conditionalValue);
+            $this->_bindValue(":{$conditionedField}", $conditionalValue);
         }
 
-        // Action!
-        $statement->execute();
+        // 3 - Executing
+        $this->_execute();
+    }
+
+    /**
+     * Database complex sql. It can be any of the CRUD.
+     *
+     * @param string $sql
+     * @param array $parameters
+     * @param int $fetchMode
+     * @return mixed
+     */
+    public function complexQuery ($sql, $parameters, $fetchMode = \PDO::FETCH_ASSOC)
+    {
+        // 1 - Preparing unbound query
+        $this->_prepare($sql);
+        // 2 - Binding query
+        foreach (array_keys($parameters) as $parameterField => $parameterValue) {
+            $this->_bindValue(":{$parameterField}", $parameterValue);
+        }
+        // 3 - Executing
+        $this->_execute();
+        // 4 - Returning results (step only in Selects)
+        if (strtoupper(substr($sql, 0, 6)) == 'SELECT')
+        {
+            return $this->_statement->fetchAll($fetchMode);
+        }
+    }
+}
+
+namespace engine;
+
+class DatabaseException extends Exception
+{
+    public function __construct($message = "", $code = 0, Exception $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
     }
 }

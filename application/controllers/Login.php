@@ -9,6 +9,7 @@ namespace application\controllers;
 
 use application\engine\Controller;
 use application\libraries\LoginLibrary;
+use engine\Encrypter;
 use engine\Form;
 
 class Login extends Controller

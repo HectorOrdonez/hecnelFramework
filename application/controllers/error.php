@@ -8,6 +8,7 @@
 namespace application\controllers;
 
 use application\engine\Controller;
+use engine\Exception;
 
 class Error extends Controller
 {
@@ -39,11 +40,26 @@ class Error extends Controller
     }
 
     /** General Error Page */
-    public function index($error)
+    public function index($error = 'No error message specified.')
     {
         $this->_view->setParameter('msg', $error);
 
         $this->_view->addChunk('error/index');
+    }
+
+    /**
+     * Exception Page
+     * Called when Bootstrap catches an Exception.
+     * @param Exception $exception
+     */
+    public function exception (Exception $exception)
+    {
+        $this->_view->setParameter('exception', $exception->getMessage());
+        $this->_view->setParameter('file', $exception->getRelativeFile());
+        $this->_view->setParameter('line', $exception->getLine());
+        $this->_view->setParameter('backtrace', $exception->getCustomTrace());
+
+        $this->_view->addChunk('error/exception');
     }
 
     /**

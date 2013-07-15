@@ -34,12 +34,7 @@ class DataModel extends Model
 
     public function selectAll()
     {
-        $sql = '
-            SELECT id, data
-            FROM data
-        ';
-
-        return $this->db->select($sql);
+        return $this->db->select('data');
     }
 
 }

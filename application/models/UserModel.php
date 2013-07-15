@@ -30,25 +30,26 @@ class UserModel extends Model
      */
     public function selectUserForLogin($userName, $password)
     {
-        $sql = '
-            SELECT id, name, role
-            FROM user
-            WHERE name = :name
-            AND password = :password
-        ';
-
-        $parameters = array(
-            'name' => $userName,
-            'password' => Encrypter::encrypt($password, $userName)
+        $fields = array(
+            'id',
+            'name',
+            'password',
+            'role'
         );
 
-        $result = $this->db->select($sql, $parameters);
+        $conditions = array(
+            'name' => $userName
+        );
 
-        if (count($result) > 0) {
-            return $result[0];
-        } else {
-            return FALSE;
+        $result = $this->db->select('user', $fields, $conditions);
+
+        if (count($result) != 0){
+            if (Encrypter::verify($password, $result[0]['password']) === TRUE)
+            {
+                return $result[0];
+            }
         }
+        return FALSE;
     }
 
     /**
@@ -84,12 +85,7 @@ class UserModel extends Model
 
     public function selectAll()
     {
-        $sql = '
-            SELECT id, name, role
-            FROM user
-        ';
-
-        $result = $this->db->select($sql);
+        $result = $this->db->select('user');
 
         return $result;
     }
@@ -104,7 +100,7 @@ class UserModel extends Model
     {
         $valuesArray = array(
             'name' => $userName,
-            'password' => Encrypter::encrypt($password, $userName),
+            'password' => Encrypter::encrypt($password),
             'role' => $userRole
         );
 
@@ -116,7 +112,7 @@ class UserModel extends Model
     {
         $setArray = array(
             'name' => $userName,
-            'password' => Encrypter::encrypt($password, $userName),
+            'password' => Encrypter::encrypt($password),
             'role' => $userRole
         );
 
