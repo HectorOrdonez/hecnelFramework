@@ -24,32 +24,14 @@
 </div>
 
 <div class='exceptionTrack'>
-<?php foreach($this->backtrace as $backtrace): ?>
+<?php foreach($this->backtrace as $traces): ?>
     <table class="backtraceTable">
+<?php foreach($traces as $tracedField=>$tracedValue): ?>
         <tr class="backtraceRow">
-            <td class="backtraceLabel">
-                File
-            </td>
-            <td class="backtraceValue"><?php echo $backtrace['file'];?></td>
+            <td class="backtraceLabel"><?php echo $tracedField;?></td>
+            <td class="backtraceValue"><?php echo $tracedValue;?></td>
         </tr>
-        <tr class="backtraceRow">
-            <td class="backtraceLabel">
-                Line
-            </td>
-            <td class="backtraceValue"><?php echo $backtrace['line'];?></td>
-        </tr>
-        <tr class="backtraceRow">
-            <td class="backtraceLabel">
-                Class
-            </td>
-            <td class="backtraceValue"><?php echo $backtrace['class'];?></td>
-        </tr>
-        <tr class="backtraceRow">
-            <td class="backtraceLabel">
-                Function
-            </td>
-            <td class="backtraceValue"><?php echo $backtrace['function'];?></td>
-        </tr>
+<?php endforeach; ?>
     </table>
 <?php endforeach; ?>
 </div>

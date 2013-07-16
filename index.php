@@ -8,7 +8,6 @@
  */
 
 use engine\Bootstrap;
-use engine\Exception;
 
 /**
  * Loading System Configs
@@ -18,8 +17,8 @@ require 'config/database.php';
 
 /**
  * Defining Autoload function
+ * @param string $class Name of the class to autoload. The string contains the namespace, which will be the folders, and the name of the file.
  */
-
 function __autoload($class)
 {
     $file = _SYSTEM_ROOT_PATH . $class . '.php';
@@ -33,6 +32,7 @@ function __autoload($class)
     }
 
 }
+
 
 // Run app
 $application = new Bootstrap();

@@ -8,6 +8,7 @@
 namespace engine\drivers\validators;
 
 use engine\drivers\Validator;
+use engine\Exception;
 
 class Enum extends Validator
 {
@@ -35,13 +36,13 @@ class Enum extends Validator
      * Checks if the parameter is one of the available options.
      * @param string $parameter Parameter being validated.
      * @param array $options List of possible options
-     * @throws \Exception triggered if parameter is not one of the possible options.
+     * @throws Exception triggered if parameter is not one of the possible options.
      */
     protected static function availableOptions ($parameter, $options)
     {
         if (!in_array($parameter, $options))
         {
-            throw new \Exception ('Parameter [' . $parameter .'] is not allowed for this field.');
+            throw new Exception ('Parameter [' . $parameter .'] is not allowed for this field.');
         }
     }
 }

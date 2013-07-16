@@ -25,7 +25,7 @@ class Validator
      *      0 => $parameter
      *      1 => $rules
      *      2 => $strictMode
-     * @throws \Exception
+     * @throws Exception
      */
     public static function __callStatic($type, $args)
     {
@@ -45,7 +45,7 @@ class Validator
                 Validators\Enum::validate($parameter, $rules, $strictMode);
                 break;
             default:
-                throw new \Exception ('Requested Validator type "' . $type . '" does not exist.');
+                throw new Exception ('Requested Validator type "' . $type . '" does not exist.');
         }
     }
 }

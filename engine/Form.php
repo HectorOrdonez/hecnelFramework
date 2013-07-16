@@ -7,7 +7,6 @@
  * Date: 16/06/13 21:45
  *
  * @todo Add exception trigger in the Fetch if data requested was not set.
- * @todo Add exception trigger in the requireParameter if the requested parameter is not set.
  * @todo Create a special Exception type that allows logic to filter the exceptions triggered by the Form.
  * @todo Form work with both Get and Post options.
  * @todo Validations have to allow Strict Mode as third optional parameter.
@@ -49,9 +48,14 @@ class Form
      * Returns this form in order to allow concatenation.
      * @param string $field The HTML field name of the post.
      * @return $this
+     * @throws Exception If required item is not sent in the request.
      */
     public function requireItem($field)
     {
+        if (!isset($_POST[$field]))
+        {
+            throw new Exception ('Required Item ' . $field . ' was not sent with the request.', Exception::GENERAL_EXCEPTION);
+        }
         $this->_postData[$field] = $_POST[$field];
         $this->_currentItem = $field;
         return $this;
@@ -60,13 +64,13 @@ class Form
     /**
      * Returns the specified parameter set in the Post.
      * @param string $field Name of the parameter required
-     * @throws \Exception If Field did not pass validation.
+     * @throws Exception If field did not pass validation.
      */
     public function fetch($field)
     {
         if (isset($this->_errors[$field]))
         {
-            throw new \Exception ('Field ' . $field . ' did not pass Validation. Following error received: ' . $this->_errors[$field]);
+            throw new Exception ('Field ' . $field . ' did not pass Validation. Following error received: ' . $this->_errors[$field]);
         }
         return $this->_postData[$field];
     }
@@ -83,7 +87,7 @@ class Form
         try {
             Validator::$type($this->_postData[$this->_currentItem], $rules);
         }
-        catch (\Exception $e)
+        catch (Exception $e)
         {
             $this->addError($this->_currentItem, $e->getMessage());
         }

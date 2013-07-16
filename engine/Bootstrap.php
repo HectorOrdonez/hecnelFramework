@@ -104,24 +104,22 @@ class Bootstrap
 
             $this->_setArgs();
 
+            $this->_executeRequest();
+
+        } catch (Exception $e) {
+
+            // Catching General Hecnel Exception
+            $this->_prepareGeneralExceptionRequest($e);
+
+            $this->_executeRequest();
+
         } catch (\Exception $e) {
 
             // Catching System Exception - Fatal and unexpected error
             $this->_prepareFatalExceptionRequest($e);
 
-        } finally {
+            $this->_executeRequest();
 
-            try {
-
-                $this->_executeRequest();
-
-            } catch (Exception $e) {
-
-                // Catching General Hecnel Exception
-                $this->_prepareGeneralExceptionRequest($e);
-                $this->_executeRequest();
-
-            }
         }
     }
 

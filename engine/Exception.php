@@ -4,6 +4,7 @@
  * User: Hector Ordonez
  * Description: 
  * Date: 12/07/13 17:18
+ * @todo Create an Exception class in application that extends this one for adding flexibility.
  */
 
 namespace engine;
@@ -89,22 +90,36 @@ class Exception extends \Exception
      *      function - Name of the function that generated the exception.
      *      class - Name of the class that contains the previous function.
      * @return array $customBacktrace
+     * @todo Possibility to add args parameter to the traced data
      */
     public function getCustomTrace()
     {
-        $backtrace = $this->getTrace();
-        $customBacktrace = array();
+        $traces = $this->getTrace();
+        $customTraces = array();
 
-        foreach ($backtrace as $traceRecord)
+        foreach ($traces as $i=>$trace)
         {
-            $customBacktrace[] = array(
-                'file' => substr($traceRecord['file'], strlen(_SYSTEM_ROOT_PATH)),
-                'line' => $traceRecord['line'],
-                'function' => $traceRecord['function'],
-                'class' => $traceRecord['class']
-            );
+            if (isset($trace['file']))
+            {
+                $customTraces[$i]['file'] = substr($trace['file'], strlen(_SYSTEM_ROOT_PATH));
+            }
+
+            if (isset($trace['line']))
+            {
+                $customTraces[$i]['line'] = $trace['line'];
+            }
+
+            if (isset($trace['function']))
+            {
+                $customTraces[$i]['function'] = $trace['function'];
+            }
+
+            if (isset($trace['class']))
+            {
+                $customTraces[$i]['class'] = $trace['class'];
+            }
         }
 
-        return $customBacktrace;
+        return $customTraces;
     }
 }

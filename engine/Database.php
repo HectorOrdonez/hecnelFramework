@@ -8,8 +8,7 @@
  * This custom Database library extends PDO.
  * For more information about PDO, this might be of interest: http://blog.tordek.com.ar/2010/11/pdo-o-por-que-todos-los-tutoriales-de-php-llevan-a-las-malas-practicas/
  * Date: 12/06/13 11:30
- *
- * @todo Build Database Exception manager.
+ * @todo Research about security related to the misuse of the Database methods. Example, giving whole sql entry instead a string parameter when a table name expected.
  */
 
 namespace engine;
@@ -98,7 +97,13 @@ class Database extends \PDO
     {
         if ($this->_debugMode === FALSE)
         {
-            $executionResult = $this->_statement->execute();
+            try {
+                $executionResult = $this->_statement->execute();
+            } catch (\PDOException $e){
+                // Temporal Code to learn about PDO Exceptions
+                echo "PDOEXCEPTION : " . $e->getMessage();
+                exit;
+            }
 
             if ($executionResult === FALSE) {
                 $errorInfo = $this->_statement->errorInfo();
@@ -278,8 +283,8 @@ namespace engine;
 
 class DatabaseException extends Exception
 {
-    public function __construct($message = "", $code = 0, Exception $previous = null)
+    public function __construct($message = "", $exceptionType = self::GENERAL_EXCEPTION, $code = 0, Exception $previous = null)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct($message, $exceptionType, $code, $previous);
     }
 }

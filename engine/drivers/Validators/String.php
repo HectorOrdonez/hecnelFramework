@@ -8,6 +8,7 @@
 namespace engine\drivers\validators;
 
 use engine\drivers\Validator;
+use engine\Exception;
 
 class String extends Validator
 {
@@ -36,13 +37,13 @@ class String extends Validator
      * Minimum length of this string.
      * @param string $parameter Parameter being validated.
      * @param int $value Minimum length of the string
-     * @throws \Exception triggered if string length is lower than expected.
+     * @throws Exception triggered if string length is lower than expected.
      */
     protected static function minLength ($parameter, $value)
     {
         if (strlen($parameter) < $value)
         {
-            throw new \Exception ('Parameter [' . $parameter .'] does not have the minimum length of ' . $value .'.');
+            throw new Exception ('Parameter [' . $parameter .'] does not have the minimum length of ' . $value .'.');
         }
     }
 
@@ -50,13 +51,13 @@ class String extends Validator
      * Maximum length of this string.
      * @param string $parameter Parameter being validated.
      * @param int $value Maximum length of the string
-     * @throws \Exception triggered if string length is higher than expected.
+     * @throws Exception triggered if string length is higher than expected.
      */
     protected static function maxLength ($parameter, $value)
     {
         if (strlen($parameter) > $value)
         {
-            throw new \Exception ('Parameter [' . $parameter .'] exceeds the maximum length of ' . $value .'.');
+            throw new Exception ('Parameter [' . $parameter .'] exceeds the maximum length of ' . $value .'.');
         }
     }
 }

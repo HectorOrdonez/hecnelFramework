@@ -27,7 +27,7 @@ class usersManagement extends Controller
 
         $logged = Session::get('isUserLoggedIn');
         $userRole = Session::get('userRole');
-        if ($logged == FALSE OR $userRole != 'owner')
+        if ($logged == FALSE OR $userRole != 'superadmin')
         {
             Session::destroy();
             header('location: '. _SYSTEM_BASE_URL .'login');
@@ -57,10 +57,9 @@ class usersManagement extends Controller
             $this->_view->setParameter('error', 'The user you are trying to edit does not exist.');
             $this->_view->addChunk('usersManagement/error');
         } else {
-            $this->_view->setParameter('userId', $userData['userId']);
-            $this->_view->setParameter('userName', $userData['userName']);
-            $this->_view->setParameter('password', $userData['password']);
-            $this->_view->setParameter('userRole', $userData['userRole']);
+            $this->_view->setParameter('userId', $userData['id']);
+            $this->_view->setParameter('userName', $userData['name']);
+            $this->_view->setParameter('userRole', $userData['role']);
 
             $this->_view->addChunk('usersManagement/edit');
         }

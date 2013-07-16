@@ -59,21 +59,18 @@ class UserModel extends Model
      */
     public function selectById($userId)
     {
-        $sql = '
-            SELECT
-                id AS userId,
-                name AS userName,
-                password AS password,
-                role AS userRole
-            FROM user
-            WHERE id = :id
-        ';
+        $fields = array(
+            'id',
+            'name',
+            'password',
+            'role'
+        );
 
-        $parameters = array(
+        $conditions = array(
             'id' => $userId
         );
 
-        $result = $this->db->select($sql, $parameters);
+        $result = $this->db->select('user', $fields, $conditions);
 
         if (count($result) > 0)
         {

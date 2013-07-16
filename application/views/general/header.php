@@ -24,7 +24,7 @@
 
 <div id='header'>
     <div id='mainTitle'>
-        HEC Framework
+        HECNEL Framework
     </div>
     <div id='headerMenu'>
         <div class='headerButton'>
@@ -45,7 +45,7 @@
             </a>
         </div>
 
-<?php if ($this->userLogin == TRUE AND ($this->userRole == 'owner')):?>
+<?php if ($this->userLogin == TRUE AND ($this->userRole == 'superadmin')):?>
         <div class='headerButton'>
             <a href='<?php echo _SYSTEM_BASE_URL; ?>usersManagement'>
                 User Management

@@ -31,7 +31,16 @@ class About extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.8', '15/07/2013', array(
+        $this->_setDevelopmentVersion('1.81', '16/07/2013', array(
+            'Fixed issues with Exceptions catching in the Bootstrap.',
+            'Fixed issues where the core Exception class was thrown instead of the engine one.',
+            'Fixed issues with the sample application.',
+            'Minor changes in the CSS of the Error page for the sample application.',
+            'Realized breach in the execute statement in Database Class, due to a bug in the UserModel. Make sure to print any exception from PDO to learn about how it might work in case of SQL issues.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('1.8', '15/07/2013', array(
             'Upgraded PHP version to 5.5.',
             'Improvement: Database engine. Added debugging functionality and changed the basic CRUD methods to easier its use.',
             'Created an Exception system. Includes Exception engine and a change in the bootstrap that redirects exceptions uncaught to the Error controller. Built an Exception displayer in the Error controller with Exception and Exception Backtrace display.',
@@ -39,7 +48,6 @@ class About extends Controller
             'Improved Bootstrap: now it try catches exceptions smartly even if fatal exceptions are found.'
         ));
 
-        // Setting Historical Log of releases
         $this->_addHistoryLog('1.7', '11/07/2013', array(
             'Mayor improvement: application\engine. Now application uses engine objects that extends the engine objects of the framework. This allows customization of the behavior of the engine objects.',
             'Mayor improvement: using custom design patter MLVC, which uses Libraries to run logic, being the Controller used only to validate, call Library\'s logic and resolve its response, and the Model used only as a medium to use Database stuff.',
@@ -47,11 +55,13 @@ class About extends Controller
             'Added comments and property declarations in key points: it helps PHPStorm understanding the expected logic and the Object relationships, which provides a stronger debugging experience! (awesome discovery!)',
             'Cleaned minor issues related to CSS, comments and others.'
         ));
+
         $this->_addHistoryLog('1.6', '10/07/2013', array(
             'Created a little snippet for config setup depending on whether the environment is production or not. Affects System and Database config files.',
             'Fixed Dashboard; asynchronous calls now works correctly.',
             'Added possibility to add external libraries in the View.'
         ));
+
         $this->_addHistoryLog('1.5', '26/06/2013', array(
             'Factorized the Framework, using Engine folder and Application folder.',
             'Implemented use of Namespaces for the autoload of all files.'
