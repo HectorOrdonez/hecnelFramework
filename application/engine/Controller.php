@@ -47,6 +47,11 @@ class Controller extends engineController
             'content' => 'Hector Ordonez'
         ));
 
+        $this->_view->setMeta('http-equiv', array(
+            'http-equiv' => 'Content-Type',
+            'content' => 'text/html; charset=UTF-8'
+        ));
+
         $this->_view->setMeta('keywords', array(
             'name' => 'keywords',
             'content' => 'Hecnel Framework, PHP, JavaScript, OOP, MVC'

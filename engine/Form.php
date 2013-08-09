@@ -5,11 +5,6 @@
  * Description:
  * This class manages the collection of Post data, allowing validations.
  * Date: 16/06/13 21:45
- *
- * @todo Add exception trigger in the Fetch if data requested was not set.
- * @todo Create a special Exception type that allows logic to filter the exceptions triggered by the Form.
- * @todo Form work with both Get and Post options.
- * @todo Validations have to allow Strict Mode as third optional parameter.
  */
 
 namespace engine;
@@ -46,7 +41,7 @@ class Form
     /**
      * Sets the specified field as a required Post parameter.
      * Returns this form in order to allow concatenation.
-     * @param string $field The HTML field name of the post.
+     * @param $field string - The HTML field name of the post.
      * @return $this
      * @throws Exception If required item is not sent in the request.
      */
@@ -63,7 +58,7 @@ class Form
 
     /**
      * Returns the specified parameter set in the Post.
-     * @param string $field Name of the parameter required
+     * @param $field string - Name of the parameter required
      * @throws Exception If field did not pass validation.
      */
     public function fetch($field)
@@ -78,8 +73,8 @@ class Form
     /**
      * Sets validation control to the last parameter specified.
      * Returns this form in order to allow concatenation.
-     * @param string $type Validation type of the object to be validated.
-     * @param array $rules List of rules that the object must accomplished to be validated.
+     * @param $type string - Validation type of the object to be validated.
+     * @param $rules array - List of rules that the object must accomplished to be validated.
      * @return $this
      */
     public function validate($type, $rules=NULL)
@@ -97,8 +92,8 @@ class Form
 
     /**
      * Adds an error.
-     * @param string $key Parameter that failed
-     * @param string $explanation Why parameter did not pass validation.
+     * @param $key string - Failed parameter
+     * @param $explanation string - for the parameter to fail the validation.
      */
     private function addError($key, $explanation)
     {
@@ -107,7 +102,7 @@ class Form
 
     /**
      * Returns errors array.
-     * @return array Errors array.
+     * @return array - List of errors.
      */
     public function getErrors()
     {

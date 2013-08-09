@@ -72,19 +72,20 @@ class Database extends \PDO
      */
     protected function _bindValue ($field, $value)
     {
-        $this->_lastQuery = str_replace($field, "'{$value}'", $this->_lastQuery);
-
         $valueType = gettype($value);
 
         switch ($valueType)
         {
             case 'string':
+                $this->_lastQuery = str_replace($field, "'{$value}'", $this->_lastQuery);
                 $this->_statement->bindValue($field, $value, \PDO::PARAM_STR);
                 break;
             case 'boolean':
+                $this->_lastQuery = str_replace($field, "{$value}", $this->_lastQuery);
                 $this->_statement->bindValue($field, $value, \PDO::PARAM_BOOL);
                 break;
             default:
+                $this->_lastQuery = str_replace($field, "{$value}", $this->_lastQuery);
                 $this->_statement->bindValue($field, $value, \PDO::PARAM_INT);
                 break;
         }
@@ -261,12 +262,12 @@ class Database extends \PDO
      * @param int $fetchMode
      * @return mixed
      */
-    public function complexQuery ($sql, $parameters, $fetchMode = \PDO::FETCH_ASSOC)
+    public function complexQuery ($sql, $parameters = array(), $fetchMode = \PDO::FETCH_ASSOC)
     {
         // 1 - Preparing unbound query
         $this->_prepare($sql);
         // 2 - Binding query
-        foreach (array_keys($parameters) as $parameterField => $parameterValue) {
+        foreach ($parameters as $parameterField => $parameterValue) {
             $this->_bindValue(":{$parameterField}", $parameterValue);
         }
         // 3 - Executing

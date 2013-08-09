@@ -40,8 +40,8 @@
         </div>
 
         <div class='headerButton'>
-            <a href='<?php echo _SYSTEM_BASE_URL; ?>about'>
-                About this
+            <a href='<?php echo _SYSTEM_BASE_URL; ?>releaseLog'>
+                Release Log
             </a>
         </div>
 

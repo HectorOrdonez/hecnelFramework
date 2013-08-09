@@ -13,7 +13,6 @@
  * Date: 11/06/13 12:00
  *
  * @todo - Later stage - Research possible security issues regarding URL modifications.
- * @todo - Ask why this class is a dynamic object instead of a static one.
  */
 
 namespace engine;

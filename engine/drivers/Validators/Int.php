@@ -57,7 +57,7 @@ class Int extends Validator
     {
         if ($parameter > $value)
         {
-            throw new Exception ('Parameter [' . $parameter .'] is above the expected minimum [' . $value .'].');
+            throw new Exception ('Parameter [' . $parameter .'] is above the expected maximum [' . $value .'].');
         }
     }
 }

@@ -2,9 +2,25 @@
 /**
  * General TODOS in the Framework.
  *
- * @todo Create multilanguage support.
- * @todo System to generate a dynamic header and footer with possible use of variables, session, etc.
- * @todo Add new application branch. Refactor Model, or the whole MVC. I want a framework with a branch that listens to the user, a branch that the previous branch calls for logic, another one that the logic uses to do CRUD to the Database and the View Branch that shows information to the User.
+ * @todo Wish list - Log system.
+ * @todo Wish list - Multi-language support.
+ * @todo Wish list - Default JS libraries for the framework.
+ * @todo Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
+ * @todo Design refactor - Config files should be in the application folder, as they do not belong to the framework itself.
+ * @todo Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
+ * @todo View upgrade - The view chunks should be able to use chunks inside a chunk.
+ * @todo View upgrade - Need of a system that allows the adding of headers/footers easily.
+ * @todo Validation upgrade - new types required: password, date and checkbox.
+ * @todo Validation upgrade - Exception refactor; exceptions need a code of error, parameter that generated it and a default message in case the receptor does not manage the exception code.
+ * @todo Validation upgrade - Instead of throwing general Exceptions, Validation classes needs to trigger their own Exceptions.
+ * @todo Validation upgrade - In case strict mode is not enabled, Validation types like Int should parse the type of the parameter to, in that example, Int. Of course that is if the parameter passes the validation.
+ * @todo Model upgrade - Consider the use of Model Interface.
+ * @todo Model upgrade - Methods for the control of table fields.
+ * @todo Form upgrade - Form needs to catch the exceptions triggered by the validations.
+ * @todo Form upgrade - The method fetch should not retrigger an exception triggered by a validation; if a validation triggers an exception and the logic requests its fetch, it has to return false. If the logic wants the exception it can request the errors list to the Form.
+ * @todo Form upgrade - Refactor in order to allow Form and Validations to work with Strict Mode extra parameter.
+ * @todo Form upgrade - Consider creating a Form Exception.
+ *
  */
 
 use engine\Bootstrap;

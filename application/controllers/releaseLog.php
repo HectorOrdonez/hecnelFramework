@@ -9,7 +9,7 @@ namespace application\controllers;
 
 use application\engine\Controller;
 
-class About extends Controller
+class ReleaseLog extends Controller
 {
     /**
      * Array of Arrays.
@@ -31,15 +31,21 @@ class About extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.81', '16/07/2013', array(
+        $this->_setDevelopmentVersion('1.82', '09/08/2013', array(
+            '[Refactor] - About page now is Release Log.',
+            '[Code cleaning] - Cleaned "to does" in the project and summarized in the Index.',
+            '[Debug] - Minor fix in the Exception that Int Validator was throwing when maximum validation fails.',
+            '[Debug] - Minor issue in Database that was generating bad SQL strings for debugging.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('1.81', '16/07/2013', array(
             'Fixed issues with Exceptions catching in the Bootstrap.',
             'Fixed issues where the core Exception class was thrown instead of the engine one.',
             'Fixed issues with the sample application.',
             'Minor changes in the CSS of the Error page for the sample application.',
             'Realized breach in the execute statement in Database Class, due to a bug in the UserModel. Make sure to print any exception from PDO to learn about how it might work in case of SQL issues.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('1.8', '15/07/2013', array(
             'Upgraded PHP version to 5.5.',
             'Improvement: Database engine. Added debugging functionality and changed the basic CRUD methods to easier its use.',
