@@ -34,7 +34,6 @@ class Dashboard extends Controller
             header('location: '. _SYSTEM_BASE_URL .'login');
             exit;
         }
-
     }
 
     /**

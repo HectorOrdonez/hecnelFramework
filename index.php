@@ -4,6 +4,7 @@
  *
  * @todo Wish list - Log system.
  * @todo Wish list - Multi-language support.
+ * @todo Wish list - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.
  * @todo Wish list - Default JS libraries for the framework.
  * @todo Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
  * @todo Design refactor - Config files should be in the application folder, as they do not belong to the framework itself.
@@ -22,6 +23,9 @@
  * @todo Form upgrade - Consider creating a Form Exception.
  *
  */
+
+// First thing ever, session_start.
+session_start();
 
 use engine\Bootstrap;
 

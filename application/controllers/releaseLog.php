@@ -31,14 +31,18 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.82', '09/08/2013', array(
+        $this->_setDevelopmentVersion('1.83', '12/11/2013', array(
+            '[Debug] - Issue with Session Start.',
+            '[Code Improvement] - Added todos and pendings.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('1.82', '09/08/2013', array(
             '[Refactor] - About page now is Release Log.',
             '[Code cleaning] - Cleaned "to does" in the project and summarized in the Index.',
             '[Debug] - Minor fix in the Exception that Int Validator was throwing when maximum validation fails.',
             '[Debug] - Minor issue in Database that was generating bad SQL strings for debugging.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('1.81', '16/07/2013', array(
             'Fixed issues with Exceptions catching in the Bootstrap.',
             'Fixed issues where the core Exception class was thrown instead of the engine one.',

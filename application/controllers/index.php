@@ -25,7 +25,6 @@ class Index extends Controller
             header('location: '. _SYSTEM_BASE_URL .'dashboard');
             exit;
         }
-
     }
 
     public function index()

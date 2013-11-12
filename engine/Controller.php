@@ -57,7 +57,6 @@ class Controller
      */
     public function __construct(Library $library = NULL)
     {
-        Session::init();
         $this->_setView();
         $this->_setLibrary($library);
     }
