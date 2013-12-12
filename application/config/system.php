@@ -16,7 +16,7 @@ if (_PRODUCTION === TRUE) {
 }
 
 // Root path of the project in the server.
-define ('_SYSTEM_ROOT_PATH', dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR);
+define ('_SYSTEM_ROOT_PATH', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
 
 /**********************************/
 /** CONFIG SETTINGS FOR HECNEL **/

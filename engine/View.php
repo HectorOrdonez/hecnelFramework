@@ -35,13 +35,13 @@ class View
      * Path of the header to be rendered.
      * @var string
      */
-    protected $_header = 'application/views/general/header.php';
+    protected $_header = 'application/views/layouts/generalLayoutTop.php';
 
     /**
      * Path of the footer to be rendered.
      * @var string
      */
-    protected $_footer = 'application/views/general/footer.php';
+    protected $_footer = 'application/views/layouts/generalLayoutBottom.php';
 
     /**
      * Array of view chunks to be rendered. The set order defines the render order.

@@ -32,8 +32,8 @@ use engine\Bootstrap;
 /**
  * Loading System Configs
  */
-require 'config/system.php';
-require 'config/database.php';
+require 'application/config/system.php';
+require 'application/config/database.php';
 
 /**
  * Defining Autoload function

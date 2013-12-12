@@ -54,7 +54,7 @@
 <?php endif; ?>
 
         <div class='headerButton'>
-<?php if ($this->us  erLogin == TRUE):?>
+<?php if ($this->userLogin == TRUE):?>
             <a href='<?php echo _SYSTEM_BASE_URL; ?>dashboard/logout'>
                 Logout
             </a>

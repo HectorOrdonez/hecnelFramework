@@ -31,11 +31,14 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('1.84', '22/11/2013', array(
-            '[Debug] - Issue with Session Start - again.'
+        $this->_setDevelopmentVersion('2.01', '12/12/2013', array(
+            '[Refactor] - Moved config files to application.'
         ));
 
         // Setting Historical Log of releases
+        $this->_addHistoryLog('1.84', '22/11/2013', array(
+            '[Debug] - Issue with Session Start - again.'
+        ));
         $this->_addHistoryLog('1.83', '12/11/2013', array(
             '[Debug] - Issue with Session Start.',
             '[Code Improvement] - Added todos and pendings.'

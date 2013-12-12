@@ -1,6 +1,6 @@
     <div>
         <h1>
-            Version <?php echo $this->developmentVersion['version'];?> on development, expected release <?php echo $this->developmentVersion['date'];?>.
+            Version <?php echo $this->developmentVersion['version'];?>, released <?php echo $this->developmentVersion['date'];?>.
         </h1>
 
         <ul>
