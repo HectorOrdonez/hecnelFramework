@@ -57,6 +57,12 @@ class Controller extends engineController
             'content' => 'Hecnel Framework, PHP, JavaScript, OOP, MVC'
         ));
 
+        $this->_view->addLibrary('css', 'application/views/general/css/base.css');
+        $this->_view->addLibrary('js', 'application/views/general/js/base.js');
+        
+        $this->_view->setHeaderChunk('application/views/general/top.php');
+        $this->_view->setFooterChunk('application/views/general/bottom.php');
+        
         $this->_view->setParameter('userLogin', Session::get('isUserLoggedIn'));
         $this->_view->setParameter('userRole', Session::get('userRole'));
     }

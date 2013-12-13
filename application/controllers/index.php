@@ -29,27 +29,6 @@ class Index extends Controller
 
     public function index()
     {
-//        $this->_view->setParameter('msg', 'Welcome to the Main Page for not-logged in users!.');
-        $this->_view->setParameter('msg1', 'Message 1');
-        $this->_view->setParameter('msg2', 'Message 2');
-        $this->_view->setParameter('msg3', 'Message 3');
-        $this->_view->setParameter('msg4', 'Message 4');
-        $this->_view->setParameter('msg5', 'Message 5');
-        $this->_view->setParameter('msg6', 'Message 6');
-
-        $this->_view->addChunk('index/index1'); // 1
-        $this->_view->addChunk('index/index2'); // 2
-        $this->_view->addChunk('index/index3'); // 3
-        $this->_view->addChunk('index/index4'); // 4
-        $this->_view->addChunk('index/index5'); // 5
-        $this->_view->addChunk('index/index6', 2); // 6 - 2
-
-//        1
-//        2
-//        6
-//        3
-//        4
-//        5
-
+        $this->_view->addChunk('index/index');
     }
 }

@@ -31,11 +31,17 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.01', '12/12/2013', array(
-            '[Refactor] - Moved config files to application.'
+        $this->_setDevelopmentVersion('2.02', '12/12/2013', array(
+            '[Feature] - Added Testing selection in top menu.',
+            '[Feature] - Created Test 1, 2, 3 and 5 for future feature testings.',
+            '[Refactor] - Moved index logic to test 1, as it was a test for views. Now index is a simple hello.',
+            '[Refactor] - Header and footers are set in the Controller, who has to set them for the View. Changes have been done to follow this logic.'
         ));
 
         // Setting Historical Log of releases
+        $this->_addHistoryLog('2.01', '12/12/2013', array(
+            '[Refactor] - Moved config files to application.'
+        ));
         $this->_addHistoryLog('1.84', '22/11/2013', array(
             '[Debug] - Issue with Session Start - again.'
         ));

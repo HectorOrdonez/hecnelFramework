@@ -7,7 +7,6 @@
  * @todo Wish list - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.
  * @todo Wish list - Default JS libraries for the framework.
  * @todo Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
- * @todo Design refactor - Config files should be in the application folder, as they do not belong to the framework itself.
  * @todo Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
  * @todo View upgrade - The view chunks should be able to use chunks inside a chunk.
  * @todo View upgrade - Need of a system that allows the adding of headers/footers easily.
