@@ -14,6 +14,7 @@ use engine\Form;
 use engine\Input;
 use engine\drivers\Exception;
 use engine\drivers\Exceptions\InputException as InputException;
+use engine\drivers\Exceptions\RuleException as RuleException;
 use engine\drivers\Inputs\Text;
 
 
@@ -58,10 +59,10 @@ class Test2 extends Controller
                 /**
                  * Form delivers an array of arrays. Each of these arrays is an array of InputExceptions that this
                  * specific Input with a specific field name has.
-                 * @var $inputErrors InputException[]
+                 * @var $inputErrors RuleException[]
                  */
-                foreach ($inputErrors as $inputException) {
-                    $response .= 'Fieldname ' . $fieldName . ' rule ' . $inputException->getViolatedRule() . ' is broken by value ' . $inputException->getIncorrectValue() . ', which gives exception message ' . $inputException->getMessage() . '</br></br>';
+                foreach ($inputErrors as $ruleException) {
+                    $response .= 'Fieldname ' . $fieldName . ' rule ' . $ruleException->getViolatedRule() . ' is broken by value ' . $ruleException->getIncorrectValue() . ', which gives exception message ' . $ruleException->getMessage() . '</br></br>';
                 }
             }
         }
@@ -82,18 +83,18 @@ class Test2 extends Controller
             ->addRule('maxLength', 15);
 
         // Logic
-        $response = false;
         try {
             $inputUser->validate();
-            $inputUser->validate();
-        } catch (InputException $iEx)
+            $inputCity->validate();
+        } catch (RuleException $rEx)
         {
-            $response = 'Fieldname ' . $iEx->getInputName() . ' rule ' . $iEx->getViolatedRule() . ' is broken by value ' . $iEx->getIncorrectValue() . ', which gives exception message ' . $iEx->getMessage() . '</br></br>';
+            $errorMessage = 'Fieldname ' . $rEx->getInput()->getFieldName() . ' rule ' . $rEx->getViolatedRule() . ' is broken by value ' . $rEx->getIncorrectValue() . ', which gives exception message ' . $rEx->getMessage() . '</br></br>';
         }
 
-        if (FALSE === $response) {
-            $response = 'No errors.';
+        if (!isset($errorMessage)) {
+            $response = 'No errors. Username : ' . $inputUser->getValue() .', City ' . $inputCity->getValue() . '.';
         } else {
+            $response = $errorMessage;
         }
 
         // Answer

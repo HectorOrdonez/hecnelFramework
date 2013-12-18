@@ -3,12 +3,14 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description:
- * Date: 13/12/13 15:39
+ * Input Object is a helper for getting data from Post requests.
+ * Date: 13/12/13 16:00
  */
 
 namespace engine\drivers;
 
 use engine\drivers\Exceptions\InputException as InputException;
+use engine\drivers\Exceptions\RuleException;
 
 abstract class Input
 {
@@ -38,7 +40,7 @@ abstract class Input
 
     /**
      * List of exceptions, if any, of this Input.
-     * @var InputException[]
+     * @var RuleException[]
      */
     protected $_errors;
 
@@ -68,7 +70,7 @@ abstract class Input
 
     /**
      * Return either InputExceptions or false, if none.
-     * @return bool|InputException[]
+     * @return bool|RuleException[]
      */
     public function getValidationErrors()
     {
@@ -76,7 +78,7 @@ abstract class Input
         {
             try {
                 $this->{$ruleName}($ruleValue);
-            } catch (InputException $iEx)
+            } catch (RuleException $iEx)
             {
                 $this->_errors[] = $iEx;
             }
@@ -104,13 +106,13 @@ abstract class Input
      * @param string $rule Rule.
      * @param null $value Optional value that some rules needs to work.
      * @return Input $this
-     * @throws Exception
+     * @throws InputException
      */
     public function addRule($rule, $value = null)
     {
         if (!in_array($rule, $this->_validRules))
         {
-            throw new Exception("Requested rule {$rule} is not valid for a " . get_class($this) ." input.");
+            throw new InputException("Requested rule {$rule} is not valid for a " . get_class($this) ." input.");
         }
         $this->_requestedRules[$rule] = $value;
         
@@ -120,9 +122,14 @@ abstract class Input
     /**
      * Delivers this input value.
      * @return null
+     * @throws Exceptions\InputException
      */
     public function getValue()
     {
+        if (sizeof($this->_errors) > 0)
+        {
+            throw new InputException('Can not provide the value of the Input ' . $this->getFieldName() . ' because it did not pass validation.'); 
+        }
         return $this->_value;
     }
 }

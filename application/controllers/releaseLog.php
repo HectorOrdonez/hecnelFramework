@@ -31,7 +31,12 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.03A', '18/12/2013', array(
+        $this->_setDevelopmentVersion('2.03B', '18/12/2013', array(
+            '[Feature] - New Exception type RuleException. Refactored Form and Input to work with them. This allows to differentiate from Input exceptions, which are unexpected behaviors, from Rule exceptions, which are expected behaviors - User is inputted wrong stuff.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.03A', '18/12/2013', array(
             '[Feature] - Modified Hecnel sample application in order to have testing pages.',
             '[Feature] - Build Test1 - Related to View Chunks and the View feature that allows chunk reorganization.',
             '[Feature] - Build Test2 - Related to Form and Input usage, which is a new mayor refactor.',
@@ -40,8 +45,6 @@ class ReleaseLog extends Controller
             '[Visual improvement] - Minor style changes.',
             '[Etc] - This is an unfinished release.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.02', '12/12/2013', array(
             '[Feature] - Added Testing selection in top menu.',
             '[Feature] - Created Test 1, 2, 3 and 5 for future feature testings.',

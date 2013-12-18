@@ -8,8 +8,8 @@
 
 namespace engine\drivers\Inputs;
 
-use engine\drivers\Exception;
 use engine\drivers\Exceptions\InputException;
+use engine\drivers\Exceptions\RuleException;
 use engine\drivers\Input;
 
 class Text extends Input
@@ -24,7 +24,7 @@ class Text extends Input
      * Text Input constructor.
      * @param $fieldName
      * @param array $requiredRules
-     * @throws Exception
+     * @throws InputException
      */
     public function __construct($fieldName, $requiredRules = array())
     {
@@ -40,7 +40,7 @@ class Text extends Input
         // In case the POST does not contain the value an exception is generated.
         if (!isset($_POST[$fieldName]))
         {
-            throw new Exception("Required field {$fieldName} not sent in request.");
+            throw new InputException("Required field {$fieldName} not sent in request.");
         }
         
         $this->_value = $_POST[$fieldName];
@@ -54,27 +54,27 @@ class Text extends Input
     /**
      * Minimum length of the text.
      * @param int $minLen Minimum length of the string
-     * @throws InputException triggered if string length is lower than expected.
+     * @throws RuleException triggered if string length is lower than expected.
      */
     protected function minLength ($minLen)
     {
         if (strlen($this->getValue()) < $minLen )
         {
-            throw new InputException ($this->getFieldName(), 'minLength', $this->getValue(), "Parameter '{$this->getValue()}' is too short; minimum length is {$minLen}.");
+            throw new RuleException ($this, 'minLength', $this->getValue(), "Parameter '{$this->getValue()}' is too short; minimum length is {$minLen}.");
         }
     }
 
     /**
      * Maximum length of the text.
      * @param int $maxLen Maximum length of the string
-     * @throws InputException triggered if string length is greater than expected.
+     * @throws RuleException triggered if string length is greater than expected.
      */
     protected function maxLength ($maxLen)
     {
         if (strlen($this->getValue()) > $maxLen)
         {
             $value = ($maxLen < self::MIN_DISPLAYABLE_LEN) ? $this->getValue() : substr($this->getValue(), 0, $maxLen) . '[...]';
-            throw new InputException ($this->getFieldName(), 'maxLength', $value, "Parameter '{$value}' is too long; exceeds the maximum length of {$maxLen}.");
+            throw new RuleException ($this, 'maxLength', $value, "Parameter '{$value}' is too long; exceeds the maximum length of {$maxLen}.");
         }
     }
 }
