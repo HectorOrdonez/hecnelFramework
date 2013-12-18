@@ -6,7 +6,7 @@
  * Date: 12/07/13 17:30
  */
 
-namespace engine;
+namespace engine\drivers;
 
 class Exception extends \Exception
 {

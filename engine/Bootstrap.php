@@ -17,7 +17,7 @@
 
 namespace engine;
 
-use engine\Exception;
+use engine\drivers\Exception;
 
 class Bootstrap
 {

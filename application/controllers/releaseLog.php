@@ -31,14 +31,23 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.02', '12/12/2013', array(
+        $this->_setDevelopmentVersion('2.03A', '18/12/2013', array(
+            '[Feature] - Modified Hecnel sample application in order to have testing pages.',
+            '[Feature] - Build Test1 - Related to View Chunks and the View feature that allows chunk reorganization.',
+            '[Feature] - Build Test2 - Related to Form and Input usage, which is a new mayor refactor.',
+            '[Refactor] - New Exception structure, allows custom exception types in Exceptions folder, inside drivers.',
+            '[Refactor] - Mayor Form and Validation system refactor. New object Input, which Form object works with, allows validations.',
+            '[Visual improvement] - Minor style changes.',
+            '[Etc] - This is an unfinished release.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.02', '12/12/2013', array(
             '[Feature] - Added Testing selection in top menu.',
             '[Feature] - Created Test 1, 2, 3 and 5 for future feature testings.',
             '[Refactor] - Moved index logic to test 1, as it was a test for views. Now index is a simple hello.',
             '[Refactor] - Header and footers are set in the Controller, who has to set them for the View. Changes have been done to follow this logic.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.01', '12/12/2013', array(
             '[Refactor] - Moved config files to application.'
         ));

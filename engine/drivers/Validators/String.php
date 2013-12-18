@@ -7,8 +7,8 @@
 
 namespace engine\drivers\validators;
 
+use engine\drivers\Exception;
 use engine\drivers\Validator;
-use engine\Exception;
 
 class String extends Validator
 {
@@ -43,7 +43,7 @@ class String extends Validator
     {
         if (strlen($parameter) < $value)
         {
-            throw new Exception ('Parameter is too short; minimum length is ' . $value .'.');
+            throw new Exception ("Parameter '{$parameter}' is too short; minimum length is {$value}.");
         }
     }
 
@@ -57,7 +57,8 @@ class String extends Validator
     {
         if (strlen($parameter) > $value)
         {
-            throw new Exception ('Parameter is too long; exceeds the maximum length of ' . $value .'.');
+            $parameter = ($value > 10) ? substr($parameter, 0, $value) . '[...]' : $parameter; 
+            throw new Exception ("Parameter '{$parameter}'is too long; exceeds the maximum length of {$value}");
         }
     }
 }

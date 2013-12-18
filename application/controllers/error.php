@@ -8,7 +8,7 @@
 namespace application\controllers;
 
 use application\engine\Controller;
-use engine\Exception;
+use engine\drivers\Exception;
 
 class Error extends Controller
 {

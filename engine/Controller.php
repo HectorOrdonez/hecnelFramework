@@ -22,7 +22,6 @@ namespace engine;
 
 use application\engine\Library;
 use application\engine\View;
-use engine\Session;
 
 class Controller
 {
