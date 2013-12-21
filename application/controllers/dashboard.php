@@ -9,6 +9,7 @@ namespace application\controllers;
 
 use application\engine\Controller;
 use engine\Form;
+use engine\Input;
 use engine\Session;
 use application\libraries\DashboardLibrary;
 
@@ -20,6 +21,7 @@ class Dashboard extends Controller
      * @var DashboardLibrary $_library
      */
     protected $_library;
+
     /**
      * Dashboard constructor.
      * Verifies that the User has access to this class.
@@ -57,7 +59,7 @@ class Dashboard extends Controller
     public function logout()
     {
         Session::destroy();
-        header('location: '. _SYSTEM_BASE_URL .'login');
+        header('location: ' . _SYSTEM_BASE_URL . 'login');
     }
 
     /**
@@ -68,14 +70,13 @@ class Dashboard extends Controller
     public function ajaxInsert()
     {
         $form = new Form();
-        $form
-            ->requireItem('data')
-            ->validate('String', array(
-                'minLength' => 1,
-                'maxLength' => 50
-            ));
+        $form->addInput(
+            Input::build('Text', 'data')
+                ->addRule('minLength', 1)
+                ->addRule('minLength', 50)
+        );
 
-        $json_response = $this->_library->ajaxInsert($form->fetch('data'));
+        $json_response = $this->_library->ajaxInsert($form->getInput('data')->getValue());
 
         print json_encode($json_response);
         $this->setAutoRender(false);
@@ -101,13 +102,12 @@ class Dashboard extends Controller
     public function deleteData()
     {
         $form = new Form();
-        $form
-            ->requireItem('id')
-            ->validate('Int', array(
-                'min' => 1
-            ));
+        $form->addInput(
+            Input::build('Int', 'id')
+                ->addRule('min', 1)
+        );
 
-        $this->_library->deleteData($form->fetch('id'));
+        $this->_library->deleteData($form->getInput('id')->getValue());
         $this->setAutoRender(false);
     }
 }

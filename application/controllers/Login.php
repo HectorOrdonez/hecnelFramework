@@ -11,6 +11,7 @@ use application\engine\Controller;
 use application\libraries\LoginLibrary;
 use engine\Encrypter;
 use engine\Form;
+use engine\Input;
 
 class Login extends Controller
 {
@@ -19,6 +20,7 @@ class Login extends Controller
      * @var LoginLibrary $_library
      */
     protected $_library;
+
     /**
      * Login constructor.
      */
@@ -44,22 +46,22 @@ class Login extends Controller
     {
         // Validation
         $form = new Form();
-        $form
-            ->requireItem('name')
-            ->validate('String', array(
-                'minLength' => 1,
-                'maxLength' => 50
-            ))
-            ->requireItem('password')
-            ->validate('String', array(
-                'minLength' => 1,
-                'maxLength' => 50
-            ));
+        $form->addInput(
+            Input::build('Text', 'name')
+                ->addRule('minLength', 1)
+                ->addRule('maxLength', 50)
+        );
+        $form->addInput(
+            Input::build('Text', 'password')
+                ->addRule('minLength', 1)
+                ->addRule('maxLength', 50)
+        );
 
         // Logic
         $login = $this->_library->login(
-            $form->fetch('name'),
-            $form->fetch('password'));
+            $form->getInput('name')->getValue(),
+            $form->getInput('password')->getValue()
+        );
 
         // Resolution
         if ($login === TRUE) {

@@ -37,68 +37,89 @@ class Test2 extends Controller
     {
         // Validation
         $form = new Form();
-        $form->addInput(Input::build(
-                'Text', 'username')
+
+        $form->addInput(
+            $inputUser = Input::build('Text', 'username')
                 ->addRule('minLength', 3)
                 ->addRule('maxLength', 10)
         );
-        $form->addInput(Input::build(
-                'Text', 'city')
+
+        $form->addInput(
+            $inputCity = Input::build('Text', 'city')
                 ->addRule('minLength', 3)
                 ->addRule('maxLength', 15)
         );
 
+        $form->addInput(
+            $inputAge = Input::build('Int', 'age')
+                ->addRule('min', 1)
+                ->addRule('max', 100)
+        );
+
+        $form->addInput(
+            $inputNegative = Input::build('Int', 'negative')
+                ->addRule('min', -100)
+                ->addRule('max', -1)
+        );
+        
         // Logic        
         $wrongInputs = $form->getValidationErrors();
-
+        
+        // Output
         if (FALSE === $wrongInputs) {
-            $response = 'No errors. Random stuff : ' . $form->getInput('username')->getValue();
-        } else {
-            $response = 'yep, ERRORS! </br></br>';
-            foreach ($wrongInputs as $fieldName => $inputErrors) {
-                /**
-                 * Form delivers an array of arrays. Each of these arrays is an array of InputExceptions that this
-                 * specific Input with a specific field name has.
-                 * @var $inputErrors RuleException[]
-                 */
-                foreach ($inputErrors as $ruleException) {
-                    $response .= 'Fieldname ' . $fieldName . ' rule ' . $ruleException->getViolatedRule() . ' is broken by value ' . $ruleException->getIncorrectValue() . ', which gives exception message ' . $ruleException->getMessage() . '</br></br>';
-                }
-            }
-        }
+            $response = 'No errors. Username: ' . $form->getInput('username')->getValue() . ', City: ' . $form->getInput('city')->getValue() . ', Age : ' . $form->getInput('age')->getValue() . ' and negative amount: ' . $form->getInput('negative')->getValue();
 
-        // Answer
-        $this->_view->setParameter('response', $response);
-        $this->_view->addChunk('tests/test2/answerFormTest');
+            $this->_view->setParameter('response', $response);
+            $this->_view->addChunk('tests/test2/answerFormTest');
+        } else {
+            $errors = array();
+            foreach ($wrongInputs as $invalidInput) {
+                $errors[] = 'Fieldname ' . $invalidInput->getFieldName(). ' rule ' . $invalidInput->getError()->getViolatedRule() . ' is broken by value ' . $invalidInput->getError()->getIncorrectValue() . ', which gives exception message ' . $invalidInput->getError()->getMessage();
+            }
+            $this->_view->setParameter('errors', $errors);
+            $this->_view->addChunk('tests/test2/errorFormTest');
+        }
     }
+
     public function runInputTest()
     {
-        // Validation
-        $inputUser = Input::build('Text', 'username')
-            ->addRule('minLength', 3)
-            ->addRule('maxLength', 10);
-        
-        $inputCity = Input::build('Text', 'city')
-            ->addRule('minLength', 3)
-            ->addRule('maxLength', 15);
-
-        // Logic
         try {
+            // Validation
+            $inputUser = Input::build('Text', 'username')
+                ->addRule('minLength', 3)
+                ->addRule('maxLength', 10);
+            $inputCity = Input::build('Text', 'city')
+                ->addRule('minLength', 3)
+                ->addRule('maxLength', 15);
+            $inputAge = Input::build('Int', 'age')
+                ->addRule('min', 1)
+                ->addRule('max', 100);
+            $inputNegative = Input::build('Int', 'negative')
+                ->addRule('min', -100)
+                ->addRule('max', -1);
+
             $inputUser->validate();
             $inputCity->validate();
-        } catch (RuleException $rEx)
-        {
-            $errorMessage = 'Fieldname ' . $rEx->getInput()->getFieldName() . ' rule ' . $rEx->getViolatedRule() . ' is broken by value ' . $rEx->getIncorrectValue() . ', which gives exception message ' . $rEx->getMessage() . '</br></br>';
-        }
+            $inputAge->validate();
+            $inputNegative->validate();
 
-        if (!isset($errorMessage)) {
-            $response = 'No errors. Username : ' . $inputUser->getValue() .', City ' . $inputCity->getValue() . '.';
-        } else {
-            $response = $errorMessage;
-        }
+            // Logic 
+            $response = 'No errors. Username : ' . $inputUser->getValue() . ', City ' . $inputCity->getValue() . ' and Age: ' . $inputAge->getValue() . ', negative input: ' . $inputNegative->getValue();
 
-        // Answer
-        $this->_view->setParameter('response', $response);
-        $this->_view->addChunk('tests/test2/answerInputTest');
+            // Output
+            $this->_view->setParameter('response', $response);
+            $this->_view->addChunk('tests/test2/answerInputTest');
+
+        } catch (InputException $iEx) {
+            $errorMessage = 'Input error: ' . $iEx->getMessage();
+
+            $this->_view->setParameter('error', $errorMessage);
+            $this->_view->addChunk('tests/test2/errorInputTest');
+        } catch (RuleException $rEx) {
+            $errorMessage = 'Invalid data: ' . $rEx->getMessage();
+
+            $this->_view->setParameter('error', $errorMessage);
+            $this->_view->addChunk('tests/test2/errorInputTest');
+        }
     }
 }

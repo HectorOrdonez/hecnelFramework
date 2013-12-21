@@ -3,6 +3,7 @@ namespace engine;
 
 use engine\drivers\Exceptions\FormException;
 use engine\drivers\Exceptions\InputException;
+use engine\drivers\Exceptions\RuleException;
 use engine\drivers\Input as Input;
 
 /**
@@ -26,7 +27,7 @@ class Form
     private $_inputs;
 
     /**
-     * @var array
+     * @var Input[]
      */
     private $_errorInputs;
     
@@ -62,19 +63,18 @@ class Form
     
     /**
      * Returns either an array of Error Inputs or FALSE, if there are no error inputs.
-     * @return array|bool
+     * @return bool|Input[]
      */
     public function getValidationErrors()
     { 
         foreach ($this->_inputs as $input) {
-            $inputErrors = $input->getValidationErrors();
-            
-            if (FALSE !== $inputErrors)
+            try {
+                $input->validate();
+            } catch (RuleException $rEx)
             {
-                $this->_errorInputs[$input->getFieldName()] = $inputErrors;
+                $this->_errorInputs[$input->getFieldName()] = $input;
             }
         }
-
         if (sizeof($this->_errorInputs) > 0) {
             return $this->_errorInputs;
         } else {

@@ -9,6 +9,7 @@ namespace application\controllers;
 
 use application\engine\Controller;
 use application\libraries\UsersManagementLibrary;
+use engine\Input;
 use engine\Session;
 use engine\Form;
 
@@ -71,30 +72,31 @@ class usersManagement extends Controller
     public function createUser()
     {
         $form = new Form();
-        $form
-            ->requireItem('userName')
-            ->validate('String', array(
-                'minLength' => 10,
-                'maxLength' => 50
-            ))
-            ->requireItem('password')
-            ->validate('String', array(
-                'minLength' => 10,
-                'maxLength' => 50
-            ))
-            ->requireItem('userRole')
-            ->validate('Enum', array(
-                'availableOptions' => array(
+        $form->addInput(
+            Input::build('Text', 'username')
+                ->addRule('minLength', 10)
+                ->addRule('maxLength', 50)
+        );
+
+        $form->addInput(
+            Input::build('Text', 'password')
+                ->addRule('minLength', 10)
+                ->addRule('maxLength', 50)
+        );
+
+        $form->addInput(
+            Input::build('Select', 'userRole')
+                ->addRule('availableOptions', array(
                     'owner',
                     'admin',
                     'basic'
-                )
-            ));
+                ))
+        );
 
         $this->_library->createUser(
-            $form->fetch('userName'),
-            $form->fetch('password'),
-            $form->fetch('userRole'));
+            $form->getInput('userName')->getValue(),
+            $form->getInput('password')->getValue(),
+            $form->getInput('userRole')->getValue());
 
         header('location: '. _SYSTEM_BASE_URL .'usersManagement');
         exit;
@@ -106,35 +108,37 @@ class usersManagement extends Controller
     public function editUser()
     {
         $form = new Form();
-        $form
-            ->requireItem('userId')
-            ->validate('Int', array(
-                'min' => 1
-            ))
-            ->requireItem('userName')
-            ->validate('String', array(
-                'minLength' => 10,
-                'maxLength' => 50
-            ))
-            ->requireItem('password')
-            ->validate('String', array(
-                'minLength' => 10,
-                'maxLength' => 50
-            ))
-            ->requireItem('userRole')
-            ->validate('Enum', array(
-                'availableOptions' => array(
+        $form->addInput(
+            Input::build('Int', 'userId')
+                ->addRule('min', 1)
+        );
+        
+        $form->addInput(
+            Input::build('Text', 'userName')
+                ->addRule('minLength', 10)
+                ->addRule('maxLength', 50)
+        );
+        
+        $form->addInput(
+            Input::build('Text', 'password')
+                ->addRule('minLength', 10)
+                ->addRule('maxLength', 50)
+        );
+
+        $form->addInput(
+            Input::build('Select', 'userRole')
+                ->addRule('availableOptions', array(
                     'owner',
                     'admin',
                     'basic'
-                )
-            ));
+                ))
+        );
 
         $this->_library->editUser(
-            $form->fetch('userId'),
-            $form->fetch('userName'),
-            $form->fetch('password'),
-            $form->fetch('userRole')
+            $form->getInput('userId')  ->getValue(),
+            $form->getInput('userName')->getValue(),
+            $form->getInput('password')->getValue(),
+            $form->getInput('userRole')->getValue()
         );
 
         header('location: '. _SYSTEM_BASE_URL .'usersManagement');

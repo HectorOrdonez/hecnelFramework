@@ -11,12 +11,8 @@
  * @todo View upgrade - The view chunks should be able to use chunks inside a chunk.
  * @todo View upgrade - Need of a system that allows the adding of headers/footers easily.
  * @todo Validation upgrade - new types required: password, date and checkbox.
- * @todo Validation upgrade - Exception refactor; exceptions need a code of error, parameter that generated it and a default message in case the receptor does not manage the exception code.
- * @todo Validation upgrade - In case strict mode is not enabled, Validation types like Int should parse the type of the parameter to, in that example, Int. Of course that is if the parameter passes the validation.
  * @todo Model upgrade - Consider the use of Model Interface.
  * @todo Model upgrade - Methods for the control of table fields.
- * @todo Form upgrade - Form needs to catch the exceptions triggered by the validations.
- * @todo Form upgrade - The method fetch should not retrigger an exception triggered by a validation; if a validation triggers an exception and the logic requests its fetch, it has to return false. If the logic wants the exception it can request the errors list to the Form.
  *
  */
 

@@ -15,6 +15,11 @@ use engine\drivers\Exceptions\RuleException;
 abstract class Input
 {
     /**
+     * Default error messages. 
+     */
+    const MSG_EMPTY_INPUT = 'The input %s is empty.';
+    
+    /**
      * Field name related to this input.
      * @var string
      */
@@ -39,10 +44,10 @@ abstract class Input
     protected $_value = null;
 
     /**
-     * List of exceptions, if any, of this Input.
-     * @var RuleException[]
+     * Rule Exception, if any, of this Input.
+     * @var RuleException
      */
-    protected $_errors;
+    protected $_error = null;
 
     /**
      * Input constructors will always require a field name string and, optionally, a required rules array. 
@@ -52,39 +57,26 @@ abstract class Input
     abstract public function __construct($fieldName, $requiredRules = NULL);
     
     /**
-     * Validates this input by following the set rules. Some default rules might exist depending on the Input.
-     * E.g Text Inputs will always verify that its value is a string. That does not mean that Text Input can not
-     * verify, too, that the value is an Int representation, for example.
-     * 
-     * Returns whether the Input passes the validation or not.
-     * 
-     * @return boolean
+     * @throws Exceptions\RuleException|\Exception
      */
     public function validate()
     {
-        foreach ($this->_requestedRules as $ruleName => $ruleValue)
+        // In case there is already an error, Input failed to initialize.
+        if (false !== $this->getError())
         {
-            $this->{$ruleName}($ruleValue);
+            throw $this->getError();
         }
-    }
-
-    /**
-     * Return either InputExceptions or false, if none.
-     * @return bool|RuleException[]
-     */
-    public function getValidationErrors()
-    {
+        
         foreach ($this->_requestedRules as $ruleName => $ruleValue)
         {
             try {
                 $this->{$ruleName}($ruleValue);
-            } catch (RuleException $iEx)
+            } catch (RuleException $rEx)
             {
-                $this->_errors[] = $iEx;
+                $this->setError($rEx);
+                throw $rEx;
             }
         }
-
-        return (sizeof($this->_errors) != 0)? $this->_errors : false;
     }
 
     /**
@@ -112,7 +104,7 @@ abstract class Input
     {
         if (!in_array($rule, $this->_validRules))
         {
-            throw new InputException("Requested rule {$rule} is not valid for a " . get_class($this) ." input.");
+            throw new InputException($this->getFieldName(), "Requested rule {$rule} is not valid for a " . get_class($this) ." input.");
         }
         $this->_requestedRules[$rule] = $value;
         
@@ -126,10 +118,29 @@ abstract class Input
      */
     public function getValue()
     {
-        if (sizeof($this->_errors) > 0)
+        if (false !== $this->getError() )
         {
-            throw new InputException('Can not provide the value of the Input ' . $this->getFieldName() . ' because it did not pass validation.'); 
+            throw new InputException($this->getFieldName(), 'Can not provide the value of the Input ' . $this->getFieldName() . ' because it did not pass validation.'); 
         }
         return $this->_value;
+    }
+
+    /**
+     * Sets the input value.
+     * @param $value
+     */
+    protected function setValue($value)
+    {
+        $this->_value = $value;
+    }
+    
+    protected function setError(RuleException $rEx)
+    {
+        $this->_error = $rEx;
+    }
+    
+    public function getError()
+    {
+        return (is_null($this->_error))? false : $this->_error;
     }
 }

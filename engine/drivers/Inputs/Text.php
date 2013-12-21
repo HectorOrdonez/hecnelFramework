@@ -37,18 +37,18 @@ class Text extends Input
             'maxLength'
         );
 
-        // In case the POST does not contain the value an exception is generated.
-        if (!isset($_POST[$fieldName]))
-        {
-            throw new InputException("Required field {$fieldName} not sent in request.");
-        }
-        
-        $this->_value = $_POST[$fieldName];
-
         foreach ($requiredRules as $rule)
         {
             $this->addRule($rule);
         }
+
+        if (!isset($_POST[$fieldName])) {
+            $this->setValue('');
+            $this->setError(new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName)));
+            return;
+        }
+
+        $this->setValue($_POST[$fieldName]);
     }
 
     /**
