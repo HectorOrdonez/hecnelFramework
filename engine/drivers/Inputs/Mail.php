@@ -3,5 +3,6 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description: 
- * Date: 17/12/13 2:02
+ * Text Input that expects a Mail.
+ * Date: 21/12/13 21:50
  */

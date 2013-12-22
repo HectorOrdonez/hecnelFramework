@@ -51,20 +51,21 @@ class Test2 extends Controller
         );
 
         $form->addInput(
-            $inputAge = Input::build('Int', 'age')
+            $inputAge = Input::build('Number', 'age')
                 ->addRule('min', 1)
                 ->addRule('max', 100)
+                ->addRule('isInt')
         );
 
         $form->addInput(
-            $inputNegative = Input::build('Int', 'negative')
+            $inputNegative = Input::build('Number', 'negative')
                 ->addRule('min', -100)
                 ->addRule('max', -1)
         );
-        
+
         // Logic        
         $wrongInputs = $form->getValidationErrors();
-        
+
         // Output
         if (FALSE === $wrongInputs) {
             $response = 'No errors. Username: ' . $form->getInput('username')->getValue() . ', City: ' . $form->getInput('city')->getValue() . ', Age : ' . $form->getInput('age')->getValue() . ' and negative amount: ' . $form->getInput('negative')->getValue();
@@ -74,7 +75,7 @@ class Test2 extends Controller
         } else {
             $errors = array();
             foreach ($wrongInputs as $invalidInput) {
-                $errors[] = 'Fieldname ' . $invalidInput->getFieldName(). ' rule ' . $invalidInput->getError()->getViolatedRule() . ' is broken by value ' . $invalidInput->getError()->getIncorrectValue() . ', which gives exception message ' . $invalidInput->getError()->getMessage();
+                $errors[] = 'Field name ' . $invalidInput->getFieldName() . ' rule ' . $invalidInput->getError()->getViolatedRule() . ' is broken by value ' . $invalidInput->getError()->getIncorrectValue() . ', which gives exception message ' . $invalidInput->getError()->getMessage();
             }
             $this->_view->setParameter('errors', $errors);
             $this->_view->addChunk('tests/test2/errorFormTest');
@@ -91,10 +92,11 @@ class Test2 extends Controller
             $inputCity = Input::build('Text', 'city')
                 ->addRule('minLength', 3)
                 ->addRule('maxLength', 15);
-            $inputAge = Input::build('Int', 'age')
+            $inputAge = Input::build('Number', 'age')
                 ->addRule('min', 1)
-                ->addRule('max', 100);
-            $inputNegative = Input::build('Int', 'negative')
+                ->addRule('max', 100)
+                ->addRule('isInt');
+            $inputNegative = Input::build('Number', 'negative')
                 ->addRule('min', -100)
                 ->addRule('max', -1);
 

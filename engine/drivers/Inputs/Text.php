@@ -3,7 +3,8 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description: 
- * Date: 13/12/13 15:38
+ * Text Input.
+ * Date: 13/12/13 16:00
  */
 
 namespace engine\drivers\Inputs;

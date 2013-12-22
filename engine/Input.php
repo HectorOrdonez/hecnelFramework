@@ -35,8 +35,8 @@ class Input
             case 'Text':
                 return new Inputs\Text($fieldName, $rules);
                 break;
-            case 'Int':
-                return new Inputs\Int($fieldName, $rules);
+            case 'Number':
+                return new Inputs\Number($fieldName, $rules);
                 break;
             default:
                 throw new Exception ("Requested Validator type {$type} does not exist.", Exception::FATAL_EXCEPTION);

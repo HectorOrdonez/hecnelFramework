@@ -5,6 +5,9 @@
  * Date: 11/06/13 13:47
  */
 
+// Sets the language and the number format of the application.
+setlocale(LC_NUMERIC,'es_ES');
+
 // Informs the System about which setup use
 define ('_PRODUCTION', FALSE);
 

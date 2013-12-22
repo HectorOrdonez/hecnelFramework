@@ -26,16 +26,20 @@ class ReleaseLog extends Controller
     /**
      * About constructor.
      */
-    public function __construct()   
+    public function __construct()
     {
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.031', '22/12/2013', array(
-            '[ToDo] - Changed the Hecnel Framework To Dos, separating them into Version targets. Added UserSettings ToDo for Hecnel 3.0.'
+        $this->_setDevelopmentVersion('2.03D', '21/12/2013', array(
+            '[Refactor] - Int Input changed to Number.',
+            '[Feature] - Added Number validation for Spain number format notation.'
         ));
 
         // Setting Historical Log of releases
+        $this->_addHistoryLog('2.031', '22/12/2013', array(
+            '[ToDo] - Changed the Hecnel Framework To Dos, separating them into Version targets. Added UserSettings ToDo for Hecnel 3.0.'
+        ));
         $this->_addHistoryLog('2.03C', '21/12/2013', array(
             '[Feature] - More work done in the Form - Input logic.',
             '[Refactor] - Refactored different parts of sample Application that uses form and inputs.',
@@ -164,7 +168,7 @@ class ReleaseLog extends Controller
      */
     private function _addHistoryLog($version, $date, $changes)
     {
-        $this->_releaseLogHistory[$version] = array (
+        $this->_releaseLogHistory[$version] = array(
             'version' => $version,
             'date' => $date,
             'changes' => $changes

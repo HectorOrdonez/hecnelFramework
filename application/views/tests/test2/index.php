@@ -257,4 +257,36 @@
                 Int Input rule breaking - Min not reached.
             </li>
         </ul>
+
+        <h1>
+            Additional tests for specific Inputs
+        </h1>
+
+        <h3>
+            Input Text
+        </h3>
+        <ul>
+            <li>
+                Max Length
+            </li>
+            <li>
+                Min Length
+            </li>
+        </ul>
+
+        <h3>
+            Input Number
+        </h3>
+        <ul>
+            <li>
+                Max
+            </li>
+            <li>
+                Min
+            </li>
+            <li>
+                is Integer
+            </li>
+        </ul>
+
     </div>
