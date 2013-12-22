@@ -26,18 +26,21 @@ class ReleaseLog extends Controller
     /**
      * About constructor.
      */
-    public function __construct()
+    public function __construct()   
     {
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.03C', '21/12/2013', array(
+        $this->_setDevelopmentVersion('2.031', '22/12/2013', array(
+            '[ToDo] - Changed the Hecnel Framework To Dos, separating them into Version targets. Added UserSettings ToDo for Hecnel 3.0.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.03C', '21/12/2013', array(
             '[Feature] - More work done in the Form - Input logic.',
             '[Refactor] - Refactored different parts of sample Application that uses form and inputs.',
             '[Feature] - Test2 now allows proper testing of new Form and Input features.',
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.03B', '18/12/2013', array(
             '[Feature] - New Exception type RuleException. Refactored Form and Input to work with them. This allows to differentiate from Input exceptions, which are unexpected behaviors, from Rule exceptions, which are expected behaviors - User is inputted wrong stuff.'
         ));

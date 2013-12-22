@@ -2,17 +2,23 @@
 /**
  * General TODOS in the Framework.
  *
- * @todo Wish list - Log system.
- * @todo Wish list - Multi-language support.
- * @todo Wish list - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.
- * @todo Wish list - Default JS libraries for the framework.
- * @todo Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
- * @todo Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
- * @todo View upgrade - The view chunks should be able to use chunks inside a chunk.
- * @todo View upgrade - Need of a system that allows the adding of headers/footers easily.
- * @todo Validation upgrade - new types required: password, date and checkbox.
- * @todo Model upgrade - Consider the use of Model Interface.
- * @todo Model upgrade - Methods for the control of table fields.
+ * @todo Hecnel 2.0 - Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
+ * @todo Hecnel 2.0 - Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
+ * @todo Hecnel 2.0 - View upgrade - The view chunks should be able to use chunks inside a chunk.
+ * @todo Hecnel 2.0 - View upgrade - Need of a system that allows the adding of headers/footers easily.
+ * @todo Hecnel 2.0 - Validation upgrade - new types required: password, date and checkbox.
+ * @todo Hecnel 2.0 - Model upgrade - Consider the use of Model Interface.
+ * @todo Hecnel 2.0 - Model upgrade - Methods for the control of table fields.
+ *
+ * @todo Hecnel 3.0 - Log system.
+ * @todo Hecnel 3.0 - Multi-language support.
+ * @todo Hecnel 3.0 - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.
+ * @todo Hecnel 3.0 - Default JS libraries for the framework. 
+ * @todo Hecnel 3.0 - UserSettings library - or something like that - that loads a number of User related settings, such as ...
+ * @todo              Country - User's country, based on IP.
+ * @todo              Language - User's language, based on browser language - if available - or country otherwise.
+ * @todo              Numeric notation - Dots, commas and other numeric related formats.
+ * @todo              Currency - Which currency User requires. 
  *
  */
 
