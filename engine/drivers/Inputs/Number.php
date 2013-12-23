@@ -3,8 +3,7 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description:
- * Input type Number is an Input that expects the text input by the User to be a number.
- * When requested the value, Input returns a string that has to be parsed depending on the number type - Int, Float...
+ * Number Input.
  * 
  * Date: 18/12/13 22:40
  */
@@ -16,6 +15,10 @@ use engine\drivers\Exceptions\InputException;
 use engine\drivers\Exceptions\RuleException;
 use engine\drivers\Input;
 
+/**
+ * Class Number
+ * @package engine\drivers\Inputs
+ */
 class Number extends Input
 {
     /**
@@ -30,10 +33,9 @@ class Number extends Input
     /**
      * Number Input constructor.
      * @param $fieldName
-     * @param array $options
      * @throws InputException
      */
-    public function __construct($fieldName, $options = array())
+    public function __construct($fieldName)
     {
         // Setting field name
         $this->_fieldName = $fieldName;

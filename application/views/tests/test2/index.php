@@ -50,6 +50,15 @@
                     <input type="text" name="negative"/>
                 </label>
             </p>
+
+            <p>
+                <label>
+                    Mail address. Min Length 6. Max Length 20.
+                </label>
+                <label>
+                    <input type="text" name="mail"/>
+                </label>
+            </p>
     
             <p>
                 <label>
@@ -94,6 +103,15 @@
                 </label>
                 <label>
                     <input type="text" name="negative"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Mail address. Min Length 6. Max Length 20.
+                </label>
+                <label>
+                    <input type="text" name="mail"/>
                 </label>
             </p>
     
@@ -146,6 +164,15 @@
                     <input type="text" name="failnegative"/>
                 </label>
             </p>
+
+            <p>
+                <label>
+                    Mail address. Min Length 6. Max Length 20.
+                </label>
+                <label>
+                    <input type="text" name="failmail"/>
+                </label>
+            </p>
     
             <p>
                 <label>
@@ -190,6 +217,15 @@
                 </label>
                 <label>
                     <input type="text" name="failnegative"/>
+                </label>
+            </p>
+    
+            <p>
+                <label>
+                    Mail address. Min Length 6. Max Length 20.
+                </label>
+                <label>
+                    <input type="text" name="failmail"/>
                 </label>
             </p>
     
@@ -286,6 +322,21 @@
             </li>
             <li>
                 is Integer
+            </li>
+        </ul>
+
+        <h3>
+            Input Mail
+        </h3>
+        <ul>
+            <li>
+                Mail address check
+            </li>
+            <li>
+                Max Length
+            </li>
+            <li>
+                Min Length
             </li>
         </ul>
 

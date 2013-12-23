@@ -24,22 +24,24 @@ class Input
      *
      * @param $type
      * @param $fieldName
-     * @param array $rules
      * @return InputObj
      * @throws drivers\Exception
      */
-    public static function build($type, $fieldName, $rules = array())
+    public static function build($type, $fieldName)
     {
         switch ($type)
         {
             case 'Text':
-                return new Inputs\Text($fieldName, $rules);
+                return new Inputs\Text($fieldName);
                 break;
             case 'Number':
-                return new Inputs\Number($fieldName, $rules);
+                return new Inputs\Number($fieldName);
+                break;
+            case 'Mail':
+                return new Inputs\Mail($fieldName);
                 break;
             default:
-                throw new Exception ("Requested Validator type {$type} does not exist.", Exception::FATAL_EXCEPTION);
+                throw new Exception ("Requested Input type {$type} does not exist.", Exception::FATAL_EXCEPTION);
         }
     }
 }

@@ -63,12 +63,21 @@ class Test2 extends Controller
                 ->addRule('max', -1)
         );
 
+        $form->addInput(
+            $inputMail = Input::build('Mail', 'mail')
+        );
+
         // Logic        
         $wrongInputs = $form->getValidationErrors();
 
         // Output
         if (FALSE === $wrongInputs) {
-            $response = 'No errors. Username: ' . $form->getInput('username')->getValue() . ', City: ' . $form->getInput('city')->getValue() . ', Age : ' . $form->getInput('age')->getValue() . ' and negative amount: ' . $form->getInput('negative')->getValue();
+            $response = '<b>No errors</b> <br>' .
+                'Username: '        . $form->getInput('username')->getValue() . ', <br>' . 
+                'City: '            . $form->getInput('city')->getValue() . '<br>' . 
+                'Age : '            . $form->getInput('age')->getValue() . '<br>' . 
+                'Negative amount: ' . $form->getInput('negative')->getValue() . '<br>' . 
+                'Mail: '            . $form->getInput('mail')->getValue() . '<br>';
 
             $this->_view->setParameter('response', $response);
             $this->_view->addChunk('tests/test2/answerFormTest');
@@ -99,14 +108,21 @@ class Test2 extends Controller
             $inputNegative = Input::build('Number', 'negative')
                 ->addRule('min', -100)
                 ->addRule('max', -1);
+            $inputMail = Input::build('Mail', 'mail');
 
             $inputUser->validate();
             $inputCity->validate();
             $inputAge->validate();
             $inputNegative->validate();
+            $inputMail->validate();
 
             // Logic 
-            $response = 'No errors. Username : ' . $inputUser->getValue() . ', City ' . $inputCity->getValue() . ' and Age: ' . $inputAge->getValue() . ', negative input: ' . $inputNegative->getValue();
+            $response = '<b>No errors</b> <br>' .
+                'Username: '        . $inputUser->getValue() . ', <br>' .
+                'City: '            . $inputCity->getValue() . '<br>' .
+                'Age : '            . $inputAge->getValue() . '<br>' .
+                'Negative amount: ' . $inputNegative->getValue() . '<br>' .
+                'Mail: '            . $inputMail->getValue() . '<br>';
 
             // Output
             $this->_view->setParameter('response', $response);

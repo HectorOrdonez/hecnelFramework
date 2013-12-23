@@ -18,6 +18,8 @@ abstract class Input
      * Default error messages. 
      */
     const MSG_EMPTY_INPUT = 'The input %s is empty.';
+    const MSG_INVALID_RULE = 'The input type %s does not allow the rule $s.';
+    const MSG_INVALID_VALUE = 'Can not provide the value of the input $s because it did not pass validation.';
     
     /**
      * Field name related to this input.
@@ -52,9 +54,8 @@ abstract class Input
     /**
      * Input constructors will always require a field name string and, optionally, a required rules array. 
      * @param string $fieldName
-     * @param array $requiredRules
      */
-    abstract public function __construct($fieldName, $requiredRules = NULL);
+    abstract public function __construct($fieldName);
     
     /**
      * @throws Exceptions\RuleException|\Exception
@@ -104,7 +105,7 @@ abstract class Input
     {
         if (!in_array($rule, $this->_validRules))
         {
-            throw new InputException($this->getFieldName(), "Requested rule {$rule} is not valid for a " . get_class($this) ." input.");
+            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_RULE, $rule, get_class($this)));
         }
         $this->_requestedRules[$rule] = $value;
         
@@ -120,7 +121,7 @@ abstract class Input
     {
         if (false !== $this->getError() )
         {
-            throw new InputException($this->getFieldName(), 'Can not provide the value of the Input ' . $this->getFieldName() . ' because it did not pass validation.'); 
+            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_VALUE, $this->getFieldName())); 
         }
         return $this->_value;
     }
