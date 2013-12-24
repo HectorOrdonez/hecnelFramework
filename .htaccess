@@ -2,8 +2,7 @@
 #
 # Project: Hecnel Framework
 # User: Hector Ordonez
-# Date: 18/06/13 21:00
-#
+# @date: 18/06/13 21:00#
 # @todo - Later stage - Research about .htaccess.
 
 php_flag display_errors on

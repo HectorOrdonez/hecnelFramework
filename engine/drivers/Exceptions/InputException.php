@@ -2,20 +2,19 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- *
- * Class InputException
- * @package engine\drivers\Exceptions
- *
  * Description:
  * Exception triggered by an Input because of an unexpected behavior.
- *
- * Date: 13/12/13 16:00
+ * @date: 13/12/13 16:00
  */
 
 namespace engine\drivers\Exceptions;
 
 use engine\drivers\Exception;
 
+/**
+ * Class InputException
+ * @package engine\drivers\Exceptions
+ */
 class InputException extends Exception
 {
     /**
@@ -38,7 +37,7 @@ class InputException extends Exception
 
         parent::__construct($message, $exceptionType, $code, $previous);
     }
-    
+
     /**
      * Returns the Input name.
      * @return string

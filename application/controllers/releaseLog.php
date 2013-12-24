@@ -31,15 +31,20 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.03E', '23/12/2013', array(
+        $this->_setDevelopmentVersion('2.03F', '24/12/2013', array(
+            '[Refactor] - Minor refactor of Input construction on current Input objects Text, Number and Mail.',
+            '[Code improvement] - Modified and reorganized comments here and there.',
+            '[Code improvement] - Reorganized code using PHPStorm tool "Reformat code".'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.03E', '23/12/2013', array(
             '[Debug] - Fixed bug with Text Input.',
             '[Feature] - New Input type: Mail.',
             '[Feature] - Modified Input construction, now it does not allow rules.',
             '[Code improvement] - Replaced string messaging in Inputs for Constants.',
             '[Refactor] - Removed refactored Validators Int (Number) and String (Text).'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.03D', '21/12/2013', array(
             '[Refactor] - Int Input changed to Number.',
             '[Feature] - Added Number validation for Spain number format notation.'

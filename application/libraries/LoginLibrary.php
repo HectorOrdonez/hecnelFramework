@@ -2,7 +2,7 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
+ * Description:
  * Date: 11/07/13 17:32
  */
 
@@ -36,8 +36,7 @@ class LoginLibrary extends Library
     {
         $result = $this->_model->selectUserForLogin($name, $password);
 
-        if ($result !== FALSE)
-        {
+        if ($result !== FALSE) {
             Session::set('isUserLoggedIn', true);
             Session::set('userName', $result['name']);
             Session::set('userRole', $result['role']);

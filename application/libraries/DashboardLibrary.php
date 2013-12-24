@@ -2,7 +2,7 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
+ * Description:
  * Date: 11/07/13 16:47
  */
 
@@ -27,7 +27,7 @@ class DashboardLibrary extends Library
     public function ajaxInsert($data)
     {
         $newDataId = $this->_model->insert($data);
-        return array('id'=>$newDataId, 'data'=>$data);
+        return array('id' => $newDataId, 'data' => $data);
     }
 
     public function getListings()

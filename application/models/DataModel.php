@@ -12,7 +12,8 @@ use application\engine\Model;
 
 class DataModel extends Model
 {
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 

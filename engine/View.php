@@ -5,12 +5,16 @@
  * Description:
  * View engine class.
  * Its purpose is to define the behavior of the Views of the application and to provide general methods.
- * Date: 11/06/13 12:00
+ * @date: 11/06/13 12:00
  * @todo Redesign View concept.
  */
 
 namespace engine;
 
+/**
+ * Class View
+ * @package engine
+ */
 class View
 {
     /**
@@ -36,7 +40,7 @@ class View
      * @var string
      */
     protected $_header = '';
-    
+
     /**
      * Path of the footer to be rendered.
      * @var string
@@ -115,7 +119,7 @@ class View
      * Sets the title of the page.
      * @param string $title
      */
-    public function setTitle ($title)
+    public function setTitle($title)
     {
         $this->_title = $title;
     }
@@ -145,7 +149,7 @@ class View
      */
     public function setFooterChunk($chunk)
     {
-        $this->_footer = (string) $chunk;
+        $this->_footer = (string)$chunk;
     }
 
     /**
@@ -156,16 +160,13 @@ class View
      */
     public function addChunk($chunk, $pos = NULL)
     {
-        if (!isset($pos))
-        {
+        if (!isset($pos)) {
             $this->_chunks[] = $chunk;
-        }
-        else
-        {
+        } else {
             $prevChunks = array_slice($this->_chunks, 0, $pos);
             $postChunks = array_slice($this->_chunks, $pos);
             $prevChunks[] = $chunk;
-            $this->_chunks= array_merge($prevChunks, $postChunks);
+            $this->_chunks = array_merge($prevChunks, $postChunks);
         }
     }
 
@@ -214,8 +215,7 @@ class View
             require $this->_header;
         }
 
-        foreach ($this->_chunks as $chunk)
-        {
+        foreach ($this->_chunks as $chunk) {
             require 'application/views/' . $chunk . '.php';
         }
 

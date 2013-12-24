@@ -52,7 +52,7 @@ class Error extends Controller
      * Called when Bootstrap catches an Exception.
      * @param Exception $exception
      */
-    public function exception (Exception $exception)
+    public function exception(Exception $exception)
     {
         $this->_view->setParameter('exception', $exception->getMessage());
         $this->_view->setParameter('file', $exception->getRelativeFile());

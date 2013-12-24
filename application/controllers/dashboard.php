@@ -30,10 +30,9 @@ class Dashboard extends Controller
     {
         parent::__construct(new DashboardLibrary);
         $logged = Session::get('isUserLoggedIn');
-        if ($logged == FALSE)
-        {
+        if (FALSE === $logged) {
             Session::destroy();
-            header('location: '. _SYSTEM_BASE_URL .'login');
+            header('location: ' . _SYSTEM_BASE_URL . 'login');
             exit;
         }
     }
@@ -44,8 +43,8 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $this->_view->addLibrary('js','application/views/dashboard/js/dashboard.js');
-        $this->_view->addLibrary('css','application/views/dashboard/css/dashboard.css');
+        $this->_view->addLibrary('js', 'application/views/dashboard/js/dashboard.js');
+        $this->_view->addLibrary('css', 'application/views/dashboard/css/dashboard.css');
 
         $this->_view->setParameter('userName', Session::get('userName'));
 

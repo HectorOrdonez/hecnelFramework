@@ -15,7 +15,7 @@
  * So when an asynchronous call hits a Controller, this will have to disable the auto rendering, in order to only show the information that the asynchronous request requires.
  *
  * Controllers have the duty to manage the Exceptions that the Libraries throw; Controllers must know what to do when an error arises, even if this means calling another library to manage the error final data.
- * Date: 11/06/13 12:00
+ * @date: 11/06/13 12:00
  */
 
 namespace engine;
@@ -23,6 +23,10 @@ namespace engine;
 use application\engine\Library;
 use application\engine\View;
 
+/**
+ * Class Controller
+ * @package engine
+ */
 class Controller
 {
     /**
@@ -64,6 +68,7 @@ class Controller
     {
         $this->_view = new View;
     }
+
     /**
      * Auto-loading of the library related to this controller.
      * Checks if there is a library related to this controller and, if so, instantiates it.
@@ -83,8 +88,7 @@ class Controller
      */
     final public function render()
     {
-        if ($this->_autoRender === TRUE)
-        {
+        if ($this->_autoRender === TRUE) {
             $this->_view->render();
         }
     }
@@ -95,6 +99,6 @@ class Controller
      */
     public function setAutoRender($option)
     {
-        $this->_autoRender = (boolean) $option;
+        $this->_autoRender = (boolean)$option;
     }
 }

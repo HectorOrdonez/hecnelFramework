@@ -6,7 +6,7 @@
  */
 
 // Sets the language and the number format of the application.
-setlocale(LC_NUMERIC,'es_ES');
+setlocale(LC_NUMERIC, 'es_ES');
 
 // Informs the System about which setup use
 define ('_PRODUCTION', FALSE);

@@ -17,6 +17,7 @@ class Help extends Controller
      * @var HelpLibrary $_library
      */
     protected $_library;
+
     /**
      * Help constructor.
      * Adds the Help style library. As this is the construct, the library will be added for all the pages of this controller.
@@ -25,7 +26,7 @@ class Help extends Controller
     {
         parent::__construct(new HelpLibrary);
 
-        $this->_view->addLibrary('css','views/help/css/help.css');
+        $this->_view->addLibrary('css', 'views/help/css/help.css');
     }
 
     /**

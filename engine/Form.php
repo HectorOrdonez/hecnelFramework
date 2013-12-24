@@ -1,4 +1,14 @@
 <?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ *
+ * This class manages the collection of Post data, allowing validations.
+ * @date: 16/06/13 21:45
+ * @updated: 13/12/13 15:30 Refactored the Form to work with Input objects.
+ */
+
 namespace engine;
 
 use engine\drivers\Exceptions\FormException;
@@ -7,15 +17,7 @@ use engine\drivers\Exceptions\RuleException;
 use engine\drivers\Input as Input;
 
 /**
- * Project: Hecnel Framework
- * User: Hector Ordonez
- * Date: 16/06/13 21:45
- * Updated: 13/12/13 15:30 Refactored the Form to work with Input objects. 
- */
- 
-/** 
  * Class Form
- * This class manages the collection of Post data, allowing validations.
  * @package engine
  */
 class Form
@@ -30,7 +32,7 @@ class Form
      * @var Input[]
      */
     private $_errorInputs;
-    
+
     /**
      * Form constructor.
      */
@@ -60,18 +62,17 @@ class Form
         }
         return $this->_inputs[$fieldName];
     }
-    
+
     /**
      * Returns either an array of Error Inputs or FALSE, if there are no error inputs.
      * @return bool|Input[]
      */
     public function getValidationErrors()
-    { 
+    {
         foreach ($this->_inputs as $input) {
             try {
                 $input->validate();
-            } catch (RuleException $rEx)
-            {
+            } catch (RuleException $rEx) {
                 $this->_errorInputs[$input->getFieldName()] = $input;
             }
         }

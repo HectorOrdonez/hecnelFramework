@@ -73,11 +73,11 @@ class Test2 extends Controller
         // Output
         if (FALSE === $wrongInputs) {
             $response = '<b>No errors</b> <br>' .
-                'Username: '        . $form->getInput('username')->getValue() . ', <br>' . 
-                'City: '            . $form->getInput('city')->getValue() . '<br>' . 
-                'Age : '            . $form->getInput('age')->getValue() . '<br>' . 
-                'Negative amount: ' . $form->getInput('negative')->getValue() . '<br>' . 
-                'Mail: '            . $form->getInput('mail')->getValue() . '<br>';
+                'Username: ' . $form->getInput('username')->getValue() . ', <br>' .
+                'City: ' . $form->getInput('city')->getValue() . '<br>' .
+                'Age : ' . $form->getInput('age')->getValue() . '<br>' .
+                'Negative amount: ' . $form->getInput('negative')->getValue() . '<br>' .
+                'Mail: ' . $form->getInput('mail')->getValue() . '<br>';
 
             $this->_view->setParameter('response', $response);
             $this->_view->addChunk('tests/test2/answerFormTest');
@@ -118,11 +118,11 @@ class Test2 extends Controller
 
             // Logic 
             $response = '<b>No errors</b> <br>' .
-                'Username: '        . $inputUser->getValue() . ', <br>' .
-                'City: '            . $inputCity->getValue() . '<br>' .
-                'Age : '            . $inputAge->getValue() . '<br>' .
+                'Username: ' . $inputUser->getValue() . ', <br>' .
+                'City: ' . $inputCity->getValue() . '<br>' .
+                'Age : ' . $inputAge->getValue() . '<br>' .
                 'Negative amount: ' . $inputNegative->getValue() . '<br>' .
-                'Mail: '            . $inputMail->getValue() . '<br>';
+                'Mail: ' . $inputMail->getValue() . '<br>';
 
             // Output
             $this->_view->setParameter('response', $response);

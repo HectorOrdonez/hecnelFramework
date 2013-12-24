@@ -43,9 +43,8 @@ class UserModel extends Model
 
         $result = $this->db->select('user', $fields, $conditions);
 
-        if (count($result) != 0){
-            if (Encrypter::verify($password, $result[0]['password']) === TRUE)
-            {
+        if (count($result) != 0) {
+            if (Encrypter::verify($password, $result[0]['password']) === TRUE) {
                 return $result[0];
             }
         }
@@ -72,8 +71,7 @@ class UserModel extends Model
 
         $result = $this->db->select('user', $fields, $conditions);
 
-        if (count($result) > 0)
-        {
+        if (count($result) > 0) {
             return $result[0];
         } else {
             return FALSE;

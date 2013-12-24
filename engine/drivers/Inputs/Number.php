@@ -4,13 +4,11 @@
  * User: Hector Ordonez
  * Description:
  * Number Input.
- * 
- * Date: 18/12/13 22:40
+ * @date: 18/12/13 22:30
  */
 
 namespace engine\drivers\Inputs;
 
-use engine\drivers\Exception;
 use engine\drivers\Exceptions\InputException;
 use engine\drivers\Exceptions\RuleException;
 use engine\drivers\Input;
@@ -28,12 +26,11 @@ class Number extends Input
     const MSG_NOT_INTEGER = "Parameter '%s' in field '%s' is not integer.";
     const MSG_MAX_EXCEEDED = "Parameter '%s' in field '%s' exceeds the maximum '%s'.";
     const MSG_MIN_NOT_REACHED = "Parameter '%s' in field '%s' does not reach the minimum '%s'.";
-    
 
     /**
      * Number Input constructor.
      * @param $fieldName
-     * @throws InputException
+     * @throws RuleException
      */
     public function __construct($fieldName)
     {
@@ -47,18 +44,16 @@ class Number extends Input
             'isInt'
         );
 
-        if (!isset($_POST[$fieldName]) or '' == $_POST[$fieldName]) {
-            $this->setValue('');
-            $this->setError(new RuleException($this, 'set', $this->getValue(), sprintf(self::MSG_EMPTY_INPUT, $fieldName)));
-            return;
-        }
-        
-        $this->setValue($_POST[$fieldName]);
-    
+        // Verifying that input fulfills the most basic conditions this kind of input requires.
         try {
-            $this->parseNumber();
-        } catch (RuleException $rEx)
-        {
+            if (!isset($_POST[$fieldName]) or '' == $_POST[$fieldName]) {
+                $this->setValue('');
+                throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName));
+            } else {
+                $this->setValue($_POST[$fieldName]);
+                $this->isNumber();
+            }
+        } catch (RuleException $rEx) {
             $this->setError($rEx);
         }
     }
@@ -66,17 +61,16 @@ class Number extends Input
     /**
      * This function verifies that Input is numeric.
      * @todo Hecnel 3.0 will implement UserSettings and, if this Input still exist, it will have to consider User settings when deciding if a Number is right or not, depending on the number notation. A 5 555.55 might be right in USA, but in Spain it would be 5.555,55.
-     * @todo Hecnel 3.0 Stronger validation might be required regarding dots, commas, etc. 
+     * @todo Hecnel 3.0 Stronger validation might be required regarding dots, commas, etc.
      */
-    private function parseNumber ()
+    private function isNumber()
     {
         $rawValue = $this->getValue();
-        
+
         // Separate Checking commas.
         $commas = substr_count($rawValue, ',');
 
-        switch ($commas)
-        {
+        switch ($commas) {
             case 0:
                 $this->checkNatural($rawValue);
                 break;
@@ -88,7 +82,7 @@ class Number extends Input
             default:
                 throw new RuleException($this, 'set', $this->getValue(), sprintf(self::MSG_NOT_NUMERIC, $this->getValue(), $this->getFieldName()));
         }
-        
+
         // Number verified. Cleaning it.
         $noDots = str_replace('.', '', $rawValue);
         $parsedValue = str_replace(',', '.', $noDots);
@@ -100,31 +94,26 @@ class Number extends Input
      * @param $natural
      * @throws RuleException
      */
-    private function checkNatural ($natural)
+    private function checkNatural($natural)
     {
         // Removing, if any, the negative symbol that a negative natural number can have.
-        if ('-' === $natural[0])
-        {
+        if ('-' === $natural[0]) {
             $natural = substr($natural, 1);
         }
-        
+
         $splitByDot = preg_split('/\./', $natural);
-        
-        if (1 < sizeof($splitByDot))
-        {
+
+        if (1 < sizeof($splitByDot)) {
             // First part can contain between 1 and 3 numbers.
             $this->checkDigits($splitByDot[0]);
-            if (strlen($splitByDot[0]) < 1 OR strlen($splitByDot[0]) > 3)
-            {
+            if (strlen($splitByDot[0]) < 1 OR strlen($splitByDot[0]) > 3) {
                 throw new RuleException ($this, 'set', $this->getValue(), sprintf(self::MSG_NOT_NUMERIC, $this->getValue(), $this->getFieldName()));
             }
-            
+
             // Other parts must have 3 numbers.
-            for ($i = 1; $i < sizeof($splitByDot); $i++)
-            {
+            for ($i = 1; $i < sizeof($splitByDot); $i++) {
                 $this->checkDigits($splitByDot[$i]);
-                if (strlen($splitByDot[$i]) != 3)
-                {
+                if (strlen($splitByDot[$i]) != 3) {
                     throw new RuleException ($this, 'set', $this->getValue(), sprintf(self::MSG_NOT_NUMERIC, $this->getValue(), $this->getFieldName()));
                 }
             }
@@ -138,10 +127,9 @@ class Number extends Input
      * @param $digits
      * @throws RuleException
      */
-    private function checkDigits ($digits)
+    private function checkDigits($digits)
     {
-        if (!ctype_digit($digits))
-        {
+        if (!ctype_digit($digits)) {
             throw new RuleException($this, 'set', $this->getValue(), sprintf(self::MSG_NOT_NUMERIC, $this->getValue(), $this->getFieldName()));
         }
     }
@@ -159,17 +147,17 @@ class Number extends Input
     }
 
     /**
-     * Maximum amount.  
+     * Maximum amount.
      * @param int $max Maximum value allowed by the Input.
      * @throws RuleException triggered if Input value is higher than allowed.
      */
     protected function max($max)
     {
         if ($this->getValue() > $max) {
-            throw new RuleException ($this, 'max', $this->getValue(),sprintf(self::MSG_MAX_EXCEEDED, $this->getValue(), $this->getFieldName(), $max));
+            throw new RuleException ($this, 'max', $this->getValue(), sprintf(self::MSG_MAX_EXCEEDED, $this->getValue(), $this->getFieldName(), $max));
         }
     }
-    
+
     /**
      * Verifies that this number is Integer.
      * @throws RuleException triggered if Input is not an Integer.

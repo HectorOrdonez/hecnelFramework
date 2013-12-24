@@ -7,12 +7,18 @@
  * Database Library to manage the relation with the database engine.
  * This custom Database library extends PDO.
  * For more information about PDO, this might be of interest: http://blog.tordek.com.ar/2010/11/pdo-o-por-que-todos-los-tutoriales-de-php-llevan-a-las-malas-practicas/
- * Date: 12/06/13 11:30
+ * @date: 12/06/13 11:30
  * @todo Research about security related to the misuse of the Database methods. Example, giving whole sql entry instead a string parameter when a table name expected.
  */
 
 namespace engine;
 
+use engine\drivers\Exceptions\DatabaseException;
+
+/**
+ * Class Database
+ * @package engine
+ */
 class Database extends \PDO
 {
     /**
@@ -32,7 +38,6 @@ class Database extends \PDO
      * @var \PDOStatement
      */
     protected $_statement = NULL;
-
 
     /**
      * Database constructor.
@@ -57,7 +62,7 @@ class Database extends \PDO
      * Then the parent method prepare is called with it.
      * @param string $sql
      */
-    protected function _prepare ($sql)
+    protected function _prepare($sql)
     {
         $this->_lastQuery = $sql;
         $this->_statement = parent::prepare($sql);
@@ -70,12 +75,11 @@ class Database extends \PDO
      * @param string $field
      * @param mixed $value
      */
-    protected function _bindValue ($field, $value)
+    protected function _bindValue($field, $value)
     {
         $valueType = gettype($value);
 
-        switch ($valueType)
-        {
+        switch ($valueType) {
             case 'string':
                 $this->_lastQuery = str_replace($field, "'{$value}'", $this->_lastQuery);
                 $this->_statement->bindValue($field, $value, \PDO::PARAM_STR);
@@ -96,11 +100,10 @@ class Database extends \PDO
      */
     protected function _execute()
     {
-        if ($this->_debugMode === FALSE)
-        {
+        if ($this->_debugMode === FALSE) {
             try {
                 $executionResult = $this->_statement->execute();
-            } catch (\PDOException $e){
+            } catch (\PDOException $e) {
                 // Temporal Code to learn about PDO Exceptions
                 echo "PDOEXCEPTION : " . $e->getMessage();
                 exit;
@@ -119,7 +122,7 @@ class Database extends \PDO
      */
     public function setDebugMode($debugMode)
     {
-        $this->_debugMode = (bool) $debugMode;
+        $this->_debugMode = (bool)$debugMode;
     }
 
     /**
@@ -144,11 +147,10 @@ class Database extends \PDO
     {
         // 1 - Preparing unbound query
         $selectQuery = 'SELECT ';
-        $selectQuery .= (count($fields) == 0)? '* ' : implode(',', $fields);
+        $selectQuery .= (count($fields) == 0) ? '* ' : implode(',', $fields);
         $selectQuery .= ' FROM ' . $table;
 
-        if (count($conditions) > 0)
-        {
+        if (count($conditions) > 0) {
             $conditionsString = ' WHERE ';
             foreach (array_keys($conditions) as $conditionedField) {
                 $conditionsString .= "`$conditionedField` = :$conditionedField AND ";
@@ -214,7 +216,7 @@ class Database extends \PDO
         }
         $conditionsString = substr($conditionsString, 0, -4);
 
-        $this->_prepare('UPDATE ' . $table . ' SET ' . $setString . ' WHERE '.$conditionsString);
+        $this->_prepare('UPDATE ' . $table . ' SET ' . $setString . ' WHERE ' . $conditionsString);
 
         // 2 - Binding query
         foreach ($set as $renewedField => $newValue) {
@@ -262,19 +264,20 @@ class Database extends \PDO
      * @param int $fetchMode
      * @return mixed
      */
-    public function complexQuery ($sql, $parameters = array(), $fetchMode = \PDO::FETCH_ASSOC)
+    public function complexQuery($sql, $parameters = array(), $fetchMode = \PDO::FETCH_ASSOC)
     {
         // 1 - Preparing unbound query
         $this->_prepare($sql);
+        
         // 2 - Binding query
         foreach ($parameters as $parameterField => $parameterValue) {
             $this->_bindValue(":{$parameterField}", $parameterValue);
         }
         // 3 - Executing
         $this->_execute();
+        
         // 4 - Returning results (step only in Selects)
-        if (strtoupper(substr($sql, 0, 6)) == 'SELECT')
-        {
+        if (strtoupper(substr($sql, 0, 6)) == 'SELECT') {
             return $this->_statement->fetchAll($fetchMode);
         }
     }

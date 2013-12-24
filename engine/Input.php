@@ -3,7 +3,7 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description:
- * Date: 16/06/13 22:00
+ * @date: 16/06/13 22:00
  */
 
 namespace engine;
@@ -12,14 +12,20 @@ use engine\drivers\Exception;
 use engine\drivers\Inputs as Inputs;
 use engine\drivers\Input as InputObj;
 
+/**
+ * Class Input
+ * @package engine
+ */
 class Input
 {
     // This is not an instantiable class.
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Calls to Input are in the format: Input::$type($fieldName);
-     * 
+     *
      * E.g Input::text('username') will return an object Text, which extends the class Input, with 'username' as parameter fieldName.
      *
      * @param $type
@@ -29,8 +35,7 @@ class Input
      */
     public static function build($type, $fieldName)
     {
-        switch ($type)
-        {
+        switch ($type) {
             case 'Text':
                 return new Inputs\Text($fieldName);
                 break;

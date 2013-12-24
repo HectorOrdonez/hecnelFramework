@@ -2,10 +2,10 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
+ * Description:
  * Testing page.
  * Date: 12/12/13 23:00
-*/
+ */
 
 namespace application\controllers;
 

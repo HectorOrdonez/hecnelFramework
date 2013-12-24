@@ -20,9 +20,8 @@ class Index extends Controller
     {
         parent::__construct();
         $logged = Session::get('isUserLoggedIn');
-        if ($logged == TRUE)
-        {
-            header('location: '. _SYSTEM_BASE_URL .'dashboard');
+        if (TRUE === $logged) {
+            header('location: ' . _SYSTEM_BASE_URL . 'dashboard');
             exit;
         }
     }

@@ -28,10 +28,9 @@ class usersManagement extends Controller
 
         $logged = Session::get('isUserLoggedIn');
         $userRole = Session::get('userRole');
-        if ($logged == FALSE OR $userRole != 'superadmin')
-        {
+        if ($logged == FALSE OR $userRole != 'superadmin') {
             Session::destroy();
-            header('location: '. _SYSTEM_BASE_URL .'login');
+            header('location: ' . _SYSTEM_BASE_URL . 'login');
             exit;
         }
     }
@@ -41,7 +40,7 @@ class usersManagement extends Controller
      */
     public function index()
     {
-        $this->_view->setParameter('usersList',$this->_library->getUsersList());
+        $this->_view->setParameter('usersList', $this->_library->getUsersList());
 
         $this->_view->addChunk('usersManagement/index');
     }
@@ -53,8 +52,7 @@ class usersManagement extends Controller
     {
         $userData = $this->_library->getUser($userId);
 
-        if ($userData === FALSE)
-        {
+        if ($userData === FALSE) {
             $this->_view->setParameter('error', 'The user you are trying to edit does not exist.');
             $this->_view->addChunk('usersManagement/error');
         } else {
@@ -98,7 +96,7 @@ class usersManagement extends Controller
             $form->getInput('password')->getValue(),
             $form->getInput('userRole')->getValue());
 
-        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
+        header('location: ' . _SYSTEM_BASE_URL . 'usersManagement');
         exit;
     }
 
@@ -112,13 +110,13 @@ class usersManagement extends Controller
             Input::build('Int', 'userId')
                 ->addRule('min', 1)
         );
-        
+
         $form->addInput(
             Input::build('Text', 'userName')
                 ->addRule('minLength', 10)
                 ->addRule('maxLength', 50)
         );
-        
+
         $form->addInput(
             Input::build('Text', 'password')
                 ->addRule('minLength', 10)
@@ -135,13 +133,13 @@ class usersManagement extends Controller
         );
 
         $this->_library->editUser(
-            $form->getInput('userId')  ->getValue(),
+            $form->getInput('userId')->getValue(),
             $form->getInput('userName')->getValue(),
             $form->getInput('password')->getValue(),
             $form->getInput('userRole')->getValue()
         );
 
-        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
+        header('location: ' . _SYSTEM_BASE_URL . 'usersManagement');
         exit;
     }
 
@@ -152,7 +150,7 @@ class usersManagement extends Controller
     {
         $this->_library->deleteUser($userId);
 
-        header('location: '. _SYSTEM_BASE_URL .'usersManagement');
+        header('location: ' . _SYSTEM_BASE_URL . 'usersManagement');
         exit;
     }
 }

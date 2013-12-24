@@ -2,10 +2,9 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
+ * Description:
  * Text Input.
- * 
- * Date: 13/12/13 16:00
+ * @date: 13/12/13 16:00
  */
 
 namespace engine\drivers\Inputs;
@@ -24,7 +23,7 @@ class Text extends Input
      * Constant that defines the minimum string length to display when Input value exceeds maxLength rule.
      */
     const MIN_DISPLAYABLE_LEN = 10;
-    
+
     /**
      * Default error messages.
      */
@@ -34,26 +33,30 @@ class Text extends Input
     /**
      * Text Input constructor.
      * @param $fieldName
-     * @throws InputException
+     * @throws RuleException
      */
     public function __construct($fieldName)
     {
         // Setting field name
         $this->_fieldName = $fieldName;
-        
+
         // Initializing valid rules for text inputs
         $this->_validRules = array(
             'minLength',
             'maxLength'
         );
 
-        if (!isset($_POST[$fieldName])) {
-            $this->setValue('');
-            $this->setError(new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName)));
-            return;
+        // Verifying that input fulfills the most basic conditions this kind of input requires.
+        try {
+            if (!isset($_POST[$fieldName])) {
+                $this->setValue('');
+                throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName));
+            } else {
+                $this->setValue($_POST[$fieldName]);
+            }
+        } catch (RuleException $rEx) {
+            $this->setError($rEx);
         }
-
-        $this->setValue($_POST[$fieldName]);
     }
 
     /**
@@ -61,10 +64,9 @@ class Text extends Input
      * @param int $minLen Minimum length of the string
      * @throws RuleException triggered if string length is lower than expected.
      */
-    protected function minLength ($minLen)
+    protected function minLength($minLen)
     {
-        if (strlen($this->getValue()) < $minLen )
-        {
+        if (strlen($this->getValue()) < $minLen) {
             throw new RuleException ($this, 'minLength', $this->getValue(), sprintf(self::MSG_MIN_LENGTH_NOT_REACHED, $this->getValue(), $this->getFieldName(), $minLen));
         }
     }
@@ -74,10 +76,9 @@ class Text extends Input
      * @param int $maxLen Maximum length of the string
      * @throws RuleException triggered if string length is greater than expected.
      */
-    protected function maxLength ($maxLen)
+    protected function maxLength($maxLen)
     {
-        if (strlen($this->getValue()) > $maxLen)
-        {
+        if (strlen($this->getValue()) > $maxLen) {
             $value = ($maxLen < self::MIN_DISPLAYABLE_LEN) ? $this->getValue() : substr($this->getValue(), 0, $maxLen) . '[...]';
             $this->setValue($value);
             throw new RuleException ($this, 'maxLength', $this->getValue(), sprintf(self::MSG_MAX_LENGTH_EXCEEDED, $this->getValue(), $this->getFieldName(), $maxLen));

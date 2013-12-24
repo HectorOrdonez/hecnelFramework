@@ -3,8 +3,9 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description:
- * Input Object is a helper for getting data from Post requests.
- * Date: 13/12/13 16:00
+ * Abstract Input, extended by all Input Objects such as Text and Number.
+ * The purpose of these objects is to help controllers get POST data from User when sent.
+ * @date: 13/12/13 16:00
  */
 
 namespace engine\drivers;
@@ -12,15 +13,19 @@ namespace engine\drivers;
 use engine\drivers\Exceptions\InputException as InputException;
 use engine\drivers\Exceptions\RuleException;
 
+/**
+ * Class Input
+ * @package engine\drivers
+ */
 abstract class Input
 {
     /**
-     * Default error messages. 
+     * Default error messages.
      */
     const MSG_EMPTY_INPUT = 'The input %s is empty.';
     const MSG_INVALID_RULE = 'The input type %s does not allow the rule $s.';
     const MSG_INVALID_VALUE = 'Can not provide the value of the input $s because it did not pass validation.';
-    
+
     /**
      * Field name related to this input.
      * @var string
@@ -46,34 +51,31 @@ abstract class Input
     protected $_value = null;
 
     /**
-     * Rule Exception, if any, of this Input.
-     * @var RuleException
+     * False by default. When Input is validated, the RuleExceptions triggered are stored in this parameter.
+     * @var bool | RuleException
      */
-    protected $_error = null;
+    protected $_error = false;
 
     /**
-     * Input constructors will always require a field name string and, optionally, a required rules array. 
+     * Input constructors will always require a field name string and, optionally, a required rules array.
      * @param string $fieldName
      */
     abstract public function __construct($fieldName);
-    
+
     /**
      * @throws Exceptions\RuleException|\Exception
      */
     public function validate()
     {
         // In case there is already an error, Input failed to initialize.
-        if (false !== $this->getError())
-        {
+        if (false !== $this->getError()) {
             throw $this->getError();
         }
-        
-        foreach ($this->_requestedRules as $ruleName => $ruleValue)
-        {
+
+        foreach ($this->_requestedRules as $ruleName => $ruleValue) {
             try {
                 $this->{$ruleName}($ruleValue);
-            } catch (RuleException $rEx)
-            {
+            } catch (RuleException $rEx) {
                 $this->setError($rEx);
                 throw $rEx;
             }
@@ -95,7 +97,7 @@ abstract class Input
      *
      * Notice that this method does not throw an InputException. That is because if an Input is requested a rule not
      * related to it, the problem is beyond the Input - something out there thinks this input is something it ain't!
-     * 
+     *
      * @param string $rule Rule.
      * @param null $value Optional value that some rules needs to work.
      * @return Input $this
@@ -103,12 +105,11 @@ abstract class Input
      */
     public function addRule($rule, $value = null)
     {
-        if (!in_array($rule, $this->_validRules))
-        {
+        if (!in_array($rule, $this->_validRules)) {
             throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_RULE, $rule, get_class($this)));
         }
         $this->_requestedRules[$rule] = $value;
-        
+
         return $this;
     }
 
@@ -119,9 +120,8 @@ abstract class Input
      */
     public function getValue()
     {
-        if (false !== $this->getError() )
-        {
-            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_VALUE, $this->getFieldName())); 
+        if (false !== $this->getError()) {
+            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_VALUE, $this->getFieldName()));
         }
         return $this->_value;
     }
@@ -134,14 +134,22 @@ abstract class Input
     {
         $this->_value = $value;
     }
-    
+
+    /**
+     * Sets an input error when required.
+     * @param RuleException $rEx
+     */
     protected function setError(RuleException $rEx)
     {
         $this->_error = $rEx;
     }
-    
+
+    /**
+     * Gets the input error. Error can be a RuleException or false, which means Input passed validation.
+     * @return bool|RuleException
+     */
     public function getError()
     {
-        return (is_null($this->_error))? false : $this->_error;
+        return $this->_error;
     }
 }

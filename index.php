@@ -18,8 +18,7 @@
  * @todo              Country - User's country, based on IP.
  * @todo              Language - User's language, based on browser language - if available - or country otherwise.
  * @todo              Numeric notation - Dots, commas and other numeric related formats.
- * @todo              Currency - Which currency User requires. 
- *
+ * @todo              Currency - Which currency User requires.
  */
 
 // First thing ever, session_start.

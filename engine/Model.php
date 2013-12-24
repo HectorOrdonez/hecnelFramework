@@ -4,13 +4,16 @@
  * User: Hector Ordonez
  * Description:
  * The Model class of the Engine is the master of the Models, extended by the Model of the application engine and, that one, extended by all the models that the Application needs.
- *
  * A Model is the logical representation of a Database entity; it easies the Libraries task of requesting data to the Database.
- * Date: 11/06/13 12:30
+ * @date: 11/06/13 12:30
  */
 
 namespace engine;
 
+/**
+ * Class Model
+ * @package engine
+ */
 class Model
 {
     /**

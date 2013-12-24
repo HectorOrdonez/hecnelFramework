@@ -2,14 +2,9 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- *
- * Class RuleException
- * @package engine\drivers\Exceptions
- *
  * Description:
  * Exception triggered by an Input because of a non-passed rule.
- *
- * Date: 18/12/13 23:00
+ * @date: 18/12/13 23:00
  */
 
 namespace engine\drivers\Exceptions;
@@ -17,6 +12,10 @@ namespace engine\drivers\Exceptions;
 use engine\drivers\Exception;
 use engine\drivers\Input;
 
+/**
+ * Class RuleException
+ * @package engine\drivers\Exceptions
+ */
 class RuleException extends Exception
 {
     /**
