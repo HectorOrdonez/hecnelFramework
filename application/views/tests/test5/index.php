@@ -2,10 +2,15 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
- * Date: 12/12/13 23:45
+ * Description:
+ * Date: 26/12/13 21:30
  */
 ?>
-    <div>
-        Test 5.
-    </div>
+
+<?php $this->printChunk('header'); ?>
+
+<div>
+    Test 5.
+</div>
+
+<?php $this->printChunk('footer'); ?>

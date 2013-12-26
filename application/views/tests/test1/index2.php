@@ -7,5 +7,5 @@
  */
 ?>
     <div>
-        Test 1, Part 2. Moved to position 2.
+        Chunk number 2.
     </div>

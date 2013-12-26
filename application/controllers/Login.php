@@ -66,8 +66,10 @@ class Login extends Controller
         // Resolution
         if ($login === TRUE) {
             header('location: ' . _SYSTEM_BASE_URL . 'dashboard');
+            exit;
         } else {
             header('location: ' . _SYSTEM_BASE_URL . 'login');
+            exit;
         }
     }
 }

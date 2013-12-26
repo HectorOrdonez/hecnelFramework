@@ -1,3 +1,14 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 26/12/13 21:30
+ */
+?>
+
+<?php $this->printChunk('header'); ?>
+
 <div class='exception'>
     <table class="exceptionTable">
         <tbody>
@@ -35,3 +46,5 @@
     </table>
 <?php endforeach; ?>
 </div>
+
+<?php $this->printChunk('footer'); ?>

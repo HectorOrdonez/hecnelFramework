@@ -59,6 +59,7 @@ class Dashboard extends Controller
     {
         Session::destroy();
         header('location: ' . _SYSTEM_BASE_URL . 'login');
+        exit;
     }
 
     /**
@@ -78,7 +79,6 @@ class Dashboard extends Controller
         $json_response = $this->_library->ajaxInsert($form->getInput('data')->getValue());
 
         print json_encode($json_response);
-        $this->setAutoRender(false);
     }
 
     /**
@@ -91,7 +91,6 @@ class Dashboard extends Controller
         $json_response = $this->_library->getListings();
 
         print json_encode($json_response);
-        $this->setAutoRender(false);
     }
 
     /**
@@ -102,11 +101,10 @@ class Dashboard extends Controller
     {
         $form = new Form();
         $form->addInput(
-            Input::build('Int', 'id')
+            Input::build('Number', 'id')
                 ->addRule('min', 1)
         );
 
         $this->_library->deleteData($form->getInput('id')->getValue());
-        $this->setAutoRender(false);
     }
 }

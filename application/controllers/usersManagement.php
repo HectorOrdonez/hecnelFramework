@@ -70,20 +70,17 @@ class usersManagement extends Controller
     public function createUser()
     {
         $form = new Form();
-        $form->addInput(
-            Input::build('Text', 'username')
+        $form->addInput(Input::build('Text', 'userName')
                 ->addRule('minLength', 10)
                 ->addRule('maxLength', 50)
         );
 
-        $form->addInput(
-            Input::build('Text', 'password')
+        $form->addInput(Input::build('Text', 'password')
                 ->addRule('minLength', 10)
                 ->addRule('maxLength', 50)
         );
 
-        $form->addInput(
-            Input::build('Select', 'userRole')
+        $form->addInput(Input::build('Select', 'userRole')
                 ->addRule('availableOptions', array(
                     'owner',
                     'admin',
@@ -106,25 +103,21 @@ class usersManagement extends Controller
     public function editUser()
     {
         $form = new Form();
-        $form->addInput(
-            Input::build('Int', 'userId')
+        $form->addInput(Input::build('Number', 'userId')
                 ->addRule('min', 1)
         );
 
-        $form->addInput(
-            Input::build('Text', 'userName')
+        $form->addInput(Input::build('Text', 'userName')
                 ->addRule('minLength', 10)
                 ->addRule('maxLength', 50)
         );
 
-        $form->addInput(
-            Input::build('Text', 'password')
+        $form->addInput(Input::build('Text', 'password')
                 ->addRule('minLength', 10)
                 ->addRule('maxLength', 50)
         );
 
-        $form->addInput(
-            Input::build('Select', 'userRole')
+        $form->addInput(Input::build('Select', 'userRole')
                 ->addRule('availableOptions', array(
                     'owner',
                     'admin',

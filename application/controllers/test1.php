@@ -11,6 +11,10 @@ namespace application\controllers;
 
 use application\engine\Controller;
 
+/**
+ * Class Test1
+ * @package application\controllers
+ */
 class Test1 extends Controller
 {
     /**
@@ -23,10 +27,25 @@ class Test1 extends Controller
 
     public function index()
     {
-        $this->_view->addChunk('tests/test1/index1', 1);
-        $this->_view->addChunk('tests/test1/index2', 2);
-        $this->_view->addChunk('tests/test1/index3', 1);
-        $this->_view->addChunk('tests/test1/index4', 2);
-        $this->_view->addChunk('tests/test1/index5', 1);
+        $this->_view->addLibrary('css', 'application/views/tests/test1/css/test1.css');
+        
+        // Main view
+        $this->_view->addChunk('tests/test1/index');
+
+        // Initializing chunks list.
+        $chunkList = array(
+            'tests/test1/index1',
+            'tests/test1/index2',
+            'tests/test1/index3',
+            'tests/test1/index4',
+            'tests/test1/index5',
+        );
+
+        // Shuffling chunks list.
+        shuffle($chunkList);
+
+        foreach ($chunkList as $i => $chunkPath) {
+            $this->_view->addChunk($chunkPath, 'index' . ($i + 1));
+        }
     }
 }

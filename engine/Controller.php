@@ -22,6 +22,7 @@ namespace engine;
 
 use application\engine\Library;
 use application\engine\View;
+use engine\drivers\Exceptions\ViewException;
 
 /**
  * Class Controller
@@ -43,12 +44,6 @@ class Controller
     /*************************/
     /* Controller Settings  **/
     /*************************/
-
-    /**
-     * True by default, autoRender tells the Controller is the View must be rendered once the logic is finished.
-     * @var bool
-     */
-    protected $_autoRender = TRUE;
 
     /**
      * Controller constructor.
@@ -85,20 +80,16 @@ class Controller
     /**
      * Requested by the Bootstrap, the Render method cannot be extended by Controller children.
      * Verifies if the autoRender is enabled and, if so, requested the rendering of the view.
+     * @todo Add Logging for Exception control, as these exceptions are critic.
      */
     final public function render()
     {
-        if ($this->_autoRender === TRUE) {
-            $this->_view->render();
+        try {
+            $this->_view->printChunk();
         }
-    }
-
-    /**
-     * Sets the autoRender true or false. Notice that, by the fault, the autoRender is true.
-     * @param $option
-     */
-    public function setAutoRender($option)
-    {
-        $this->_autoRender = (boolean)$option;
+        catch (ViewException $vEx)
+        {
+            echo 'Fatal error in View: ' . $vEx->getMessage();
+        }
     }
 }

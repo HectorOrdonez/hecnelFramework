@@ -1,3 +1,14 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 26/12/13 21:30
+ */
+?>
+
+<?php $this->printChunk('header'); ?>
+
 <div>
     <a href='<?php echo _SYSTEM_BASE_URL; ?>help/helpMeWith/aboutlife'>Help me with Life</a>
     <a href='<?php echo _SYSTEM_BASE_URL; ?>help/helpMeWith/aboutdeath'>Help me with Death</a>
@@ -6,3 +17,5 @@
     <hr />
     <?php echo $this->msg; ?>
 </div>
+
+<?php $this->printChunk('footer'); ?>

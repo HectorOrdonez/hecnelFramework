@@ -4,10 +4,7 @@
  *
  * @todo Hecnel 2.0 - Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
  * @todo Hecnel 2.0 - Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
- * @todo Hecnel 2.0 - View upgrade - The view chunks should be able to use chunks inside a chunk.
- * @todo Hecnel 2.0 - View upgrade - Need of a system that allows the adding of headers/footers easily.
- * @todo Hecnel 2.0 - Validation upgrade - new types required: password, date and checkbox.
- * @todo Hecnel 2.0 - Model upgrade - Consider the use of Model Interface.
+ * @todo Hecnel 2.0 - Model upgrade - Consider the use of Model Interface. 
  * @todo Hecnel 2.0 - Model upgrade - Methods for the control of table fields.
  *
  * @todo Hecnel 3.0 - Log system.
@@ -19,6 +16,9 @@
  * @todo              Language - User's language, based on browser language - if available - or country otherwise.
  * @todo              Numeric notation - Dots, commas and other numeric related formats.
  * @todo              Currency - Which currency User requires.
+ * @todo Hecnel 3.0 - View upgrade - Use a better approach to print parameters in View.
+ * @todo              This is because the current approach $this->parameter will give issues eventually. 
+ * @todo              View Parameters should be accessed with a getter!! 
  */
 
 // First thing ever, session_start.

@@ -1,5 +1,16 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 26/12/13 21:30
+ */
+?>
+
+<?php $this->printChunk('header'); ?>
+
 <h1>
-        Login
+    Login
 </h1>
 
 <form action="<?php echo _SYSTEM_BASE_URL;?>login/run" method="POST">
@@ -19,3 +30,5 @@
         <input type="submit" />
     </label>
 </form>
+
+<?php $this->printChunk('footer'); ?>

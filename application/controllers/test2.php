@@ -38,49 +38,41 @@ class Test2 extends Controller
         // Validation
         $form = new Form();
 
-        $form->addInput(
-            $inputUser = Input::build('Text', 'username')
+        $form->addInput(Input::build('Text', 'username')
                 ->addRule('minLength', 3)
                 ->addRule('maxLength', 10)
         );
 
-        $form->addInput(
-            $inputCity = Input::build('Text', 'city')
+        $form->addInput(Input::build('Text', 'city')
                 ->addRule('minLength', 3)
                 ->addRule('maxLength', 15)
         );
 
-        $form->addInput(
-            $inputAge = Input::build('Number', 'age')
+        $form->addInput(Input::build('Number', 'age')
                 ->addRule('min', 1)
                 ->addRule('max', 100)
                 ->addRule('isInt')
         );
 
-        $form->addInput(
-            $inputNegative = Input::build('Number', 'negative')
+        $form->addInput(Input::build('Number', 'negative')
                 ->addRule('min', -100)
                 ->addRule('max', -1)
         );
 
-        $form->addInput(
-            $inputMail = Input::build('Mail', 'mail')
+        $form->addInput(Input::build('Mail', 'mail')
         );
 
-        $form->addInput(
-            $inputConditions = Input::build('Checkbox', 'conditions')
+        $form->addInput(Input::build('Checkbox', 'conditions')
         );
 
-        $form->addInput(
-            $inputDogs = Input::build('Select', 'dogs')
+        $form->addInput(Input::build('Select', 'dogs')
                 ->addRule('availableOptions', array(
                     '1',
                     '2'
                 ))
         );
 
-        $form->addInput(
-            $inputDays = Input::build('Multiselect', 'days')
+        $form->addInput(Input::build('Multiselect', 'days')
                 ->addRule('availableOptions', array(
                     'md',
                     'td',
@@ -94,8 +86,7 @@ class Test2 extends Controller
                 ->addRule('maxOptions', 5)
         );
 
-        $form->addInput(
-            $inputDeath = Input::build('Date', 'death')
+        $form->addInput(Input::build('Date', 'death')
                 ->addRule('minDate', '01/01/1980')
                 ->addRule('maxDate', '01/01/2080')
         );

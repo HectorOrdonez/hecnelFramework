@@ -1,3 +1,14 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 26/12/13 21:30
+ */
+?>
+
+<?php $this->printChunk('header'); ?>
+
     <div>
         <h1>
             Version <?php echo $this->developmentVersion['version'];?>, released <?php echo $this->developmentVersion['date'];?>.
@@ -32,3 +43,5 @@
         <?php endforeach; ?>
 
     </div>
+
+<?php $this->printChunk('footer'); ?>

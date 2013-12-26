@@ -1,3 +1,14 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 26/12/13 21:30
+ */
+?>
+
+<?php $this->printChunk('header'); ?>
+
 <h1>
     Users Management
 </h1>
@@ -63,3 +74,5 @@
         <input type='submit' />
     </label>
 </form>
+
+<?php $this->printChunk('footer'); ?>

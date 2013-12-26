@@ -3,10 +3,13 @@
  * Project: Hecnel Framework
  * User: Hector Ordonez
  * Description:
- * Date: 12/12/13 23:45
+ * Date: 26/12/13 21:30
  */
 ?>
-    <div>
+
+<?php $this->printChunk('header'); ?>
+
+<div>
         Test 2.
     </div>
     
@@ -570,3 +573,5 @@
         </ul>
 
     </div>
+
+<?php $this->printChunk('footer'); ?>
