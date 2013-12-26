@@ -30,14 +30,13 @@ class Number extends Input
     /**
      * Number Input constructor.
      * @param $fieldName
-     * @throws RuleException
      */
     public function __construct($fieldName)
     {
         // Setting field name
         $this->_fieldName = $fieldName;
 
-        // Initializing valid rules for text inputs
+        // Initializing valid rules for number inputs
         $this->_validRules = array(
             'min',
             'max',
@@ -46,31 +45,34 @@ class Number extends Input
 
         // Verifying that input fulfills the most basic conditions this kind of input requires.
         try {
-            if (!isset($_POST[$fieldName]) or '' == $_POST[$fieldName]) {
-                $this->setValue('');
-                throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName));
-            } else {
-                $this->setValue($_POST[$fieldName]);
-                $this->isNumber();
-            }
+            $this->setNumber();
         } catch (RuleException $rEx) {
             $this->setError($rEx);
         }
     }
 
     /**
-     * This function verifies that Input is numeric.
+     * This function checks and sets the Number input.
      * @todo Hecnel 3.0 will implement UserSettings and, if this Input still exist, it will have to consider User settings when deciding if a Number is right or not, depending on the number notation. A 5 555.55 might be right in USA, but in Spain it would be 5.555,55.
      * @todo Hecnel 3.0 Stronger validation might be required regarding dots, commas, etc.
+     * @throws RuleException
      */
-    private function isNumber()
+    private function setNumber()
     {
-        $rawValue = $this->getValue();
+        // In case field is empty a RuleException is sent.
+        if (!isset($_POST[$this->getFieldName()]) or '' == $_POST[$this->getFieldName()]) {
+            $this->setValue('');
+            throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $this->getFieldName()));
+        }
 
-        // Separate Checking commas.
-        $commas = substr_count($rawValue, ',');
+        // Validating the Number as number. Due to the complexity of this verification, RuleExceptions can be sent in
+        // different situations: wrong placed commas or dots and not numeric characters can throw RuleExceptions.
+        $rawValue = $_POST[$this->getFieldName()];
 
-        switch ($commas) {
+        // Separating input by commas.
+        $commasAmount = substr_count($rawValue, ',');
+
+        switch ($commasAmount) {
             case 0:
                 $this->checkNatural($rawValue);
                 break;
@@ -84,6 +86,7 @@ class Number extends Input
         }
 
         // Number verified. Cleaning it.
+        // 1.000.000,50 -> 1000000.50
         $noDots = str_replace('.', '', $rawValue);
         $parsedValue = str_replace(',', '.', $noDots);
         $this->setValue($parsedValue);

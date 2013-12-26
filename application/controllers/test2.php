@@ -67,6 +67,39 @@ class Test2 extends Controller
             $inputMail = Input::build('Mail', 'mail')
         );
 
+        $form->addInput(
+            $inputConditions = Input::build('Checkbox', 'conditions')
+        );
+
+        $form->addInput(
+            $inputDogs = Input::build('Select', 'dogs')
+                ->addRule('availableOptions', array(
+                    '1',
+                    '2'
+                ))
+        );
+
+        $form->addInput(
+            $inputDays = Input::build('Multiselect', 'days')
+                ->addRule('availableOptions', array(
+                    'md',
+                    'td',
+                    'wd',
+                    'th',
+                    'fd',
+                    'st',
+                    'sn'
+                ))
+                ->addRule('minOptions', 2)
+                ->addRule('maxOptions', 5)
+        );
+
+        $form->addInput(
+            $inputDeath = Input::build('Date', 'death')
+                ->addRule('minDate', '01/01/1980')
+                ->addRule('maxDate', '01/01/2080')
+        );
+
         // Logic        
         $wrongInputs = $form->getValidationErrors();
 
@@ -77,7 +110,11 @@ class Test2 extends Controller
                 'City: ' . $form->getInput('city')->getValue() . '<br>' .
                 'Age : ' . $form->getInput('age')->getValue() . '<br>' .
                 'Negative amount: ' . $form->getInput('negative')->getValue() . '<br>' .
-                'Mail: ' . $form->getInput('mail')->getValue() . '<br>';
+                'Mail: ' . $form->getInput('mail')->getValue() . '<br>' .
+                'Conditions read: ' . (($form->getInput('conditions')->getValue()) ? 'yes' : 'no') . '<br>' .
+                'You like dogs : ' . $form->getInput('dogs')->getValue() . '<br>' .
+                'Days : ' . serialize($form->getInput('days')->getValue()) . '<br>' .
+                'Death date : ' . $form->getInput('death')->getValue() . '<br>';
 
             $this->_view->setParameter('response', $response);
             $this->_view->addChunk('tests/test2/answerFormTest');
@@ -109,12 +146,38 @@ class Test2 extends Controller
                 ->addRule('min', -100)
                 ->addRule('max', -1);
             $inputMail = Input::build('Mail', 'mail');
+            $inputConditions = Input::build('Checkbox', 'conditions');
+            $inputDogs = Input::build('Select', 'dogs')
+                ->addRule('availableOptions', array(
+                    '1',
+                    '2'
+                ));
+            $inputDays = Input::build('Multiselect', 'days')
+                ->addRule('availableOptions', array(
+                    'md',
+                    'td',
+                    'wd',
+                    'th',
+                    'fd',
+                    'st',
+                    'sn'
+                ))
+                ->addRule('minOptions', 2)
+                ->addRule('maxOptions', 5);
+
+            $inputDeath = Input::build('Date', 'death')
+                ->addRule('minDate', '01/01/1980')
+                ->addRule('maxDate', '01/01/2080');
 
             $inputUser->validate();
             $inputCity->validate();
             $inputAge->validate();
             $inputNegative->validate();
             $inputMail->validate();
+            $inputConditions->validate();
+            $inputDogs->validate();
+            $inputDays->validate();
+            $inputDeath->validate();
 
             // Logic 
             $response = '<b>No errors</b> <br>' .
@@ -122,7 +185,11 @@ class Test2 extends Controller
                 'City: ' . $inputCity->getValue() . '<br>' .
                 'Age : ' . $inputAge->getValue() . '<br>' .
                 'Negative amount: ' . $inputNegative->getValue() . '<br>' .
-                'Mail: ' . $inputMail->getValue() . '<br>';
+                'Mail: ' . $inputMail->getValue() . '<br>' .
+                'Conditions: ' . (($inputConditions->getValue()) ? 'yes' : 'no') . '<br>' .
+                'You like dogs: ' . $inputDogs->getValue() . '<br>' .
+                'Days: ' . serialize($inputDays->getValue()) . '<br>' .
+                'Death: ' . $inputDeath->getValue() . '<br>';
 
             // Output
             $this->_view->setParameter('response', $response);

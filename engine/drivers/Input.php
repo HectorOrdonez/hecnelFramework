@@ -23,7 +23,7 @@ abstract class Input
      * Default error messages.
      */
     const MSG_EMPTY_INPUT = 'The input %s is empty.';
-    const MSG_INVALID_RULE = 'The input type %s does not allow the rule $s.';
+    const MSG_INVALID_RULE = 'The input type %s does not allow the rule %s.';
     const MSG_INVALID_VALUE = 'Can not provide the value of the input $s because it did not pass validation.';
 
     /**
@@ -106,7 +106,7 @@ abstract class Input
     public function addRule($rule, $value = null)
     {
         if (!in_array($rule, $this->_validRules)) {
-            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_RULE, $rule, get_class($this)));
+            throw new InputException($this->getFieldName(), sprintf(self::MSG_INVALID_RULE, get_class($this), $rule));
         }
         $this->_requestedRules[$rule] = $value;
 

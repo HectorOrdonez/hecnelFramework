@@ -59,6 +59,55 @@
                     <input type="text" name="mail"/>
                 </label>
             </p>
+
+            <p>
+                <label>
+                    Did you read the conditions?
+                </label>
+                <label>
+                    <input type="checkbox" name="conditions"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Do you like dogs?
+                </label>
+                <label>
+                    <select name='dogs'>
+                        <option value='1'>Yes, I do.</option>
+                        <option value='2'>No, it's monday.</option>
+                        <option value='paws'>Depends on the amount of paws.</option>
+                        <option value='flying'>Only flying ones.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Which day(s) of the week you like?
+                </label>
+                <label>
+                    <select multiple name='days[]'>
+                        <option value='md'>The dawn of a new week, the Monday</option>
+                        <option value='td'>After a storm the sun shines brighter, TUESDAY!</option>
+                        <option value='wd'>Between hell and heaven, Wednesday is cool</option>
+                        <option value='th'>At Thursday I already can smell the weekend...</option>
+                        <option value='fd'>FRIDAY</option>
+                        <option value='st'>Saturday Party day.</option>
+                        <option value='sn'>The lazy day, Sunday.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    When you think Dr.Robotnik will die? 
+                </label>
+                <label>
+                    <input type='text' name='death' />
+                </label>
+            </p>
     
             <p>
                 <label>
@@ -112,6 +161,55 @@
                 </label>
                 <label>
                     <input type="text" name="mail"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Did you read the conditions?
+                </label>
+                <label>
+                    <input type="checkbox" name="conditions"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Do you like dogs?
+                </label>
+                <label>
+                    <select name='dogs'>
+                        <option value='1'>Yes, I do.</option>
+                        <option value='2'>No, it's monday.</option>
+                        <option value='paws'>Depends on the amount of paws.</option>
+                        <option value='flying'>Only flying ones.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Which day(s) of the week you like?
+                </label>
+                <label>
+                    <select multiple name='days[]'>
+                        <option value='md'>The dawn of a new week, the Monday</option>
+                        <option value='td'>After a storm the sun shines brighter, TUESDAY!</option>
+                        <option value='wd'>Between hell and heaven, Wednesday is cool</option>
+                        <option value='th'>At Thursday I already can smell the weekend...</option>
+                        <option value='fd'>FRIDAY</option>
+                        <option value='st'>Saturday Party day.</option>
+                        <option value='sn'>The lazy day, Sunday.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    When you think Dr.Robotnik will die?
+                </label>
+                <label>
+                    <input type='text' name='death' />
                 </label>
             </p>
     
@@ -173,6 +271,55 @@
                     <input type="text" name="failmail"/>
                 </label>
             </p>
+
+            <p>
+                <label>
+                    Did you read the conditions?
+                </label>
+                <label>
+                    <input type="checkbox" name="failconditions"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Do you like dogs?
+                </label>
+                <label>
+                    <select name='dogs'>
+                        <option value='1'>Yes, I do.</option>
+                        <option value='2'>No, it's monday.</option>
+                        <option value='paws'>Depends on the amount of paws.</option>
+                        <option value='failflying'>Only flying ones.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Which day(s) of the week you like?
+                </label>
+                <label>
+                    <select multiple name='faildays[]'>
+                        <option value='md'>The dawn of a new week, the Monday</option>
+                        <option value='td'>After a storm the sun shines brighter, TUESDAY!</option>
+                        <option value='wd'>Between hell and heaven, Wednesday is cool</option>
+                        <option value='th'>At Thursday I already can smell the weekend...</option>
+                        <option value='fd'>FRIDAY</option>
+                        <option value='st'>Saturday Party day.</option>
+                        <option value='sn'>The lazy day, Sunday.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    When you think Dr.Robotnik will die?
+                </label>
+                <label>
+                    <input type='text' name='faildeath' />
+                </label>
+            </p>
     
             <p>
                 <label>
@@ -226,6 +373,55 @@
                 </label>
                 <label>
                     <input type="text" name="failmail"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Did you read the conditions?
+                </label>
+                <label>
+                    <input type="checkbox" name="failconditions"/>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Do you like dogs?
+                </label>
+                <label>
+                    <select name='faildogs'>
+                        <option value='1'>Yes, I do.</option>
+                        <option value='2'>No, it's monday.</option>
+                        <option value='paws'>Depends on the amount of paws.</option>
+                        <option value='flying'>Only flying ones.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    Which day(s) of the week you like?
+                </label>
+                <label>
+                    <select multiple name='faildays[]'>
+                        <option value='md'>The dawn of a new week, the Monday</option>
+                        <option value='td'>After a storm the sun shines brighter, TUESDAY!</option>
+                        <option value='wd'>Between hell and heaven, Wednesday is cool</option>
+                        <option value='th'>At Thursday I already can smell the weekend...</option>
+                        <option value='fd'>FRIDAY</option>
+                        <option value='st'>Saturday Party day.</option>
+                        <option value='sn'>The lazy day, Sunday.</option>
+                    </select>
+                </label>
+            </p>
+
+            <p>
+                <label>
+                    When you think Dr.Robotnik will die?
+                </label>
+                <label>
+                    <input type='text' name='faildeath' />
                 </label>
             </p>
     
@@ -337,6 +533,39 @@
             </li>
             <li>
                 Min Length
+            </li>
+        </ul>
+
+        <h3>
+            Input Checkbox
+        </h3>
+        <ul>
+            <li>
+                Check if enabled.
+            </li>
+            <li>
+                Check if disabled.
+            </li>
+            <li>
+                Check if an unexpected value is sent instead of 'on'.
+            </li>
+        </ul>
+
+        <h3>
+            Input Select
+        </h3>
+        <ul>
+            <li>
+                Check if available option is selected.
+            </li>
+            <li>
+                Check if unavailable option is selected.
+            </li>
+            <li>
+                Check if nothing is sent.
+            </li>
+            <li>
+                Check if multiple options are selected (by front manipulation)
             </li>
         </ul>
 

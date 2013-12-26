@@ -45,6 +45,18 @@ class Input
             case 'Mail':
                 return new Inputs\Mail($fieldName);
                 break;
+            case 'Checkbox':
+                return new Inputs\Checkbox($fieldName);
+                break;
+            case 'Select':
+                return new Inputs\Select($fieldName);
+                break;
+            case 'Multiselect':
+                return new Inputs\Multiselect($fieldName);
+                break;
+            case 'Date':
+                return new Inputs\Date($fieldName);
+                break;
             default:
                 throw new Exception ("Requested Input type {$type} does not exist.", Exception::FATAL_EXCEPTION);
         }

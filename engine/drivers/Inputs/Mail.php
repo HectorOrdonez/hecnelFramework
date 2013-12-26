@@ -40,7 +40,7 @@ class Mail extends Input
         // Setting field name
         $this->_fieldName = $fieldName;
 
-        // Initializing valid rules for text inputs
+        // Initializing valid rules for mail inputs
         $this->_validRules = array(
             'minLength',
             'maxLength'

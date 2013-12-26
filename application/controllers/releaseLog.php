@@ -31,13 +31,19 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.03F', '24/12/2013', array(
+        $this->_setDevelopmentVersion('2.03G', '26/12/2013', array(
+            '[Feature] - New Inputs Date, Checkbox, Select and Multiselect.',
+            '[Code improvement] - Modified already build Inputs Text, Number and Mail in order to use same logic in all Input constructors: constructor method uses set private method that knows logic to follow for each Input construction.',
+            '[Feature] - Extended Test2 page in order to provide a way to test the Form and the Inputs.',
+            '[Refactor] - Removed remaining Validators.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.03F', '24/12/2013', array(
             '[Refactor] - Minor refactor of Input construction on current Input objects Text, Number and Mail.',
             '[Code improvement] - Modified and reorganized comments here and there.',
             '[Code improvement] - Reorganized code using PHPStorm tool "Reformat code".'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.03E', '23/12/2013', array(
             '[Debug] - Fixed bug with Text Input.',
             '[Feature] - New Input type: Mail.',

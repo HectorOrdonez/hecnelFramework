@@ -33,7 +33,6 @@ class Text extends Input
     /**
      * Text Input constructor.
      * @param $fieldName
-     * @throws RuleException
      */
     public function __construct($fieldName)
     {
@@ -48,15 +47,27 @@ class Text extends Input
 
         // Verifying that input fulfills the most basic conditions this kind of input requires.
         try {
-            if (!isset($_POST[$fieldName])) {
-                $this->setValue('');
-                throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $fieldName));
-            } else {
-                $this->setValue($_POST[$fieldName]);
-            }
+            $this->setText();
+
         } catch (RuleException $rEx) {
             $this->setError($rEx);
         }
+    }
+
+    /**
+     * This function checks and sets the Text input.
+     * In case this field is not sent, a RuleException is sent.
+     * @throws RuleException
+     */
+    private function setText()
+    {
+        // In case field is empty a RuleException is sent.
+        if (!isset($_POST[$this->getFieldName()])) {
+            $this->setValue('');
+            throw new RuleException($this, 'set', '', sprintf(self::MSG_EMPTY_INPUT, $this->getFieldName()));
+        }
+
+        $this->setValue($_POST[$this->getFieldName()]);
     }
 
     /**
