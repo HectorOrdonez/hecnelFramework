@@ -18,7 +18,6 @@
  * @todo              Currency - Which currency User requires.
  * @todo Hecnel 3.0 - View upgrade - Use a better approach to print parameters in View.
  * @todo              This is because the current approach $this->parameter will give issues eventually. 
- * @todo              View Parameters should be accessed with a getter!! 
  */
 
 // First thing ever, session_start.

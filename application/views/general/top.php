@@ -1,22 +1,32 @@
+<?php
+/**
+ * Project: Hecnel Framework
+ * User: Hector Ordonez
+ * Description:
+ * Date: 27/12/13 11:30
+ *
+ * @var \application\engine\View $this
+ */ ?>
+
 <!doctype html>
 <html>
 <head>
     <!-- Title -->
     <title>
-        <?php echo $this->_getTitle(); ?>
+        <?php echo $this->getTitle(); ?>
 
     </title>
 
     <!-- Meta Tags -->
-    <?php foreach ($this->_getMeta() as $meta) : ?><meta <?php foreach ($meta as $tagName=>$tagValue) : echo "{$tagName}='{$tagValue}' "; endforeach; ?>/>
+    <?php foreach ($this->getMeta() as $meta) : ?><meta <?php foreach ($meta as $tagName=>$tagValue) : echo "{$tagName}='{$tagValue}' "; endforeach; ?>/>
     <?php endforeach; ?>
 
     <!-- CSS Stylesheets -->
-    <?php foreach ($this->_getCss() as $css) : ?><link rel='stylesheet' href='<?php echo $css; ?>' />
+    <?php foreach ($this->getCss() as $css) : ?><link rel='stylesheet' href='<?php echo $css; ?>' />
     <?php endforeach; ?>
 
     <!-- JS Libraries -->
-    <?php foreach ($this->_getJs() as $js) : ?><script src='<?php echo $js; ?>'></script>
+    <?php foreach ($this->getJs() as $js) : ?><script src='<?php echo $js; ?>'></script>
     <?php endforeach; ?>
 
 </head>
@@ -55,7 +65,7 @@
             </a>
         </div>
 
-<?php if ($this->userLogin == TRUE AND ($this->userRole == 'superadmin')):?>
+<?php if (TRUE == $this->getParameter('userLogin') AND ('superadmin' == $this->getParameter('userRole'))):?>
         <div class='headerButton'>
             <a href='<?php echo _SYSTEM_BASE_URL; ?>usersManagement'>
                 User Management
@@ -64,7 +74,7 @@
 <?php endif; ?>
 
         <div class='headerButton'>
-<?php if ($this->userLogin == TRUE):?>
+<?php if (TRUE == $this->getParameter('userLogin')):?>
             <a href='<?php echo _SYSTEM_BASE_URL; ?>dashboard/logout'>
                 Logout
             </a>

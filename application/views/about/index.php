@@ -4,18 +4,19 @@
  * User: Hector Ordonez
  * Description:
  * Date: 26/12/13 21:30
- */
-?>
+ *
+ * @var \application\engine\View $this
+ */ ?>
 
 <?php $this->printChunk('header'); ?>
 
     <div>
         <h1>
-            Version <?php echo $this->developmentVersion['version'];?>, released <?php echo $this->developmentVersion['date'];?>.
+            Version <?php echo $this->getParameter('developmentVersion')['version'];?>, released <?php echo $this->getParameter('developmentVersion')['date'];?>.
         </h1>
 
         <ul>
-        <?php foreach ($this->developmentVersion['changes'] as $change) : ?>
+        <?php foreach ($this->getParameter('developmentVersion')['changes'] as $change) : ?>
             <li>
                 <?php echo $change;?>
             </li>
@@ -28,7 +29,7 @@
             Historical Log
         </h1>
 
-        <?php foreach ($this->historicalLog as $log) : ?>
+        <?php foreach ($this->getParameter('historicalLog') as $log) : ?>
             <h2>
                 Version <?php echo $log['version']; ?>, released <?php echo $log['date']; ?>
             </h2>

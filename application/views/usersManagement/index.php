@@ -4,8 +4,9 @@
  * User: Hector Ordonez
  * Description:
  * Date: 26/12/13 21:30
- */
-?>
+ *
+ * @var \application\engine\View $this
+ */ ?>
 
 <?php $this->printChunk('header'); ?>
 
@@ -16,7 +17,7 @@
 <h2>
     List of current users
 </h2>
-<table><?php foreach($this->usersList as $user): ?>
+<table><?php foreach($this->getParameter('usersList') as $user): ?>
 
     <tr>
         <td>

@@ -4,8 +4,10 @@
  * User: Hector Ordonez
  * Description: 
  * Date: 12/12/13 23:45
- */
-?>
-    <div>
+ *
+ * @var \application\engine\View $this
+ */ ?>
+
+<div>
         Chunk number 4.
     </div>

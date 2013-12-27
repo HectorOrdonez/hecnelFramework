@@ -4,13 +4,15 @@
  * User: Hector Ordonez
  * Description:
  * Date: 26/12/13 21:00
- */
-?>
+ *
+ * @var \application\engine\View $this
+ */ ?>
+
 <?php $this->printChunk('header'); ?>
 
 <div>
     <h1>
-        Dashboard. Welcome <?php echo $this->userName; ?>
+        Dashboard. Welcome <?php echo $this->getParameter('userName'); ?>
     </h1>
 </div>
 

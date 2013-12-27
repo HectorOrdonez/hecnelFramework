@@ -132,10 +132,20 @@ class View
     }
 
     /**
+     * Gets a parameter with the specified key in the view.
+     * @param string $key
+     * @return mixed $value
+     */
+    public function getParameter($key)
+    {
+        return $this->$key;
+    }
+
+    /**
      * Returns the Title.
      * @return string
      */
-    private function _getTitle()
+    public function getTitle()
     {
         return $this->_title;
     }
@@ -144,7 +154,7 @@ class View
      * Returns the array of Css libraries.
      * @return array
      */
-    private function _getCss()
+    public function getCss()
     {
         return $this->_css;
     }
@@ -153,7 +163,7 @@ class View
      * Returns the array of Js libraries.
      * @return array
      */
-    private function _getJs()
+    public function getJs()
     {
         return $this->_js;
     }
@@ -162,7 +172,7 @@ class View
      * Returns the array of Meta tags.
      * @return array
      */
-    private function _getMeta()
+    public function getMeta()
     {
         return $this->_meta;
     }

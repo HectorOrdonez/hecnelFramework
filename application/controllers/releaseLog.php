@@ -31,14 +31,18 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.10', '26/12/2013', array(
+        $this->_setDevelopmentVersion('2.11', '27/12/2013', array(
+            '[Feature] - New Getter in View to access View parameters',
+            '[Refactor] - Refactored Hecnel Framework to use View getter instead of direct access to parameters. Added, as well, PHPDoc comments in all View related files, as part of View class.'
+        ));
+
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.10', '26/12/2013', array(
             '[Refactor] - New View system. Allows Views inside Views besides a better view construction.',
             '[Feature] - Sample page Test 1 explains how to use this new implementation and shows a practical example as well ',
             '[Refactor] - Refactored Hecnel Framework to use new View construction where it was using Views.',
             '[Refactor] - Removed Autorender feature, as it is required no more thanks of the new View construction.'
-
         ));
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.03G', '26/12/2013', array(
             '[Feature] - New Inputs Date, Checkbox, Select and Multiselect.',
             '[Code improvement] - Modified already build Inputs Text, Number and Mail in order to use same logic in all Input constructors: constructor method uses set private method that knows logic to follow for each Input construction.',
