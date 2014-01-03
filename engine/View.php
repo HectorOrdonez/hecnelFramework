@@ -87,6 +87,7 @@ class View
      *
      * @param string $type
      * @param string $libraryPath
+     * @todo This method can find out itself whether the added library is js or css, just looking by its extension.
      */
     public function addLibrary($type, $libraryPath)
     {

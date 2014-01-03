@@ -31,12 +31,18 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.11', '27/12/2013', array(
-            '[Feature] - New Getter in View to access View parameters',
-            '[Refactor] - Refactored Hecnel Framework to use View getter instead of direct access to parameters. Added, as well, PHPDoc comments in all View related files, as part of View class.'
+        $this->_setDevelopmentVersion('2.21', '03/01/2014', array(
+            'HAPPY NEW YEAR!!',
+            '[Feature] - Created basic skeleton for the new Model architecture.',
+            '[Feature] - Sample page Test 3 is a CRUD for model Dog. This page is design to help building the new Model architecture and to document in future term the usage of the models.',
+            '[Refactor] - Minor change in JQuery location; created a folder "external" in public section.'
         ));
 
         // Setting Historical Log of releases
+        $this->_addHistoryLog('2.11', '27/12/2013', array(
+            '[Feature] - New Getter in View to access View parameters',
+            '[Refactor] - Refactored Hecnel Framework to use View getter instead of direct access to parameters. Added, as well, PHPDoc comments in all View related files, as part of View class.'
+        ));
         $this->_addHistoryLog('2.10', '26/12/2013', array(
             '[Refactor] - New View system. Allows Views inside Views besides a better view construction.',
             '[Feature] - Sample page Test 1 explains how to use this new implementation and shows a practical example as well ',
