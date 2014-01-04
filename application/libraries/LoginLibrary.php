@@ -9,20 +9,20 @@
 namespace application\libraries;
 
 use application\engine\Library;
-use application\models\UserModel;
+use application\models\User;
 use engine\Session;
 
 class LoginLibrary extends Library
 {
     /**
      * Defining $_model Model type.
-     * @var UserModel $_model
+     * @var User $_model
      */
     protected $_model;
 
     public function __construct()
     {
-        parent::__construct(new UserModel);
+        parent::__construct(new User);
     }
 
     /**

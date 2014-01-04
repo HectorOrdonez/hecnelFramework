@@ -14,6 +14,7 @@ if (_PRODUCTION === TRUE) {
     define ('DB_PASS', '');
 } else {
     define ('DB_TYPE', 'mysql');
+//    define ('DB_TYPE', 'mock');
     define ('DB_HOST', 'localhost');
     define ('DB_NAME', 'hecnel');
     define ('DB_USER', 'root');

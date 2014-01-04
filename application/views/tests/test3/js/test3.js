@@ -52,8 +52,10 @@ function actionRead()
             addLog('Dog received! Id: ' + data.id + ' Name: ' + data.name + ', Age ' + data.age + ', Breed ' + data.breed);
         }
     ).fail(
-        function (data) {
-            addLog('Dog has not been received but error instead: ' + data.responseText);
+        function (rawData) {
+            var data = jQuery.parseJSON(rawData.responseText);
+            var errorMessage = data.errorMessage;
+            addLog('Error searching a dog; ' + errorMessage);
         }
     );
 }
@@ -83,7 +85,7 @@ function actionCreate()
         function (rawData) {
             var data = jQuery.parseJSON(rawData.responseText);
             var errorMessage = data.errorMessage;
-            addLog('Dog has not been created; got an error instead: ' + errorMessage);
+            addLog('Error making a doggy; ' + errorMessage);
         }
     );
 }
@@ -92,22 +94,20 @@ function actionUpdate()
 {
     var url = root_url + '/test3/changeADog';
     var data = jQuery('#dogForm').serialize();
-
+    
     jQuery.ajax({
         type: 'post',
         url: url,
         data: data
     }).done(
-        function (rawData) {
-            var data = jQuery.parseJSON(rawData);
-
-            addLog('Dog changed! Name: ' + data.name + ', Age ' + data.age + ', Breed ' + data.breed);
+        function () {
+            addLog('Dog changed!');
         }
     ).fail(
         function (rawData) {
             var data = jQuery.parseJSON(rawData.responseText);
             var errorMessage = data.errorMessage;
-            addLog('Dog has not been changed; got an error instead: ' + errorMessage);
+            addLog('Error modifying a dog; ' + errorMessage);
         }
     );
 }
@@ -121,19 +121,17 @@ function actionDelete()
         type: 'post',
         url: url,
         data: {
-            id: dogId
+            dogId: dogId
         }
     }).done(
-        function (rawData) {
-            var data = jQuery.parseJSON(rawData);
-
+        function () {
             addLog('Dog deleted!');
         }
     ).fail(
         function (rawData) {
             var data = jQuery.parseJSON(rawData.responseText);
             var errorMessage = data.errorMessage;
-            addLog('Dog has not been deleted; got an error instead: ' + errorMessage);
+            addLog('Error deleting a dog; ' + errorMessage);
         }
     );   
 }

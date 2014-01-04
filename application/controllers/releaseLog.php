@@ -31,14 +31,21 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.21', '03/01/2014', array(
+        $this->_setDevelopmentVersion('2.22', '04/01/2014', array(
+            '[Refactor] - Mayor change in Model architecture. Now all models extend the same Model object, which handles all commands that a Model offers and instantiates and communicates with the Database.',
+            '[Refactor] - Major change in Database architecture. Now it is allowed to have different storing systems.',
+            '[Feature] - New database system: Mock Database. Basically a database that always says yes, always returns data. For development purposes.',
+            '[Feature] - New Model Exception. When caught, its code indicates what happened. ',
+            '[Feature] - Connected Test3 to models. It allows CRUD to Dog, plus model exceptions catching and error display.'
+        ));
+        
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.21', '03/01/2014', array(
             'HAPPY NEW YEAR!!',
             '[Feature] - Created basic skeleton for the new Model architecture.',
             '[Feature] - Sample page Test 3 is a CRUD for model Dog. This page is design to help building the new Model architecture and to document in future term the usage of the models.',
             '[Refactor] - Minor change in JQuery location; created a folder "external" in public section.'
         ));
-
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.11', '27/12/2013', array(
             '[Feature] - New Getter in View to access View parameters',
             '[Refactor] - Refactored Hecnel Framework to use View getter instead of direct access to parameters. Added, as well, PHPDoc comments in all View related files, as part of View class.'

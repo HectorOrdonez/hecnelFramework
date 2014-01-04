@@ -9,19 +9,19 @@
 namespace application\libraries;
 
 use application\engine\Library;
-use application\models\DataModel;
+use application\models\Data;
 
 class DashboardLibrary extends Library
 {
     /**
      * Defining $_model Model type.
-     * @var DataModel $_model
+     * @var Data $_model
      */
     protected $_model;
 
     public function __construct()
     {
-        parent::__construct(new DataModel);
+        parent::__construct(new Data);
     }
 
     public function ajaxInsert($data)

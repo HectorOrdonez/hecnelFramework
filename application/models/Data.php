@@ -10,7 +10,7 @@ namespace application\models;
 
 use application\engine\Model;
 
-class DataModel extends Model
+class Data extends Model
 {
     public function __construct()
     {
@@ -19,9 +19,9 @@ class DataModel extends Model
 
     public function insert($data)
     {
-        $this->db->insert('data', array('data' => $data));
+        $id = $this->db->insert('data', array('data' => $data));
 
-        return $this->db->lastInsertId();
+        return $id;
     }
 
     public function delete($dataId)
@@ -35,7 +35,6 @@ class DataModel extends Model
 
     public function selectAll()
     {
-        return $this->db->select('data');
+        return $this->db->select('data', array('id', 'data'));
     }
-
 }

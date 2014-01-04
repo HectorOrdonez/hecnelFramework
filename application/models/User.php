@@ -11,7 +11,7 @@ namespace application\models;
 use application\engine\Model;
 use engine\Encrypter;
 
-class UserModel extends Model
+class User extends Model
 {
     /**
      * User Model constructor.

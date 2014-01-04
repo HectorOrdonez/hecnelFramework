@@ -16,8 +16,8 @@
  * @todo              Language - User's language, based on browser language - if available - or country otherwise.
  * @todo              Numeric notation - Dots, commas and other numeric related formats.
  * @todo              Currency - Which currency User requires.
- * @todo Hecnel 3.0 - View upgrade - Use a better approach to print parameters in View.
- * @todo              This is because the current approach $this->parameter will give issues eventually. 
+ * @todo Hecnel 3.0 - Validation system similar to old one, in combination with a minor Model modification to allow field type definition when constructing.
+ * @todo              This would allow Models to validate data using the validation system. 
  */
 
 // First thing ever, session_start.
