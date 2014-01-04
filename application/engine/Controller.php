@@ -17,11 +17,11 @@ class Controller extends engineController
     /**
      * Controller constructor.
      *
-     * @param Library $library in which this Controller can search for the Model
+     * @param Service $service in which this Controller can search for the Model
      */
-    public function __construct(Library $library = NULL)
+    public function __construct(Service $service = NULL)
     {
-        parent::__construct($library);
+        parent::__construct($service);
     }
 
     /**

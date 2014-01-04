@@ -1,12 +1,6 @@
 <?php
 /**
  * General TODOS in the Framework.
- *
- * @todo Hecnel 2.0 - Design refactor - The usage of models might require refactor; a request might need none, one or more than one model.
- * @todo Hecnel 2.0 - Database upgrade - Create a separated object that manages sql construction. Database class should only manage their execution.
- * @todo Hecnel 2.0 - Model upgrade - Consider the use of Model Interface. 
- * @todo Hecnel 2.0 - Model upgrade - Methods for the control of table fields.
- *
  * @todo Hecnel 3.0 - Log system.
  * @todo Hecnel 3.0 - Multi-language support.
  * @todo Hecnel 3.0 - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.

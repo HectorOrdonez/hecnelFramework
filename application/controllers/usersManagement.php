@@ -8,7 +8,7 @@
 namespace application\controllers;
 
 use application\engine\Controller;
-use application\libraries\UsersManagementLibrary;
+use application\services\UsersManagementService;
 use engine\Input;
 use engine\Session;
 use engine\Form;
@@ -16,15 +16,15 @@ use engine\Form;
 class usersManagement extends Controller
 {
     /**
-     * Defining $_library Library type.
-     * @var UsersManagementLibrary $_library
+     * Defining $_service Services type.
+     * @var UsersManagementService $_service
      */
-    protected $_library;
+    protected $_service;
 
     /** Validates user access to this controller */
     public function __construct()
     {
-        parent::__construct(new UsersManagementLibrary);
+        parent::__construct(new UsersManagementService);
 
         $logged = Session::get('isUserLoggedIn');
         $userRole = Session::get('userRole');
@@ -40,7 +40,7 @@ class usersManagement extends Controller
      */
     public function index()
     {
-        $this->_view->setParameter('usersList', $this->_library->getUsersList());
+        $this->_view->setParameter('usersList', $this->_service->getUsersList());
 
         $this->_view->addChunk('usersManagement/index');
     }
@@ -50,7 +50,7 @@ class usersManagement extends Controller
      */
     public function openUserEdition($userId)
     {
-        $userData = $this->_library->getUser($userId);
+        $userData = $this->_service->getUser($userId);
 
         if ($userData === FALSE) {
             $this->_view->setParameter('error', 'The user you are trying to edit does not exist.');
@@ -88,7 +88,7 @@ class usersManagement extends Controller
                 ))
         );
 
-        $this->_library->createUser(
+        $this->_service->createUser(
             $form->getInput('userName')->getValue(),
             $form->getInput('password')->getValue(),
             $form->getInput('userRole')->getValue());
@@ -125,7 +125,7 @@ class usersManagement extends Controller
                 ))
         );
 
-        $this->_library->editUser(
+        $this->_service->editUser(
             $form->getInput('userId')->getValue(),
             $form->getInput('userName')->getValue(),
             $form->getInput('password')->getValue(),
@@ -141,7 +141,7 @@ class usersManagement extends Controller
      */
     public function deleteUser($userId)
     {
-        $this->_library->deleteUser($userId);
+        $this->_service->deleteUser($userId);
 
         header('location: ' . _SYSTEM_BASE_URL . 'usersManagement');
         exit;

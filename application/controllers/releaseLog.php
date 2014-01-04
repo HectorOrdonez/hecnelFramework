@@ -31,15 +31,19 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.22', '04/01/2014', array(
+        $this->_setDevelopmentVersion('2.23', '04/01/2014', array(
+            '[Refactor] - Modified libraries concept to Service concepts. A Service is tightly related to a controller. It stores intelligence regarding what to do with validated information, which models request a CRUD, and informs the controller about the message to put into the related view.',
+            '[Refactor] - Modified Hecnel Framework in order to use the new Model architecture.'
+        ));
+        
+        // Setting Historical Log of releases
+        $this->_addHistoryLog('2.22', '04/01/2014', array(
             '[Refactor] - Mayor change in Model architecture. Now all models extend the same Model object, which handles all commands that a Model offers and instantiates and communicates with the Database.',
             '[Refactor] - Major change in Database architecture. Now it is allowed to have different storing systems.',
             '[Feature] - New database system: Mock Database. Basically a database that always says yes, always returns data. For development purposes.',
             '[Feature] - New Model Exception. When caught, its code indicates what happened. ',
             '[Feature] - Connected Test3 to models. It allows CRUD to Dog, plus model exceptions catching and error display.'
         ));
-        
-        // Setting Historical Log of releases
         $this->_addHistoryLog('2.21', '03/01/2014', array(
             'HAPPY NEW YEAR!!',
             '[Feature] - Created basic skeleton for the new Model architecture.',

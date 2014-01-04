@@ -10,31 +10,24 @@ namespace application\models;
 
 use application\engine\Model;
 
+/**
+ * Class Data
+ * @package application\models
+ */
 class Data extends Model
 {
+    /**
+     * Data
+     * @var string $data
+     */
+    public $data;
+
     public function __construct()
     {
+        $this->setModelName('data');
+
         parent::__construct();
-    }
 
-    public function insert($data)
-    {
-        $id = $this->db->insert('data', array('data' => $data));
-
-        return $id;
-    }
-
-    public function delete($dataId)
-    {
-        $conditionsArray = array(
-            'id' => $dataId
-        );
-
-        $this->db->delete('data', $conditionsArray);
-    }
-
-    public function selectAll()
-    {
-        return $this->db->select('data', array('id', 'data'));
+        $this->addField('data');
     }
 }

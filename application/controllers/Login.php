@@ -8,7 +8,7 @@
 namespace application\controllers;
 
 use application\engine\Controller;
-use application\libraries\LoginLibrary;
+use application\services\LoginService;
 use engine\Encrypter;
 use engine\Form;
 use engine\Input;
@@ -16,17 +16,17 @@ use engine\Input;
 class Login extends Controller
 {
     /**
-     * Defining $_library Library type.
-     * @var LoginLibrary $_library
+     * Defining $_service Service type.
+     * @var LoginService $_service
      */
-    protected $_library;
+    protected $_service;
 
     /**
      * Login constructor.
      */
     public function __construct()
     {
-        parent::__construct(new LoginLibrary);
+        parent::__construct(new LoginService);
     }
 
     /**
@@ -58,13 +58,13 @@ class Login extends Controller
         );
 
         // Logic
-        $login = $this->_library->login(
+        $login = $this->_service->login(
             $form->getInput('name')->getValue(),
             $form->getInput('password')->getValue()
         );
 
         // Resolution
-        if ($login === TRUE) {
+        if (true === $login) {
             header('location: ' . _SYSTEM_BASE_URL . 'dashboard');
             exit;
         } else {

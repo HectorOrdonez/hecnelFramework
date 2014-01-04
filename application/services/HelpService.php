@@ -6,11 +6,11 @@
  * Date: 11/07/13 16:30
  */
 
-namespace application\libraries;
+namespace application\services;
 
-use application\engine\Library;
+use application\engine\Service;
 
-class HelpLibrary extends Library
+class HelpService extends Service
 {
     public function __construct()
     {

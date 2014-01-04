@@ -8,19 +8,22 @@
 namespace application\controllers;
 
 use application\engine\Controller;
+use application\services\DashboardService;
 use engine\Form;
 use engine\Input;
 use engine\Session;
-use application\libraries\DashboardLibrary;
 
-
+/**
+ * Class Dashboard
+ * @package application\controllers
+ */
 class Dashboard extends Controller
 {
     /**
-     * Defining $_library Library type.
-     * @var DashboardLibrary $_library
+     * Defining $_service Service type.
+     * @var DashboardService $_service
      */
-    protected $_library;
+    protected $_service;
 
     /**
      * Dashboard constructor.
@@ -28,7 +31,7 @@ class Dashboard extends Controller
      */
     public function __construct()
     {
-        parent::__construct(new DashboardLibrary);
+        parent::__construct(new DashboardService);
         $logged = Session::get('isUserLoggedIn');
         if (FALSE === $logged) {
             Session::destroy();
@@ -76,7 +79,7 @@ class Dashboard extends Controller
                 ->addRule('minLength', 50)
         );
 
-        $json_response = $this->_library->ajaxInsert($form->getInput('data')->getValue());
+        $json_response = $this->_service->ajaxInsert($form->getInput('data')->getValue());
 
         print json_encode($json_response);
     }
@@ -88,7 +91,7 @@ class Dashboard extends Controller
      */
     public function getListings()
     {
-        $json_response = $this->_library->getListings();
+        $json_response = $this->_service->getListings();
 
         print json_encode($json_response);
     }
@@ -105,6 +108,6 @@ class Dashboard extends Controller
                 ->addRule('min', 1)
         );
 
-        $this->_library->deleteData($form->getInput('id')->getValue());
+        $this->_service->deleteData($form->getInput('id')->getValue());
     }
 }

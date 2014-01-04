@@ -8,15 +8,15 @@
 namespace application\controllers;
 
 use application\engine\Controller;
-use application\libraries\HelpLibrary;
+use application\services\HelpService;
 
 class Help extends Controller
 {
     /**
-     * Defining $_library Library type.
-     * @var HelpLibrary $_library
+     * Defining $_service Service type.
+     * @var HelpService $_service
      */
-    protected $_library;
+    protected $_service;
 
     /**
      * Help constructor.
@@ -24,7 +24,7 @@ class Help extends Controller
      */
     public function __construct()
     {
-        parent::__construct(new HelpLibrary);
+        parent::__construct(new HelpService);
 
         $this->_view->addLibrary('css', 'views/help/css/help.css');
     }
@@ -45,7 +45,7 @@ class Help extends Controller
      */
     public function helpMeWith($request)
     {
-        $helpMessage = $this->_library->helpMeWith($request);
+        $helpMessage = $this->_service->helpMeWith($request);
 
         $this->_view->setParameter('msg', $helpMessage);
 
