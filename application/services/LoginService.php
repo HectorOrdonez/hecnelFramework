@@ -10,6 +10,7 @@ namespace application\services;
 
 use application\engine\Service;
 use application\models\User;
+use engine\Encrypter;
 use engine\Session;
 use engine\drivers\Exceptions\ModelException;
 
@@ -30,10 +31,14 @@ class LoginService extends Service
     public function login($name, $password)
     {
         try {
-            $user = new User();
-            $user->find(array('name' => $name));
-
-            if ($user->verify($password)) {
+            $user = User::find_by_name($name);
+            
+            if (is_null($user))
+            {
+                return false;
+            }
+            
+            if ($this->verifyUser($user, $password)) {
                 Session::set('isUserLoggedIn', true);
                 Session::set('userName', $user->name);
                 Session::set('userRole', $user->role);
@@ -44,5 +49,10 @@ class LoginService extends Service
         }
         
         return false;
+    }
+    
+    private function verifyUser(User $user, $password)
+    {
+        return Encrypter::verify($password, $user->password);
     }
 }

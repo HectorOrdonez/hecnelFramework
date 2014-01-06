@@ -10,6 +10,7 @@ namespace application\services;
 
 use application\engine\Service;
 use application\models\User;
+use engine\Encrypter;
 
 class UsersManagementService extends Service
 {
@@ -20,10 +21,11 @@ class UsersManagementService extends Service
 
     public function getUser($userId)
     {
-        $user = new User();
-        $user->find(array('id'=>$userId));
-        
-        return $user->toArray();
+        /**
+         * @var User $user
+         */
+        $user = User::find(array('id' => $userId));
+        return $user->attributes();
     }
 
     /**
@@ -32,37 +34,49 @@ class UsersManagementService extends Service
      */
     public function getUsersList()
     {
-        $user = new User();
-        $user->find();
-        
-        return array($user->toArray());
+        $userList = User::find('all');
+
+        $userArray = array();
+        foreach ($userList as $user) {
+            $userArray[] = array(
+                'id' => $user->id,
+                'name' => $user->name,
+                'role' => $user->role
+            );
+        }
+
+        return $userArray;
     }
 
     public function createUser($userName, $password, $userRole)
     {
-        $user = new User();
-        $user->name = $userName;
-        $user->setPassword($password);
-        $user->role = $userRole;
-        $user->save();
+        User::create(array(
+            'name' => $userName,
+            'password' => Encrypter::encrypt($password),
+            'role' => $userRole
+        ));
     }
 
     public function editUser($userId, $userName, $password, $userRole)
     {
-        $user = new User();
-        $user->find(array('id'=>$userId));
+        /**
+         * @var User $user
+         */
+        $user = User::find(array('id' => $userId));
         
         $user->name = $userName;
-        $user->setPassword($password);
+        $user->password = Encrypter::encrypt($password);
         $user->role = $userRole;
-        
+
         $user->save();
     }
 
     public function deleteUser($userId)
     {
-        $user = new User();
-        $user->find(array('id'=>$userId));
+        /**
+         * @var User $user
+         */
+        $user = User::find(array('id' => $userId));
         $user->delete();
     }
 

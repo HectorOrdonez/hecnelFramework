@@ -8,7 +8,7 @@
 
 namespace application\models;
 
-use application\engine\Model;
+use \ActiveRecord\Model as Model;
 
 /**
  * Class Data
@@ -16,18 +16,5 @@ use application\engine\Model;
  */
 class Data extends Model
 {
-    /**
-     * Data
-     * @var string $data
-     */
-    public $data;
-
-    public function __construct()
-    {
-        $this->setModelName('data');
-
-        parent::__construct();
-
-        $this->addField('data');
-    }
+    public static $table_name = 'data'; // Table name
 }

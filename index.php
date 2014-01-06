@@ -17,13 +17,12 @@
 // First thing ever, session_start.
 session_start();
 
-use engine\Bootstrap;
-
 /**
  * Loading System Configs
  */
-require 'application/config/system.php';
-require 'application/config/database.php';
+require_once 'application/config/system.php';
+require_once 'application/config/database.php';
+require_once 'engine/php-activerecord/ActiveRecord.php';
 
 /**
  * Defining Autoload function
@@ -31,7 +30,6 @@ require 'application/config/database.php';
  */
 function __autoload($class)
 {
-    
     $file = _SYSTEM_ROOT_PATH . $class . '.php';
     if (is_readable($file))
     {
@@ -41,8 +39,18 @@ function __autoload($class)
     {
         exit('Fatal error on Autoload class : ' . $class . ' - not found.');
     }
-
 }
+
+/**
+ * Initializing ActiveRecord
+ */
+ActiveRecord\Config::initialize(function($cfg)
+{
+    $cfg->set_model_directory('application/models');
+    $cfg->set_connections(array('development' => DB_TYPE . '://' . DB_USER . ':' . DB_PASS . '@' . DB_HOST . '/' . DB_NAME));
+});
+
+use engine\Bootstrap;
 
 // Run app
 $application = new Bootstrap();

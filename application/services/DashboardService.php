@@ -20,11 +20,9 @@ class DashboardService extends Service
 
     public function ajaxInsert($data)
     {
-        $dataModel = new Data();
-        $dataModel->data = $data;
-        $dataModel->save();
+        $data = Data::create(array('data' => $data));
 
-        return $dataModel->toArray();
+        return $data->attributes();
     }
 
     /**
@@ -33,16 +31,19 @@ class DashboardService extends Service
      */
     public function getListings()
     {
-        $dataModel = new Data();
-        $dataModel->find();
+        $dataList = Data::find('all');
 
-        return array($dataModel->toArray());
+        $dataArray = array();
+        foreach ($dataList as $data) {
+            $dataArray[] = array('id' => $data->id, 'data' => $data->data);
+        }
+
+        return $dataArray;
     }
 
     public function deleteData($dataId)
     {
-        $dataModel = new Data();
-        $dataModel->find(array('id' => $dataId));
-        $dataModel->delete();
+        $data = Data::find(array('id' => $dataId));
+        $data->delete();
     }
 }

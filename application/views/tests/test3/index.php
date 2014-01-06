@@ -6,7 +6,8 @@
  * Date: 26/12/13 21:30
  *
  * @var \application\engine\View $this
- */ ?>
+ */
+?>
 
 <?php $this->printChunk('header'); ?>
 
@@ -33,23 +34,23 @@
                     <label for='dogId'>
                         Id
                     </label>
-                    <input name='dogId' id='dogId' type='text' />
+                    <input name='dogId' id='dogId' type='text'/>
                 </div>
-    
+
                 <div>
                     <label for='dogName'>
                         Name
                     </label>
-                    <input name='dogName' id='dogName' type='text' />
+                    <input name='dogName' id='dogName' type='text'/>
                 </div>
-    
+
                 <div>
                     <label for='dogAge'>
                         Age
                     </label>
-                    <input name='dogAge' id='dogAge' type='text' />
+                    <input name='dogAge' id='dogAge' type='text'/>
                 </div>
-    
+
                 <div>
                     <label for='dogBreed'>
                         Breed

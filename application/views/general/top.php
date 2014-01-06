@@ -48,7 +48,7 @@
                 <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test1'>Test 1 - View Chunks. </a></li>
                 <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test2'>Test 2 - Form and Inputs. </a></li>
                 <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test3'>Test 3 - Models. </a></li>
-                <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test4'>Test 4</a></li>
+                <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test4'>Test 4 - Model Collections</a></li>
                 <li><a href='<?php echo _SYSTEM_BASE_URL; ?>test5'>Test 5</a></li>
             </ul>
         </div>

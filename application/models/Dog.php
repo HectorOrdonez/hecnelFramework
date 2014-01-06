@@ -9,7 +9,7 @@
 
 namespace application\models;
 
-use application\engine\Model;
+use \ActiveRecord\Model as Model;
 
 /**
  * Class Dog
@@ -17,32 +17,5 @@ use application\engine\Model;
  */
 class Dog extends Model
 {
-    /**
-     * Dog name.
-     * @var string $name
-     */
-    public $name;
-
-    /**
-     * Dog age.
-     * @var int $age
-     */
-    public $age;
-
-    /**
-     * Dog breed.
-     * @var string $breed
-     */
-    public $breed;
-
-    public function __construct()
-    {
-        $this->setModelName('dog');
-        
-        parent::__construct();
-        
-        $this->addField('name');
-        $this->addField('age');
-        $this->addField('breed');
-    }
+    public static $table_name = 'dog'; // Table name
 }

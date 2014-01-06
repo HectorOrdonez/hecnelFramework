@@ -28,3 +28,8 @@ define ('_DEFAULT_CONTROLLER', 'index');
 define ('_DEFAULT_METHOD', 'index');
 define ('_ERROR_CONTROLLER', 'Error');
 define ('_EXCEPTION_METHOD', 'exception');
+
+/**
+ * Config required for ActiveRecord. It disables its autoloading function.
+ */
+define ('PHP_ACTIVERECORD_AUTOLOAD_DISABLE', true);

@@ -31,12 +31,16 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.23', '04/01/2014', array(
-            '[Refactor] - Modified libraries concept to Service concepts. A Service is tightly related to a controller. It stores intelligence regarding what to do with validated information, which models request a CRUD, and informs the controller about the message to put into the related view.',
-            '[Refactor] - Modified Hecnel Framework in order to use the new Model architecture.'
+        $this->_setDevelopmentVersion('2.24', '06/01/2014', array(
+            '[Refactor] - Mayor change. After intense struggles and researches, decided to use PHP ActiveRecord. Because of this, deleted all Database and Model related constructions used so far. I am aiming to implement my own PHP ActiveRecord technology for the third Hecnel Framework version.',
+            '[Feature] - Test 4 is designed to be the testing workspace for multiple model work. However, as PHP ActiveRecord comes to play, it is halfway implemented. To be reworked in future.',
         ));
         
         // Setting Historical Log of releases
+        $this->_addHistoryLog('2.23', '04/01/2014', array(
+            '[Refactor] - Modified libraries concept to Service concepts. A Service is tightly related to a controller. It stores intelligence regarding what to do with validated information, which models request a CRUD, and informs the controller about the message to put into the related view.',
+            '[Refactor] - Modified Hecnel Framework in order to use the new Model architecture.'
+        ));
         $this->_addHistoryLog('2.22', '04/01/2014', array(
             '[Refactor] - Mayor change in Model architecture. Now all models extend the same Model object, which handles all commands that a Model offers and instantiates and communicates with the Database.',
             '[Refactor] - Major change in Database architecture. Now it is allowed to have different storing systems.',
