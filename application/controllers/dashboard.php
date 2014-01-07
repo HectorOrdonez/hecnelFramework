@@ -46,8 +46,8 @@ class Dashboard extends Controller
      */
     public function index()
     {
-        $this->_view->addLibrary('js', 'application/views/dashboard/js/dashboard.js');
-        $this->_view->addLibrary('css', 'application/views/dashboard/css/dashboard.css');
+        $this->_view->addLibrary('application/views/dashboard/js/dashboard.js');
+        $this->_view->addLibrary('application/views/dashboard/css/dashboard.css');
 
         $this->_view->setParameter('userName', Session::get('userName'));
 

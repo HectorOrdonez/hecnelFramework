@@ -4,6 +4,7 @@
  * User: Hector Ordonez
  * Description:
  * Date: 26/12/13 21:30
+ * @var \application\engine\View $this
  */
 ?>
 
@@ -15,7 +16,7 @@
     <a href='<?php echo _SYSTEM_BASE_URL; ?>help/helpMeWith/aboutECWGT'>Help me with Eating Cakes Without Getting Fat (ECWGF)</a>
     <a href='<?php echo _SYSTEM_BASE_URL; ?>help/helpMeWith/aboutDWWGD'>Help me with Drinking Whisky Without Getting Drunk (DWWGD)</a>
     <hr />
-    <?php echo $this->msg; ?>
+    <?php echo $this->getParameter('msg'); ?>
 </div>
 
 <?php $this->printChunk('footer'); ?>

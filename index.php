@@ -12,6 +12,7 @@
  * @todo              Currency - Which currency User requires.
  * @todo Hecnel 3.0 - Validation system similar to old one, in combination with a minor Model modification to allow field type definition when constructing.
  * @todo              This would allow Models to validate data using the validation system. 
+ * @todo Hecnel 3.0 - Build a customized ActiveRecord system and remove the php-activerecord. This system should make use of the validation system.
  */
 
 // First thing ever, session_start.

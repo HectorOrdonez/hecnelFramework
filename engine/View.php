@@ -6,7 +6,6 @@
  * View engine class.
  * Its purpose is to define the behavior of the Views of the application and to provide general methods.
  * @date: 11/06/13 12:00
- * @todo Redesign View concept.
  */
 
 namespace engine;
@@ -80,25 +79,20 @@ class View
 
     /**
      * Adds a CSS or JS library to the appropriate array in the View.
-     * The handling of these arrays is normally done in the Header. In case the general Header is not called, another
-     * view has to render them.
-     *
      * Notice that if the first four characters are http, the library is considered external and the BASE_URL of the system won't be added to the String.
      *
-     * @param string $type
      * @param string $libraryPath
-     * @todo This method can find out itself whether the added library is js or css, just looking by its extension.
      */
-    public function addLibrary($type, $libraryPath)
+    public function addLibrary($libraryPath)
     {
         if (substr($libraryPath, 0, 4) !== "http") {
             $libraryPath = _SYSTEM_BASE_URL . $libraryPath;
         }
-
-        if ($type == 'css') {
-            $this->_css[] = $libraryPath;
-        } elseif ($type == 'js') {
+        
+        if(substr($libraryPath, -2, 2) == 'js'){
             $this->_js[] = $libraryPath;
+        } else {
+            $this->_css[] = $libraryPath;
         }
     }
 

@@ -36,7 +36,7 @@ class Error extends Controller
 
         $this->_view->setTitle('Error');
 
-        $this->_view->addLibrary('css', 'application/views/error/css/error.css');
+        $this->_view->addLibrary('application/views/error/css/error.css');
     }
 
     /** General Error Page */

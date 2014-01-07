@@ -27,8 +27,8 @@ class Test3 extends Controller
 
     public function index()
     {
-        $this->_view->addLibrary('js', 'application/views/tests/test3/js/test3.js');
-        $this->_view->addLibrary('css', 'application/views/tests/test3/css/test3.css');
+        $this->_view->addLibrary('application/views/tests/test3/js/test3.js');
+        $this->_view->addLibrary('application/views/tests/test3/css/test3.css');
 
         $this->_view->addChunk('tests/test3/index');
     }

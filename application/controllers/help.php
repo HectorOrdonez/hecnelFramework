@@ -26,7 +26,7 @@ class Help extends Controller
     {
         parent::__construct(new HelpService);
 
-        $this->_view->addLibrary('css', 'views/help/css/help.css');
+        $this->_view->addLibrary('application/views/help/css/help.css');
     }
 
     /**

@@ -27,7 +27,7 @@ class Test1 extends Controller
 
     public function index()
     {
-        $this->_view->addLibrary('css', 'application/views/tests/test1/css/test1.css');
+        $this->_view->addLibrary('application/views/tests/test1/css/test1.css');
         
         // Main view
         $this->_view->addChunk('tests/test1/index');

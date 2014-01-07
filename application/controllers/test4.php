@@ -28,8 +28,8 @@ class Test4 extends Controller
 
     public function index()
     {
-        $this->_view->addLibrary('js', 'application/views/tests/test4/js/test4.js');
-        $this->_view->addLibrary('css', 'application/views/tests/test4/css/test4.css');
+        $this->_view->addLibrary('application/views/tests/test4/js/test4.js');
+        $this->_view->addLibrary('application/views/tests/test4/css/test4.css');
         
         $this->_view->addChunk('tests/test4/index');
     }

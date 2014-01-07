@@ -13,7 +13,7 @@ use engine\Encrypter;
 use engine\Form;
 use engine\Input;
 
-class Login extends Controller
+class login extends Controller
 {
     /**
      * Defining $_service Service type.
