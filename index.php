@@ -31,14 +31,19 @@ require_once 'engine/php-activerecord/ActiveRecord.php';
  */
 function __autoload($class)
 {
+    // The required class uses \ as directory separator (because of the namespace usage. This needs to be replaced with the real directory separator.
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+
+    // Constructing the file path
     $file = _SYSTEM_ROOT_PATH . $class . '.php';
-    if (is_readable($file))
-    {
+
+    if (is_readable($file)) {
         require_once $file;
-    }
-    else
-    {
-        exit('Fatal error on Autoload class : ' . $class . ' - not found.');
+
+    } else {
+        $msg = 'Critical failure trying to Autoload the Class [' . $class . ']. The expected location is [' . $file . ' ] but was not found.';
+        header("HTTP/1.1 500 " . $msg);
+        exit($msg);
     }
 }
 

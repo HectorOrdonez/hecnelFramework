@@ -31,8 +31,8 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('2.241', '07/01/2014', array(
-            '[Etc] - Minor changes - last touches here and there.'
+        $this->_setDevelopmentVersion('3.001', '07/01/2014', array(
+            '[Code improvement] - Minor change in the autload.'
         ));
         
         // Setting Historical Log of releases
