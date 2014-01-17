@@ -31,11 +31,14 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('3.001', '07/01/2014', array(
-            '[Code improvement] - Minor change in the autload.'
+        $this->_setDevelopmentVersion('3.002', '17/01/2014', array(
+            '[Debug] - Issue with Bootstrap - Separator / works in Windows environment but not Unix. It is better, I think, having the the controller route hardcoded - The controllers application folder is always going to be like that!'
         ));
         
         // Setting Historical Log of releases
+        $this->_addHistoryLog('3.001', '07/01/2014', array(
+            '[Code improvement] - Minor change in the autoload.'
+        ));
         $this->_addHistoryLog('2.24', '06/01/2014', array(
             '[Refactor] - Mayor change. After intense struggles and researches, decided to use PHP ActiveRecord. Because of this, deleted all Database and Model related constructions used so far. I am aiming to implement my own PHP ActiveRecord technology for the third Hecnel Framework version.',
             '[Feature] - Test 4 is designed to be the testing workspace for multiple model work. However, as PHP ActiveRecord comes to play, it is halfway implemented. To be reworked in future.',

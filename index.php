@@ -13,6 +13,10 @@
  * @todo Hecnel 3.0 - Validation system similar to old one, in combination with a minor Model modification to allow field type definition when constructing.
  * @todo              This would allow Models to validate data using the validation system. 
  * @todo Hecnel 3.0 - Build a customized ActiveRecord system and remove the php-activerecord. This system should make use of the validation system.
+ * @todo Hecnel 3.0 - Output library? A simple library that is used for Output messages from Controller. This is specially handy for handling errors nicely.
+ * @todo              Example: A Controller that gets Inputs. Try-catches them to handle their validations but, in the Exception control, exits and echos are uglying around. Output::error and end. CONSIDER IT!
+ * 
+ * @todo FORBID CAPITAL STARTING NAMES IN CONTROLLERS!!!!!!!!!!! 
  */
 
 // First thing ever, session_start.
