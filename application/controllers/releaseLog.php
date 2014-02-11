@@ -31,11 +31,15 @@ class ReleaseLog extends Controller
         parent::__construct();
 
         // Setting version under construction
-        $this->_setDevelopmentVersion('3.002', '17/01/2014', array(
-            '[Debug] - Issue with Bootstrap - Separator / works in Windows environment but not Unix. It is better, I think, having the the controller route hardcoded - The controllers application folder is always going to be like that!'
+        $this->_setDevelopmentVersion('3.003', '11/02/2014', array(
+            '[Debug] - Input object invalid value message contained errors. Fixed.',
+            '[Debug] - PHP ActiveRecord Model object method find_by_pk required options. Made it optional. Fixed.',
         ));
         
         // Setting Historical Log of releases
+        $this->_addHistoryLog('3.002', '17/01/2014', array(
+            '[Debug] - Issue with Bootstrap - Separator / works in Windows environment but not Unix. It is better, I think, having the the controller route hardcoded - The controllers application folder is always going to be like that!'
+        ));
         $this->_addHistoryLog('3.001', '07/01/2014', array(
             '[Code improvement] - Minor change in the autoload.'
         ));
