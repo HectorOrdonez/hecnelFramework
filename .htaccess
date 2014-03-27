@@ -2,7 +2,7 @@
 #
 # Project: Hecnel Framework
 # User: Hector Ordonez
-# @date: 18/06/13 21:00#
+# @date: 18/06/13 21:00
 # @todo - Later stage - Research about .htaccess.
 
 php_flag display_errors on
@@ -22,11 +22,22 @@ ErrorDocument 404 http://localhost/projects/hecnel/error/resourceNotFound
 # Error pages for fatal errors redirection - Internal Server Error
 ErrorDocument 500 http://localhost/projects/hecnel/error/internalServerError
 
-# Allowing access to Index.
-RewriteRule ^(index.php) index.php [QSA,L]
+# Denies access to all php files to everyone.
+<Files *.php> 
+    deny from all
+</Files>
 
-# Forbidding access to PHP files.
-RewriteRule ^(.+)\.php - [F,L]
+# Exception to previous rule - index.php is allowed by everyone.
+<Files "index.php">
+    Allow From All
+</Files>
+
+# Exception to previous rule - CronJobManager.php is allowed by server.
+<Files "CronJobManager.php">
+    Order Deny,Allow
+    Deny From All
+    Allow From 127.0.0.1
+</Files>
 
 # Redirecting requests if not to a file or link.
 RewriteCond %{REQUEST_FILENAME} !-f
