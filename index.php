@@ -44,11 +44,6 @@ function __autoload($class)
 
     if (is_readable($file)) {
         require_once $file;
-
-    } else {
-        $msg = 'Critical failure trying to Autoload the Class [' . $class . ']. The expected location is [' . $file . ' ] but was not found.';
-        header("HTTP/1.1 500 " . $msg);
-        exit($msg);
     }
 }
 

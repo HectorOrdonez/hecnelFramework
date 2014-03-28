@@ -8,28 +8,35 @@
 
 namespace engine\drivers\CronJobs;
 
+use application\models\CronJob as CronJobModel;
 use engine\drivers\CronJob;
 
 class Sample extends CronJob
 {
-    public function __construct()
+    public function __construct(CronJobModel $sampleModel)
     {
-        echo 'Sample being constructed ';
-        parent::__construct();
+        parent::__construct($sampleModel);
     }
     
     
     public function run()
     {
-        echo 'Sample running';
         parent::run();
+
+        // Sample logic.
         
-        $this->stop();
+        $this->stopRun();
     }
-    
-    protected function stop()
+
+    /**
+     * CronJobs stop method are optional.
+     * To be used if this specific cron job stop method requires extra or different logic.
+     * Otherwise, use default's one (parent method).
+     */
+    protected function stopRun()
     {
-        echo 'Sample stopped';
-        parent::stop();
+        parent::stopRun();
+        
+        // Sample stop logic.
     }
 }

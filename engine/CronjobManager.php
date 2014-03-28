@@ -4,6 +4,7 @@
  * User: Hector Ordonez
  * Description: 
  * @date 26/03/14 13:58
+ * @todo Check if cronjobs are stacked!
  */
 
 /**
@@ -27,14 +28,10 @@ function __autoload($class)
 
     if (is_readable($file)) {
         require_once $file;
-
-    } else {
-        $msg = 'Critical failure trying to Autoload the Class [' . $class . ']. The expected location is [' . $file . ' ] but was not found.';
-        header("HTTP/1.1 500 " . $msg);
-        exit($msg);
     }
 }
 
+echo '<pre>';
 /**
  * Initializing ActiveRecord
  */
@@ -51,12 +48,26 @@ $cronJobs = CronJob::all(array(
     )
 );
 
-foreach ($cronJobs as $cronJobRecord)
-{
-    $cronJob = \engine\CronJob::build($cronJobRecord->driver);
-    $cronJob->run();
-}
 
 $file = fopen('Cronjob.txt', 'a');
-fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager called\r\n");
+fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager executing. \r\n");
+
+foreach ($cronJobs as $cronJobRecord)
+{
+    try {
+        $cronJob = \engine\CronJob::build($cronJobRecord);
+    } catch (Exception $e)
+    {
+        fwrite($file, date('m/d/Y G:i', time()) . "- WARNING! Cronjob {$cronJobRecord->name} could not be loaded. Make sure its driver class is created in the CronJobs folder. \r\n");
+        continue;
+    }
+    
+    if ($cronJob->isRunTime())
+    {
+        fwrite($file, date('m/d/Y G:i', time()) . '- Run Cronjob ' . $cronJobRecord->name .'.' . "\r\n");
+        $cronJob->run();
+    }
+}
+
+fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager finished. \r\n");
 fclose($file);
