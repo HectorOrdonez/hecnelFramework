@@ -39,29 +39,58 @@ ActiveRecord\Config::initialize(function ($cfg) {
     $cfg->set_connections(array('development' => DB_TYPE . '://' . DB_USER . ':' . DB_PASS . '@' . DB_HOST . '/' . DB_NAME));
 });
 
+/**
+ * Initializing required classes
+ */
 use application\models\CronJob;
+use engine\Log;
 
+/**
+ * Defining Cron Job log file name
+ */
+define ('CRONJOB_FILE', 'CronJob.txt');
+
+/**
+ * Cron Job Manager first opens and updates the Cron Job log.
+ */
+$logFile = fopen(_FOLDER_LOG_INFO . CRONJOB_FILE, 'a');
+fwrite($logFile, date('m/d/Y G:i', time()) . "- Cronjob Manager executing. \r\n");
+
+/**
+ * Loading the idle Cron Jobs from DB.
+ */
 $cronJobs = CronJob::all(array(
         'conditions' => array('state = "idle"')
     )
 );
 
-$file = fopen(join(DIRECTORY_SEPARATOR, array(_SYSTEM_ROOT_PATH, 'engine', 'log', 'Cronjob.txt')), 'a');
-fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager executing. \r\n");
-
+/**
+ * For each cron job:
+ * 1) Tries to build the cron job driver. In case it does not exist an exception is stored in the error file.
+ * 2) Checks if cron job needs to be run.
+ * 3) In case cron job needs to be run a log is stored and the cron job is executed.
+ */
 foreach ($cronJobs as $cronJobRecord) {
     try {
         $cronJob = \engine\CronJob::build($cronJobRecord);
     } catch (Exception $e) {
-        fwrite($file, date('m/d/Y G:i', time()) . "- WARNING! Cronjob {$cronJobRecord->name} could not be loaded. Make sure its driver class is created in the CronJobs folder. \r\n");
+        $errorFile = fopen(_FOLDER_LOG_ERROR . CRONJOB_FILE, 'a');
+        $message = date('m/d/Y G:i', time()) . "- WARNING! Cronjob {$cronJobRecord->name} could not be loaded. Make sure its driver class is created in the CronJobs folder. \r\n";
+        
+        fwrite($logFile, $message);
+        fwrite($errorFile, $message);
+        fclose($errorFile);
         continue;
     }
 
     if ($cronJob->isRunTime()) {
-        fwrite($file, date('m/d/Y G:i', time()) . '- Run Cronjob ' . $cronJobRecord->name . '.' . "\r\n");
+        fwrite($logFile, date('m/d/Y G:i', time()) . '- Run Cronjob ' . $cronJobRecord->name . '.' . "\r\n");
         $cronJob->run();
     }
 }
 
-fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager finished. \r\n");
-fclose($file);
+/**
+ * End of Cron Job Manager: a log is stored and the file is closed.
+ */
+fwrite($logFile, date('m/d/Y G:i', time()) . "- Cronjob Manager finished. \r\n");
+fclose($logFile);

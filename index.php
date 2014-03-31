@@ -1,23 +1,22 @@
 <?php
 /**
  * General TODOS in the Framework.
- * @todo Hecnel 3.0 - Log system.
  * @todo Hecnel 3.0 - Multi-language support.
  * @todo Hecnel 3.0 - Create a "Extra tools" thing where I can put useful stuff like getCallingMethod functions.
- * @todo Hecnel 3.0 - Default JS libraries for the framework. 
+ * @todo Hecnel 3.0 - Default JS libraries for the framework.
  * @todo Hecnel 3.0 - UserSettings library - or something like that - that loads a number of User related settings, such as ...
  * @todo              Country - User's country, based on IP.
  * @todo              Language - User's language, based on browser language - if available - or country otherwise.
  * @todo              Numeric notation - Dots, commas and other numeric related formats.
  * @todo              Currency - Which currency User requires.
  * @todo Hecnel 3.0 - Validation system similar to old one, in combination with a minor Model modification to allow field type definition when constructing.
- * @todo              This would allow Models to validate data using the validation system. 
+ * @todo              This would allow Models to validate data using the validation system.
  * @todo Hecnel 3.0 - Build a customized ActiveRecord system and remove the php-activerecord. This system should make use of the validation system.
  * @todo Hecnel 3.0 - Output library? A simple library that is used for Output messages from Controller. This is specially handy for handling errors nicely.
  * @todo              Example 1: A Controller that gets Inputs. Try-catches them to handle their validations but, in the Exception control, exits and echos are uglying around. Output::error and end. CONSIDER IT!
  * @todo              Example 2: Json printer. Receives the data, and the Output object prints it JSoned and with the proper header (defining its content-type)
- * 
- * @todo FORBID CAPITAL STARTING NAMES IN CONTROLLERS!!!!!!!!!!! 
+ *
+ * @todo FORBID CAPITAL STARTING NAMES IN CONTROLLERS!!!!!!!!!!!
  */
 
 // First thing ever, session_start.
@@ -50,8 +49,7 @@ function __autoload($class)
 /**
  * Initializing ActiveRecord
  */
-ActiveRecord\Config::initialize(function($cfg)
-{
+ActiveRecord\Config::initialize(function ($cfg) {
     $cfg->set_model_directory(_SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('application', 'models')));
     $cfg->set_connections(array('development' => DB_TYPE . '://' . DB_USER . ':' . DB_PASS . '@' . DB_HOST . '/' . DB_NAME));
 });

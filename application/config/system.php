@@ -22,12 +22,18 @@ if (_PRODUCTION === TRUE) {
 define ('_SYSTEM_ROOT_PATH', dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
 
 /**********************************/
-/** CONFIG SETTINGS FOR HECNEL **/
+/** CONFIG SETTINGS FOR HECNEL   **/
 /**********************************/
 define ('_DEFAULT_CONTROLLER', 'index');
 define ('_DEFAULT_METHOD', 'index');
 define ('_ERROR_CONTROLLER', 'Error');
 define ('_EXCEPTION_METHOD', 'exception');
+
+define ('_FOLDER_ENGINE', _SYSTEM_ROOT_PATH . 'engine' . DIRECTORY_SEPARATOR);
+define ('_FOLDER_LOG', _SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('engine', 'log')) . DIRECTORY_SEPARATOR);
+define ('_FOLDER_LOG_DEBUG', _SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('engine', 'log','debug')) . DIRECTORY_SEPARATOR);
+define ('_FOLDER_LOG_INFO', _SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('engine', 'log','info')) . DIRECTORY_SEPARATOR);
+define ('_FOLDER_LOG_ERROR', _SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('engine', 'log','error')) . DIRECTORY_SEPARATOR);
 
 /**
  * Config required for ActiveRecord. It disables its autoloading function.
