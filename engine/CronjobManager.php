@@ -2,7 +2,7 @@
 /**
  * Project: Hecnel Framework
  * User: Hector Ordonez
- * Description: 
+ * Description:
  * @date 26/03/14 13:58
  * @todo Check if cronjobs are stacked!
  */
@@ -31,13 +31,11 @@ function __autoload($class)
     }
 }
 
-echo '<pre>';
 /**
  * Initializing ActiveRecord
  */
-ActiveRecord\Config::initialize(function($cfg)
-{
-    $cfg->set_model_directory('./../application/models');
+ActiveRecord\Config::initialize(function ($cfg) {
+    $cfg->set_model_directory(_SYSTEM_ROOT_PATH . join(DIRECTORY_SEPARATOR, array('application', 'models')));
     $cfg->set_connections(array('development' => DB_TYPE . '://' . DB_USER . ':' . DB_PASS . '@' . DB_HOST . '/' . DB_NAME));
 });
 
@@ -48,23 +46,19 @@ $cronJobs = CronJob::all(array(
     )
 );
 
-
-$file = fopen('Cronjob.txt', 'a');
+$file = fopen(join(DIRECTORY_SEPARATOR, array(_SYSTEM_ROOT_PATH, 'engine', 'log', 'Cronjob.txt')), 'a');
 fwrite($file, date('m/d/Y G:i', time()) . "- Cronjob Manager executing. \r\n");
 
-foreach ($cronJobs as $cronJobRecord)
-{
+foreach ($cronJobs as $cronJobRecord) {
     try {
         $cronJob = \engine\CronJob::build($cronJobRecord);
-    } catch (Exception $e)
-    {
+    } catch (Exception $e) {
         fwrite($file, date('m/d/Y G:i', time()) . "- WARNING! Cronjob {$cronJobRecord->name} could not be loaded. Make sure its driver class is created in the CronJobs folder. \r\n");
         continue;
     }
-    
-    if ($cronJob->isRunTime())
-    {
-        fwrite($file, date('m/d/Y G:i', time()) . '- Run Cronjob ' . $cronJobRecord->name .'.' . "\r\n");
+
+    if ($cronJob->isRunTime()) {
+        fwrite($file, date('m/d/Y G:i', time()) . '- Run Cronjob ' . $cronJobRecord->name . '.' . "\r\n");
         $cronJob->run();
     }
 }
